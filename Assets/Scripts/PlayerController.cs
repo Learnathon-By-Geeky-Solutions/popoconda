@@ -25,17 +25,17 @@ public class PlayerController : MonoBehaviour
 
         if (Mathf.Abs(playerRigidbody.linearVelocity.x) < 8)
         {
-            playerRigidbody.AddRelativeForce(Vector3.right * xInput * Time.deltaTime * moveSpeed);
+            playerRigidbody.AddRelativeForce(Vector3.right * (xInput * Time.deltaTime * moveSpeed));
         }
 
         // Space key
-        if (Input.GetKey(KeyCode.Space) && jetpackFuel > 0)
+        if (Input.GetButton("Jump") && jetpackFuel > 0)
         {
-            playerRigidbody.AddRelativeForce(Vector3.up * Time.deltaTime * flySpeed);
+            playerRigidbody.AddRelativeForce(Vector3.up * (Time.deltaTime * flySpeed));
             jetpackFuel -= Time.deltaTime * fuelConsumeRate;
         }
         // refill jetpack when fuel is less than 5 and space key is not pressed
-        else if (jetpackFuel < 5 && !Input.GetKey(KeyCode.Space))
+        else if (jetpackFuel < 5 && !Input.GetButton("Jump"))
         {
             jetpackFuel += Time.deltaTime * fuelFillRate;
         }

@@ -62,6 +62,4 @@ public class ShootingController : MonoBehaviour
         bullet.GetComponent<Rigidbody>().linearVelocity = direction.normalized * bulletSpeed;
         bullet.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
     }
-
-
 }
