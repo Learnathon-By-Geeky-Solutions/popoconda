@@ -4,8 +4,8 @@ namespace Combat
 {
     public class Health : MonoBehaviour
     {
-        public float maxHealth;
-        public float currentHealth;
+        public int maxHealth;
+        public int currentHealth;
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,10 +16,10 @@ namespace Combat
         }
 
         // Take damage from an external source
-        public void TakeDamage(float damage)
+        public void TakeDamage(int damage)
         {
             currentHealth -= damage;
-            if (currentHealth <= 0)
+            if (currentHealth < 0)
             {
                 Die();
             }

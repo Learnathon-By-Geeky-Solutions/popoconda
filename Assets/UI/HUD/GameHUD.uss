@@ -8,19 +8,19 @@
     position: absolute;
     top: 10px;
     left: 50%;
-    transform: translateX(-50%);
     width: 50%;
     height: 20px;
-    background-color: red;
     border-color: black;
     border-width: 2px;
+    border-radius: 10px;
 }
-
-.enemy-health-label {
-    -unity-text-align: middle-center;
-    color: white;
-    font-size: 12px;
-    height: 20px;
+#enemy-health {
+    margin: 0;
+    justify-content: flex-start;
+    background-color: red;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
 }
 
 .player-health-bar {
@@ -29,23 +29,25 @@
     left: 10px;
     width: 30%;
     height: 20px;
-    background-color: green;
     border-color: black;
     border-width: 2px;
+    border-radius: 10px;
 }
-
-.player-health-label {
-    -unity-text-align: middle-center;
-    color: white;
-    font-size: 12px;
-    height: 20px;
+#player-health {
+    margin: 0;
+    justify-content: flex-start;
+    background-color: green;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
 }
 
 .ammo-count {
     position: absolute;
+    height: 40px;
+    width: 75px;
     bottom: 10px;
     right: 10px;
-    background-color: yellow;
     padding: 5px;
     border-color: black;
     border-width: 2px;
