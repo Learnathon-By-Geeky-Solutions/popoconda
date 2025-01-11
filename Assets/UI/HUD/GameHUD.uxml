@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/HUD/GameHUD.uss?fileID=7433441132597879392&amp;guid=04b7b187cc2b4304da52e5cfe3b7e7f2&amp;type=3#GameHUD" />
+    <ui:VisualElement class="hud-container">
+        <ui:VisualElement class="enemy-health-bar">
+            <ui:Label name="enemy-health"/>
+        </ui:VisualElement>
+        <ui:VisualElement class="player-health-bar">
+            <ui:Label name="player-health"/>
+        </ui:VisualElement>
+        <ui:VisualElement class="ammo-count">
+            <ui:Label class="ammo-label" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Combat;
 
 namespace Characters
 {
@@ -16,12 +17,17 @@ namespace Characters
         [SerializeField] private float jetpackFuel;
         [SerializeField] private float fuelConsumeRate;
         [SerializeField] private float fuelFillRate;
+        private Health _playerHealth;
+        public float maxHealth;
+        public float currentHealth;
+
 
         private bool _isJumping;
 
         void Start()
         {
             playerRigidbody = playerObject.GetComponent<Rigidbody>();
+            _playerHealth = playerObject.GetComponent<Health>();
         }
 
         void Update()
@@ -41,6 +47,11 @@ namespace Characters
             else if (jetpackFuel < 5 && !_isJumping)
             {
                 jetpackFuel += Time.deltaTime * fuelFillRate;
+            }
+            if (_playerHealth)
+            {
+                currentHealth = _playerHealth.currentHealth;
+                maxHealth = _playerHealth.maxHealth;
             }
         }
 
