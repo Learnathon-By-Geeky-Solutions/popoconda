@@ -4,24 +4,31 @@ namespace Combat
 {
     public class Bullet : MonoBehaviour
     {
-        [SerializeField] private float damage = 10f;
+        [SerializeField] private int damage = 10;
         [SerializeField] private float lifeTime = 3f;
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        private Vector3 _startPosition;
+        private const float MinTravelDistance = 0.5f;
+
         void Start()
         {
+            _startPosition = transform.position; // Store the initial position of the bullet
             Destroy(gameObject, lifeTime);
         }
 
-        // On collision with another collider
         void OnTriggerEnter(Collider collide)
         {
-            Health health = collide.gameObject.GetComponent<Health>();
-            if (health != null)
+            float travelDistance = Vector3.Distance(_startPosition, transform.position);
+
+            if (travelDistance >= MinTravelDistance)
             {
-                health.TakeDamage(damage);
+                Health health = collide.gameObject.GetComponent<Health>();
+                if (health != null)
+                {
+                    health.TakeDamage(damage);
+                }
             }
-            Destroy(gameObject);
+
+            Destroy(gameObject); // Destroy the bullet regardless of damage dealt
         }
     }
-
 }
