@@ -1,68 +1,143 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Combat
 {
     public class ShootingController : MonoBehaviour
     {
-        public InputActionReference positionAction;
+        [SerializeField] private GameObject bulletSpawnPoint;
+        [SerializeField] private TrailRenderer bulletTrail;
+        
+        // bullet force
+        [SerializeField] private float shootForce, upwardForce;
+        
+        // Gun Stats
+        [SerializeField] private float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
+        [SerializeField] private int magazineSize, bulletsPerTap;
+        
+        // bool
+        private bool _isReadyToShoot, _isReloading;
+        
+        private int _bulletsLeft, _bulletsShot;
+        
+        // points
+        private Vector3 _shootDirection;
 
-        private Camera _playerCamera;
-        private Vector3 _mousePosition;
-        [SerializeField] private GameObject player;
-        [SerializeField] private GameObject gun;
-        [SerializeField] private GameObject bulletPrefab;
-        public float bulletSpeed;
-        public float fireRate;
-        private float _nextFireTime;
-
-        void Start()
+        private const float MinTravelDistance = 0.5f;
+        [SerializeField] private int damageAmount = 10;
+        
+        
+        private void Awake()
         {
-            _playerCamera = Camera.main; // Simplified to use the main camera directly
+            _bulletsLeft = magazineSize;
+            _isReadyToShoot = true;
         }
-
-        void Update()
+        
+        public void FireBullet(Vector3 direction, float rotationZ)
         {
-            // Get the mouse position in screen space and convert it to world space
-            Vector2 screenPosition = positionAction.action.ReadValue<Vector2>();
-            Ray ray = _playerCamera.ScreenPointToRay(screenPosition);
+            _shootDirection = direction;
             
-            // Assuming the gun or player is on a specific plane (e.g., Z = 0)
-            Plane gunPlane = new Plane(Vector3.forward, gun.transform.position);
-
-            if (gunPlane.Raycast(ray, out float distance))
+            _bulletsShot = 0;
+            if (_bulletsLeft == 0)
             {
-                _mousePosition = ray.GetPoint(distance);
+                Reload();
+            }
+            
+            if (_isReadyToShoot && _bulletsLeft > 0 && !_isReloading)
+            {
+                Shoot();
+            }
+        }
+        
+        private void Shoot()
+        {
+            _isReadyToShoot = false;
+            _bulletsLeft--;
+            _bulletsShot++;
+    
+            // Spread calculation
+            float x = Random.Range(-spread, spread);
+            float y = Random.Range(-spread, spread);
+            Vector3 spreadVector = bulletSpawnPoint.transform.right * x + bulletSpawnPoint.transform.up * y;
+    
+            // Calculate shoot direction with spread
+            Vector3 shootDirection = (_shootDirection + spreadVector).normalized;
+
+            // Perform raycast
+            RaycastHit hit;
+            if (Physics.Raycast(bulletSpawnPoint.transform.position, shootDirection, out hit, Mathf.Infinity))
+            {
+        
+                // Calculate the distance the bullet has traveled
+                float travelDistance = Vector3.Distance(bulletSpawnPoint.transform.position, hit.point);
+                
+                // instantiate bullet trail
+                TrailRenderer trail = Instantiate(bulletTrail, bulletSpawnPoint.transform.position, Quaternion.identity);
+                
+                // start a coroutine
+                StartCoroutine(SpawnTrail(trail,hit));
+
+                // Check if the bullet has traveled at least the minimum distance before dealing damage
+                if (travelDistance >= MinTravelDistance)
+                {
+                    // Attempt to get the Health component from the collided object
+                    Health health = hit.collider.GetComponent<Health>();
+                    if (health)
+                    {
+                        // Deal damage to the object with the Health component
+                        health.TakeDamage(damageAmount);
+                    }
+                }
             }
 
-            Vector3 difference = _mousePosition - gun.transform.position;
-            float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-
-            transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
-
-            // Flip the Player GameObject based on the rotation
-            if (rotationZ > 90 || rotationZ < -90)
+            // Check if we should continue shooting
+            if (_bulletsShot < bulletsPerTap && _bulletsLeft > 0)
             {
-                player.transform.localScale = new Vector3(-1, 1, 1);
+                Invoke(nameof(Shoot), timeBetweenShooting);
             }
             else
             {
-                player.transform.localScale = new Vector3(1, 1, 1);
-            }
-
-            // Shoot only if the left mouse button is pressed and the fire rate timer has elapsed
-            if (Mouse.current.leftButton.isPressed && Time.time >= _nextFireTime)
-            {
-                FireBullet(difference, rotationZ);
-                _nextFireTime = Time.time + fireRate;
+                InvokeRepeating(nameof(ResetShot), timeBetweenShots, timeBetweenShooting);
             }
         }
-
-        void FireBullet(Vector3 direction, float rotationZ)
+        
+        private IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
         {
-            GameObject bullet = Instantiate(bulletPrefab, gun.transform.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody>().linearVelocity = direction.normalized * bulletSpeed;
-            bullet.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
+            float time = 0;
+            Vector3 startPos = bulletSpawnPoint.transform.position;
+            while (time < 1)
+            {
+                trail.transform.position = Vector3.Lerp(startPos, hit.point, time);
+                time += Time.deltaTime / trail.time;
+                
+                yield return null;
+
+            }
+
+            trail.transform.position = hit.point;
+            Destroy(trail.gameObject);
+        }
+
+        
+        private void ResetShot()
+        {
+            CancelInvoke(nameof(ResetShot));
+            _isReadyToShoot = true;
+        }
+        
+        private void Reload()
+        {
+            if (_isReloading) return;
+            
+            _isReloading = true;
+            Invoke(nameof(ReloadFinished), reloadTime);
+        }
+        
+        private void ReloadFinished()
+        {
+            _bulletsLeft = magazineSize;
+            _bulletsShot = 0;
+            _isReloading = false;
         }
     }
 }

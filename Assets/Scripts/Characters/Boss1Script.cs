@@ -5,24 +5,34 @@ namespace Characters
 {
     public class Boss1Script : MonoBehaviour
     {
-        private Health _enemyHealth;
-        public float maxHealth;
-        public float currentHealth;
+        [SerializeField] private GameObject gunRotatePoint;
         
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        private Enemy _enemy;
+        private ShootingController _shootingController;
+        private Health _enemyHealth;
+        
+        public float MaxHealth=>_enemyHealth.maxHealth;
+        public float CurrentHealth=>_enemyHealth.currentHealth;
+        
+        void Awake()
         {
+            _shootingController = GetComponent<ShootingController>();
+            _enemy = GetComponent<Enemy>();
             _enemyHealth = GetComponent<Health>();
-            
         }
-        // Update is called once per frame
-        void Update()
+
+        private void Update()
         {
-            if (_enemyHealth)
-            {
-                currentHealth = _enemyHealth.currentHealth;
-                maxHealth = _enemyHealth.maxHealth;
-            }
+            
+            _enemy.GetPlayerPosition();
+            
+            gunRotatePoint.transform.rotation  = Quaternion.Euler(0f, 0f, _enemy.rotationZ);
+        }
+
+        private void FixedUpdate()
+        {
+            _shootingController.FireBullet(_enemy.directionToPlayer, _enemy.rotationZ);
+
         }
     }
     
