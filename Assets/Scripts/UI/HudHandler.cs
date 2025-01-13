@@ -8,7 +8,7 @@ namespace UI
     {
         [SerializeField] private PlayerController playerController;
         [SerializeField] private Boss1Script boss1Script;
-        public UIDocument hudDocument;
+        [SerializeField] private UIDocument hudDocument;
         private Label _playerHealthLabel;
         private Label _enemyHealthLabel;
         
@@ -22,13 +22,13 @@ namespace UI
             _enemyHealthLabel = root.Q<Label>("enemy-health");
         }
 
-        void Update()
+        public void UpdateHealth()
         {
             if (playerController&& _playerHealthLabel != null)
             {
                 // Update the player health background color width
                 _playerHealthLabel.style.width = new Length(
-                    (playerController.currentHealth / playerController.maxHealth) * 100, 
+                    (playerController.CurrentHealth / playerController.MaxHealth) * 100, 
                     LengthUnit.Percent);
             }
 
@@ -36,7 +36,7 @@ namespace UI
             {
                 // Update the enemy health background color width
                 _enemyHealthLabel.style.width = new Length(
-                    (boss1Script.currentHealth / boss1Script.maxHealth) * 100,  
+                    (boss1Script.CurrentHealth / boss1Script.MaxHealth) * 100,  
                     LengthUnit.Percent);
             }
             
