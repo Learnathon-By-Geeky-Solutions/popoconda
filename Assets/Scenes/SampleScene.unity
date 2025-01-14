@@ -373,7 +373,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 410087041}
-  - {fileID: 832575519}
   - {fileID: 1380471291}
   - {fileID: 805928670}
   - {fileID: 800301221}
@@ -397,6 +396,7 @@ GameObject:
   - component: {fileID: 192731081}
   - component: {fileID: 192731085}
   - component: {fileID: 192731086}
+  - component: {fileID: 192731087}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -471,6 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71007956194406e40aa4d0272747592a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyBody: {fileID: 335685015}
   gunRotatePoint: {fileID: 784686002}
 --- !u!114 &192731085
 MonoBehaviour:
@@ -503,15 +504,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpawnPoint: {fileID: 78468400}
   bulletTrail: {fileID: 4008450010974570236, guid: b935ba01d5f62e342a50bedd3ad91c2f, type: 3}
-  shootForce: 5
-  upwardForce: 0
-  timeBetweenShooting: 0.2
-  spread: 0.25
+  timeBetweenShooting: 0
+  spread: 0
   reloadTime: 0
-  timeBetweenShots: 1000
   magazineSize: 1000
   bulletsPerTap: 4
   damageAmount: 10
+--- !u!114 &192731087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192731080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fefa1a000daf8049af18cb5cf3a485b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laserSpawnPoint: {fileID: 1968076648}
+  laserLineRenderer: {fileID: -2004101776285059320, guid: 0b174d44a5b2792499f54679f53a80a7, type: 3}
+  damageAmount: 1
+  maxLaserDistance: 100
 --- !u!1 &258151179
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +757,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1968076649}
   m_Father: {fileID: 192731083}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &335685017
@@ -1428,55 +1443,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805928669}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &832575517
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 832575519}
-  - component: {fileID: 832575518}
-  m_Layer: 0
-  m_Name: Global Volume
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &832575518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 832575517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
---- !u!4 &832575519
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 832575517}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 173385891}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &840908188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,7 +1829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce8e70c25b99f6a4881d8bf97c535103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10000
+  maxHealth: 100000
   currentHealth: 0
   hudHandler: {fileID: 937852028}
 --- !u!114 &988562741
@@ -1910,12 +1876,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpawnPoint: {fileID: 258151179}
   bulletTrail: {fileID: 4008450010974570236, guid: b935ba01d5f62e342a50bedd3ad91c2f, type: 3}
-  shootForce: 5
-  upwardForce: 0
-  timeBetweenShooting: 0.02
+  timeBetweenShooting: 0.25
   spread: 0.05
   reloadTime: 1
-  timeBetweenShots: 0.2
   magazineSize: 50
   bulletsPerTap: 1
   damageAmount: 10
@@ -2333,6 +2296,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626442546}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1968076648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1968076649}
+  m_Layer: 0
+  m_Name: LaserSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1968076649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968076648}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.65, y: 0.74, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 335685016}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
