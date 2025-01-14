@@ -9,7 +9,7 @@ namespace Combat
         public int currentHealth;
         [SerializeField] private HudHandler hudHandler;
         
-        void Start()
+        private void Awake()
         {
             currentHealth = maxHealth;
         }
@@ -24,7 +24,7 @@ namespace Combat
             }
         }
         
-        void Die()
+        private void Die()
         {
             Destroy(gameObject);
         }

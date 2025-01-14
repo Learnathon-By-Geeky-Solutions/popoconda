@@ -71,7 +71,7 @@ namespace Characters
         private void HandleMovement()
         {
             float xInput = moveAction.action.ReadValue<float>();
-            _playerRigidbody.AddRelativeForce(Vector3.right * (xInput * moveSpeed * Time.deltaTime));
+            _playerRigidbody.AddRelativeForce(Vector3.right * (xInput * moveSpeed * Time.fixedDeltaTime));
         }
 
         private void HandleJetpack()
@@ -107,9 +107,9 @@ namespace Characters
             FlipPlayerGraphics(_rotationZ);
         }
         
-        private void FlipPlayerGraphics(float rotationZ)
+        private void FlipPlayerGraphics(float rotation)
         {
-            if (rotationZ > 90 || rotationZ < -90)
+            if (rotation > 90 || rotation < -90)
             {
                 playerGfx.transform.localScale = new Vector3(-1, 1, 1);
             }
@@ -121,10 +121,7 @@ namespace Characters
         
         private void HandleShooting()
         {
-            if (_isFiring)
-            {
-                _shootingController.FireBullet(_difference, Mathf.Atan2(_difference.y, _difference.x) * Mathf.Rad2Deg);
-            }
+            _shootingController.FireBullet(_difference.normalized);
         }
         
         private void OnEnable()
@@ -153,24 +150,23 @@ namespace Characters
             fireAction.action.canceled -= OnFireEnd;
         }
 
-        private void OnJumpStart(InputAction.CallbackContext context)
+        private enum InputActionState { Start, End }
+
+        private void HandleJump(InputActionState state)
         {
-            _isJumping = true;
+            _isJumping = (state == InputActionState.Start);
         }
 
-        private void OnJumpEnd(InputAction.CallbackContext context)
+        private void HandleFire(InputActionState state)
         {
-            _isJumping = false;
+            _isFiring = (state == InputActionState.Start);
         }
+        
+        private void OnJumpStart(InputAction.CallbackContext context) => HandleJump(InputActionState.Start);
+        private void OnJumpEnd(InputAction.CallbackContext context) => HandleJump(InputActionState.End);
+        private void OnFireStart(InputAction.CallbackContext context) => HandleFire(InputActionState.Start);
+        private void OnFireEnd(InputAction.CallbackContext context) => HandleFire(InputActionState.End);
 
-        private void OnFireStart(InputAction.CallbackContext context)
-        {
-            _isFiring = true;
-        }
 
-        private void OnFireEnd(InputAction.CallbackContext context)
-        {
-            _isFiring = false;
-        }
     }
 }
