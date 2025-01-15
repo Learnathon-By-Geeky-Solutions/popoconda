@@ -26,6 +26,7 @@
 
 .jetpack-fuel-bar{
     position: absolute;
+    justify-content: flex-end;
     bottom: 60px;
     right: 20px;
     width: 20px;
@@ -37,7 +38,6 @@
 
 #jetpack-fuel{
     margin: 0;
-    justify-content: flex-start;
     background-color: yellow;
     height: 100%;
     width: 100%;
@@ -73,7 +73,9 @@
     border-width: 2px;
 }
 
-.ammo-label {
+#ammo-label {
     color: black;
-    font-size: 12px;
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
 }
