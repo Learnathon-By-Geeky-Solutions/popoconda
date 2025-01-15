@@ -1,4 +1,5 @@
 using System.Collections;
+using UI;
 using UnityEngine;
 
 namespace Combat
@@ -7,10 +8,11 @@ namespace Combat
     {
         [SerializeField] private GameObject bulletSpawnPoint;
         [SerializeField] private TrailRenderer bulletTrail;
+        [SerializeField] private HudHandler hudHandler;
         [SerializeField] private float timeBetweenShooting, spread, reloadTime;
         [SerializeField] private int magazineSize, bulletsPerTap;
         private bool _isReadyToShoot = true, _isReloading;
-        private int _bulletsLeft, _bulletsShot;
+        private int _bulletsShot, _bulletsLeft;
         [SerializeField] private int damageAmount = 10;
         private const float MinTravelDistance = 0.5f;
         
@@ -40,6 +42,13 @@ namespace Combat
             {
                 _bulletsLeft--;
                 _bulletsShot++;
+                
+                // Update HUD 
+                if (gameObject.CompareTag("Player"))
+                {
+                    hudHandler.UpdateAmmo(_bulletsLeft);
+                }
+                
 
                 // Apply bullet spread
                 float x = Random.Range(-spread, spread);

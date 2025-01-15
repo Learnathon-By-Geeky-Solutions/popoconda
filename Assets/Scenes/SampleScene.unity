@@ -504,8 +504,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpawnPoint: {fileID: 78468400}
   bulletTrail: {fileID: 4008450010974570236, guid: b935ba01d5f62e342a50bedd3ad91c2f, type: 3}
+  hudHandler: {fileID: 937852028}
   timeBetweenShooting: 0
-  spread: 0
+  spread: 1.5
   reloadTime: 0
   magazineSize: 1000
   bulletsPerTap: 4
@@ -1750,6 +1751,7 @@ MonoBehaviour:
   jetpackFuelMax: 5
   fuelConsumeRate: 3
   fuelFillRate: 1
+  hudHandler: {fileID: 937852028}
 --- !u!54 &988562737
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1876,6 +1878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpawnPoint: {fileID: 258151179}
   bulletTrail: {fileID: 4008450010974570236, guid: b935ba01d5f62e342a50bedd3ad91c2f, type: 3}
+  hudHandler: {fileID: 937852028}
   timeBetweenShooting: 0.25
   spread: 0.05
   reloadTime: 1

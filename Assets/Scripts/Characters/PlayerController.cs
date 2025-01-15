@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Combat;
+using UI;
 
 namespace Characters
 {
@@ -31,6 +32,8 @@ namespace Characters
         private ShootingController _shootingController;
         private bool _isFiring;
         
+        [SerializeField] private HudHandler hudHandler;
+        
         private Health _playerHealth;
         public float MaxHealth =>_playerHealth.maxHealth;
         public float CurrentHealth =>_playerHealth.currentHealth;
@@ -41,6 +44,7 @@ namespace Characters
             _playerRigidbody = playerObject.GetComponent<Rigidbody>();
             _playerHealth = playerObject.GetComponent<Health>();
             _shootingController = playerObject.GetComponent<ShootingController>();
+            
             
             _jetpackFuel = jetpackFuelMax;
         }
@@ -65,6 +69,7 @@ namespace Characters
         {
             HandleMovement();
             if(_isFiring) HandleShooting();
+            hudHandler.UpdateJetpackFuel(_jetpackFuel, jetpackFuelMax);
         }
         
         
