@@ -4,6 +4,9 @@
         <ui:VisualElement class="enemy-health-bar">
             <ui:Label name="enemy-health"/>
         </ui:VisualElement>
+        <ui:VisualElement class="jetpack-fuel-bar">
+            <ui:Label name="jetpack-fuel"/>
+        </ui:VisualElement>
         <ui:VisualElement class="player-health-bar">
             <ui:Label name="player-health"/>
         </ui:VisualElement>
