@@ -1,21 +1,27 @@
-using System.Collections;
-using UI;
 using UnityEngine;
+using Cysharp.Threading.Tasks; // Import UniTask
 
 namespace Combat
 {
     public class ShootingController : MonoBehaviour
     {
-        [SerializeField] private GameObject bulletSpawnPoint;
-        [SerializeField] private TrailRenderer bulletTrail;
-        [SerializeField] private HudHandler hudHandler;
-        [SerializeField] private float timeBetweenShooting, spread, reloadTime;
-        [SerializeField] private int magazineSize, bulletsPerTap;
-        private bool _isReadyToShoot = true, _isReloading;
-        private int _bulletsShot, _bulletsLeft;
-        [SerializeField] private int damageAmount = 10;
-        private const float MinTravelDistance = 0.5f;
+        [SerializeField] private Transform bulletSpawnPoint;
+        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private float spread;
+        [SerializeField] private float timeBetweenShooting;
+        [SerializeField] private int magazineSize;
+        [SerializeField] private int bulletsPerTap;
+        [SerializeField] private float reloadTime;
+        [SerializeField] private float bulletSpeed;
+        [SerializeField] private int damage;
+
+        private int _bulletsLeft;
+        private bool _isReloading;
+        private bool _canShoot = true;
         
+        public delegate void StatEventWithInt(int value);
+        public static event StatEventWithInt OnBulletCountChange;
+
         private void Awake()
         {
             _bulletsLeft = magazineSize;
@@ -23,90 +29,50 @@ namespace Combat
         
         public void FireBullet(Vector3 direction)
         {
-            if (_isReadyToShoot && _bulletsLeft > 0 && !_isReloading)
-            {
-                _bulletsShot = 0;
-                StartCoroutine(Shoot(direction));
-            }
-            else if (_bulletsLeft <= 0)
-            {
-                Reload();
-            }
-        }
+            if (!_canShoot || _isReloading || _bulletsLeft <= 0) return; // Prevent shooting if conditions aren't met
 
-        private IEnumerator Shoot(Vector3 direction)
-        {
-            _isReadyToShoot = false;
+            _canShoot = false;
 
-            while (_bulletsShot < bulletsPerTap && _bulletsLeft > 0)
+            for (int i = 0; i < bulletsPerTap; i++)
             {
+                // Apply spread to the direction
+                Vector3 adjustedDirection = direction + new Vector3(
+                    Random.Range(-spread, spread),
+                    Random.Range(-spread, spread),
+                    0);
+                
+                GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(adjustedDirection));
+                
+                Bullet bulletScript = bullet.GetComponent<Bullet>();
+                if (bulletScript != null)
+                {
+                    bulletScript.SetDirection(adjustedDirection.normalized); // Pass the normalized direction
+                    bulletScript.SetSpeed(bulletSpeed);
+                    bulletScript.SetDamageAmount(damage);
+                }
+
                 _bulletsLeft--;
-                _bulletsShot++;
-                
-                // Update HUD 
-                if (gameObject.CompareTag("Player"))
-                {
-                    hudHandler.UpdateAmmo(_bulletsLeft);
-                }
-                
-
-                // Apply bullet spread
-                float x = Random.Range(-spread, spread);
-                float y = Random.Range(-spread, spread);
-                Vector3 spreadVector = bulletSpawnPoint.transform.right * x + bulletSpawnPoint.transform.up * y;
-                Vector3 shootDirection = (direction + spreadVector).normalized;
-
-                // Perform raycast
-                if (Physics.Raycast(bulletSpawnPoint.transform.position, shootDirection, out RaycastHit hit, Mathf.Infinity))
-                {
-                    
-                    Debug.Log("Bullet Hit: " + hit.collider.name);
-                    float travelDistance = Vector3.Distance(bulletSpawnPoint.transform.position, hit.point);
-                    TrailRenderer trail = Instantiate(bulletTrail, bulletSpawnPoint.transform.position, Quaternion.identity);
-                    StartCoroutine(SpawnTrail(trail, hit));
-
-                    if (travelDistance >= MinTravelDistance)
-                    {
-                        Health health = hit.collider.GetComponent<Health>();
-                        health?.TakeDamage(damageAmount);
-                    }
-                }
-
-                yield return new WaitForSeconds(timeBetweenShooting);
+                if(gameObject.CompareTag("Player")) OnBulletCountChange?.Invoke(_bulletsLeft);
             }
 
-            _isReadyToShoot = true;
-        }
+            // Delay between shooting to control fire rate
+            UniTask.Delay((int)(timeBetweenShooting * 1000)).ContinueWith(() => _canShoot = true);
 
-        private IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
-        {
-            float time = 0;
-            Vector3 startPos = bulletSpawnPoint.transform.position;
-
-            while (time < 1)
+            // If no bullets left, trigger reloading
+            if (_bulletsLeft <= 0)
             {
-                trail.transform.position = Vector3.Lerp(startPos, hit.point, time);
-                time += Time.deltaTime / trail.time;
-                yield return null;
+                StartReloading();
             }
-
-            trail.transform.position = hit.point;
-            Destroy(trail.gameObject);
         }
-
-        private void Reload()
+        
+        private async UniTask StartReloading()
         {
-            if (_isReloading) return;
+            if (_isReloading) return; // Prevent multiple reloads at the same time
 
             _isReloading = true;
-            StartCoroutine(ReloadFinished());
-        }
-
-        private IEnumerator ReloadFinished()
-        {
-            yield return new WaitForSeconds(reloadTime);
+            await UniTask.Delay((int)(reloadTime * 1000)); // Wait for reload time to complete
             _bulletsLeft = magazineSize;
-            _bulletsShot = 0;
+            if(gameObject.CompareTag("Player")) OnBulletCountChange?.Invoke(_bulletsLeft);
             _isReloading = false;
         }
     }

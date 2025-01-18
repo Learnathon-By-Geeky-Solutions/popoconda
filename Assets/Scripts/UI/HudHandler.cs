@@ -1,18 +1,17 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 using Characters;
 using Combat;
+using UnityEngine.UIElements;
 
 namespace UI
 {
     public class HudHandler : MonoBehaviour
     {
-        [SerializeField] private PlayerController playerController;
-        [SerializeField] private Boss1Script boss1Script;
         [SerializeField] private UIDocument hudDocument;
+        
         private Label _playerHealthLabel;
         private Label _enemyHealthLabel;
-        private Label _jetpackFuelLabel;
+        private static Label _jetpackFuelLabel;
         private Label _ammoLabel;
         
         void Start()
@@ -27,38 +26,49 @@ namespace UI
             _ammoLabel = root.Q<Label>("ammo-label");
         }
 
-        public void UpdateHealth()
+        private void OnEnable()
         {
-            if (playerController&& _playerHealthLabel != null)
-            {
-                // Update the player health background color width
-                _playerHealthLabel.style.width = new Length(
-                    (playerController.CurrentHealth / playerController.MaxHealth) * 100, 
-                    LengthUnit.Percent);
-            }
+            PlayerController.OnPlayerHealthChange += UpdatePlayerHealth;
+            PlayerController.OnJetpackFuelChange += UpdateJetpackFuel;
+            Boss1Script.OnEnemyHealthChange += UpdateEnemyHealth;
+            ShootingController.OnBulletCountChange += UpdateAmmo;
+        }
 
-            if (boss1Script&& _enemyHealthLabel != null)
+        private void OnDisable()
+        {
+            PlayerController.OnPlayerHealthChange -= UpdatePlayerHealth;
+            PlayerController.OnJetpackFuelChange -= UpdateJetpackFuel;
+            Boss1Script.OnEnemyHealthChange -= UpdateEnemyHealth;
+            ShootingController.OnBulletCountChange -= UpdateAmmo;
+        }
+
+        private void UpdatePlayerHealth(float currentHealthPercentage)
+        {
+            if (_playerHealthLabel != null)
             {
-                // Update the enemy health background color width
-                _enemyHealthLabel.style.width = new Length(
-                    (boss1Script.CurrentHealth / boss1Script.MaxHealth) * 100,  
-                    LengthUnit.Percent);
+                _playerHealthLabel.style.width = new Length(currentHealthPercentage * 100, LengthUnit.Percent);
+            }
+        }
+
+        private void UpdateEnemyHealth(float currentHealthPercentage)
+        {
+            if (_enemyHealthLabel != null)
+            {
+                _enemyHealthLabel.style.width = new Length(currentHealthPercentage * 100, LengthUnit.Percent);
             }
         }
         
-        public void UpdateJetpackFuel(float jetpackFuel, float jetpackFuelMax)
+        private static void UpdateJetpackFuel(float currentFuelPercentage)
         {
-            if (playerController && _jetpackFuelLabel != null)
+            if (_jetpackFuelLabel != null)
             {
-                // Update the jetpack fuel background color width
-                _jetpackFuelLabel.style.height = new Length(
-                    (jetpackFuel / jetpackFuelMax) * 100, 
-                    LengthUnit.Percent);
+                _jetpackFuelLabel.style.height = new Length(currentFuelPercentage * 100, LengthUnit.Percent);
             }
         }
-        public void UpdateAmmo(int bulletsLeft)
+
+        private void UpdateAmmo(int bulletsLeft)
         {
-            if (playerController && _ammoLabel != null)
+            if (_ammoLabel != null)
             {
                 // Update the ammo label
                 _ammoLabel.text = bulletsLeft.ToString();

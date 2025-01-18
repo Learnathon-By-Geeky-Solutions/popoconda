@@ -1,83 +1,132 @@
-using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 using Combat;
+using UI;
+using Cysharp.Threading.Tasks;
+using Random = UnityEngine.Random;
 
 namespace Characters
 {
     public class Boss1Script : MonoBehaviour
     {
-        [SerializeField] private GameObject enemyBody;
         [SerializeField] private GameObject gunRotatePoint;
-        
+        [SerializeField] private HudHandler hudHandler;
+
         private Enemy _enemy;
+        public Health enemyHealth;
         private ShootingController _shootingController;
-        private Health _enemyHealth;
         private FireLaser _fireLaser;
+
+        private Vector2 _playerPosition;
+        private Vector2 _playerDirection;
+        private float _distanceToPlayer;
+        private float _rotationZ;
+
+        private bool _isAlive;
         
-        private bool _isActionScheduled;
-        
-        public float MaxHealth => _enemyHealth.maxHealth;
-        public float CurrentHealth => _enemyHealth.currentHealth;
-        
+        public static event Health.StatEventWithFloat OnEnemyHealthChange;
+
+
         private void Awake()
         {
             _shootingController = GetComponent<ShootingController>();
             _fireLaser = GetComponent<FireLaser>();
             _enemy = GetComponent<Enemy>();
-            _enemyHealth = GetComponent<Health>();
-            _isActionScheduled = false;
+            _isAlive = true;
+
+            enemyHealth.Initialize();
+            enemyHealth.OnDeath += OnBossDeath;
+            enemyHealth.OnHealthChange += UpdateHealthUI;
+            Bullet.OnBulletHit += ApplyDamage;
+            PlayerController.OnPlayerPosition += GetPosition;
+
+            ScheduleFireActionsAsync().Forget();
+            UpdatePositionAsync().Forget();
+        }
+
+        private void OnDestroy()
+        {
+            PlayerController.OnPlayerPosition -= GetPosition;
         }
 
         private void Update()
         {
-            _enemy.GetPlayerPosition();
-            
-            gunRotatePoint.transform.rotation = Quaternion.Euler(0f, 0f, _enemy.rotationZ);
-            
-            enemyBody.transform.localScale = _enemy.directionToPlayer.x < 0 ? new Vector3(-1, 1, 1) : new Vector3(1, 1, 1);
-            
-            _enemy.MoveTowardsPlayer();
-        }
-
-        private void FixedUpdate()
-        {
-            if (!_isActionScheduled)
+            if (_isAlive)
             {
-                _isActionScheduled = true;
-                StartCoroutine(FireActionCoroutine());
+                _enemy.MoveTowardsPlayer(_playerDirection, _distanceToPlayer);
             }
         }
-        
-        private IEnumerator FireActionCoroutine()
+
+        private async UniTask UpdatePositionAsync()
         {
-            Task fireActionsTask = FireActionsAsync();
-            yield return new WaitUntil((() => fireActionsTask.IsCompleted));
-            _isActionScheduled = false;
+            while (_isAlive)
+            {
+                if (_playerDirection != Vector2.zero)
+                {
+                    _rotationZ = Mathf.Atan2(_playerDirection.y, _playerDirection.x) * Mathf.Rad2Deg;
+                    bool isFacingRight = _playerDirection.x > 0;
+                    transform.localScale = new Vector3(isFacingRight ? 1 : -1, 1, 1);
+                    gunRotatePoint.transform.rotation = Quaternion.Euler(0, 0, isFacingRight ? _rotationZ : _rotationZ + 180f);
+                }
+                await UniTask.Delay(50);
+            }
         }
 
-        private async Task FireActionsAsync()
+        private async UniTask ScheduleFireActionsAsync()
         {
-            // Fire bullets for 15 to 20 seconds
-            bool isFiringBullet = Random.Range(0, 3) != 0; // 66% chance to fire bullets, 33% chance to fire lasers
-            float fireDuration = isFiringBullet ? Random.Range(15f, 20f) : Random.Range(5f, 7f);
+            while (_isAlive)
+            {
+                await UniTask.Delay(1000);
+                if (_isAlive)
+                {
+                    await FireActionsAsync();
+                }
+            }
+        }
 
+        private async UniTask FireActionsAsync()
+        {
+            bool isFiringBullet = Random.Range(0, 3) != 0;
+            float fireDuration = isFiringBullet ? Random.Range(15f, 20f) : Random.Range(5f, 7f);
             float startTime = Time.time;
-    
-            while (Time.time - startTime < fireDuration)
+
+            while (Time.time - startTime < fireDuration && _isAlive)
             {
                 if (isFiringBullet)
                 {
-                    _shootingController.FireBullet(_enemy.directionToPlayer);
+                    _shootingController.FireBullet(_playerDirection);
                 }
                 else
                 {
-                    _fireLaser.FireLaserProjectile(_enemy.directionToPlayer);
+                    _fireLaser.FireLaserProjectile(_playerDirection);
                 }
-        
-                // Wait 0.1 second before firing again
-                await Task.Delay(100);
+                await UniTask.Delay(100);
             }
+            await ScheduleFireActionsAsync();
+        }
+
+        private void ApplyDamage(int damage, GameObject hitObject)
+        {
+            if (hitObject == gameObject)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
+        }
+
+        private static void UpdateHealthUI(float currentHealth)
+        {
+            OnEnemyHealthChange?.Invoke(currentHealth);
+        }
+
+        private void OnBossDeath()
+        {
+            _isAlive = false;
+        }
+
+        private void GetPosition(Vector3 playerPosition)
+        {
+            _playerPosition = playerPosition;
+            _playerDirection = _playerPosition - (Vector2)transform.position;
+            _distanceToPlayer = _playerDirection.magnitude;
         }
     }
 }

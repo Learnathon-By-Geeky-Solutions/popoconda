@@ -1,32 +1,33 @@
+using System;
 using UnityEngine;
-using UI;
 
 namespace Combat
 {
-    public class Health : MonoBehaviour
+    [Serializable]
+    public class Health
     {
-        public int maxHealth;
-        public int currentHealth;
-        [SerializeField] private HudHandler hudHandler;
         
-        private void Awake()
+        [SerializeField] private int maxHealth;
+        private int _currentHealth;
+        
+        public delegate void StatEvent();
+        public delegate void StatEventWithFloat(float value);
+        public StatEvent OnDeath;
+        public StatEventWithFloat OnHealthChange;
+        public void Initialize()
         {
-            currentHealth = maxHealth;
+            _currentHealth = maxHealth;
         }
         
         public void TakeDamage(int damage)
         {
-            currentHealth -= damage;
-            hudHandler.UpdateHealth();
-            if (currentHealth <= 0)
+            _currentHealth -= damage;
+            if (_currentHealth <= 0)
             {
-                Die();
+                OnDeath?.Invoke();
             }
-        }
-        
-        private void Die()
-        {
-            Destroy(gameObject);
+            float healthPercentage = (float)_currentHealth / maxHealth;
+            OnHealthChange?.Invoke(healthPercentage);
         }
     }
 

@@ -230,7 +230,7 @@ Transform:
   m_GameObject: {fileID: 78468400}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.59, y: 0, z: 0}
+  m_LocalPosition: {x: 1.33, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -393,7 +393,6 @@ GameObject:
   - component: {fileID: 192731083}
   - component: {fileID: 192731082}
   - component: {fileID: 192731084}
-  - component: {fileID: 192731081}
   - component: {fileID: 192731085}
   - component: {fileID: 192731086}
   - component: {fileID: 192731087}
@@ -404,21 +403,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &192731081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192731080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce8e70c25b99f6a4881d8bf97c535103, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
-  hudHandler: {fileID: 937852028}
 --- !u!136 &192731082
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -471,8 +455,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71007956194406e40aa4d0272747592a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyBody: {fileID: 335685015}
   gunRotatePoint: {fileID: 784686002}
+  hudHandler: {fileID: 937852028}
+  enemyHealth:
+    maxHealth: 500
 --- !u!114 &192731085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,11 +471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad9c251b369adf4eb5827373cc8f2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 988562735}
-  gun: {fileID: 763693237}
-  directionToPlayer: {x: 0, y: 0, z: 0}
-  rotationZ: 0
-  distanceToPlayer: 0
 --- !u!114 &192731086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,15 +483,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04206fdbbd091f544a0ede261f607250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpawnPoint: {fileID: 78468400}
-  bulletTrail: {fileID: 4008450010974570236, guid: b935ba01d5f62e342a50bedd3ad91c2f, type: 3}
-  hudHandler: {fileID: 937852028}
-  timeBetweenShooting: 0
-  spread: 1.5
+  bulletSpawnPoint: {fileID: 78468401}
+  bulletPrefab: {fileID: 4736814324575834385, guid: a140e82a50b536b468a07417065870d6, type: 3}
+  spread: 0.25
+  timeBetweenShooting: 0.01
+  magazineSize: 100
+  bulletsPerTap: 1
   reloadTime: 0
-  magazineSize: 1000
-  bulletsPerTap: 4
-  damageAmount: 10
+  bulletSpeed: 40
+  damage: 10
 --- !u!114 &192731087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,7 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserSpawnPoint: {fileID: 1968076648}
-  laserLineRenderer: {fileID: -2004101776285059320, guid: 0b174d44a5b2792499f54679f53a80a7, type: 3}
+  laserPrefab: {fileID: 4510343266994366541, guid: 0b174d44a5b2792499f54679f53a80a7, type: 3}
   damageAmount: 1
   maxLaserDistance: 100
 --- !u!1 &258151179
@@ -1702,8 +1683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a9d597e70849be4fbb99d41f93f75ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 988562736}
-  boss1Script: {fileID: 192731084}
   hudDocument: {fileID: 937852026}
 --- !u!1 &988562735
 GameObject:
@@ -1718,9 +1697,9 @@ GameObject:
   - component: {fileID: 988562737}
   - component: {fileID: 988562741}
   - component: {fileID: 988562736}
-  - component: {fileID: 988562740}
   - component: {fileID: 988562742}
-  m_Layer: 0
+  - component: {fileID: 988562743}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1739,18 +1718,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b84c2dfc10187c24c92564ef9240f2dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObject: {fileID: 988562735}
-  playerGfx: {fileID: 745792545}
-  gunRotatePoint: {fileID: 419358403}
-  positionAction: {fileID: -4000992866607052840, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
-  fireAction: {fileID: -6611774575552843809, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
-  moveAction: {fileID: 5093770014828397296, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
-  jumpAction: {fileID: 1199911120038055113, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
-  moveSpeed: 2000
-  flySpeed: 50
-  jetpackFuelMax: 5
-  fuelConsumeRate: 3
-  fuelFillRate: 1
+  inputManager: {fileID: 988562743}
+  playerHealth:
+    maxHealth: 1000
+  player:
+    playerGfx: {fileID: 745792545}
+    gunRotatePoint: {fileID: 419358403}
+    moveSpeed: 275
+    flySpeed: 35
+    jetpackFuelMax: 25
+    fuelConsumeRate: 3
+    fuelFillRate: 1
   hudHandler: {fileID: 937852028}
 --- !u!54 &988562737
 Rigidbody:
@@ -1778,7 +1756,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &988562738
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1819,21 +1797,6 @@ Transform:
   - {fileID: 419358404}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &988562740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988562735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce8e70c25b99f6a4881d8bf97c535103, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100000
-  currentHealth: 0
-  hudHandler: {fileID: 937852028}
 --- !u!114 &988562741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1876,15 +1839,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04206fdbbd091f544a0ede261f607250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpawnPoint: {fileID: 258151179}
-  bulletTrail: {fileID: 4008450010974570236, guid: b935ba01d5f62e342a50bedd3ad91c2f, type: 3}
-  hudHandler: {fileID: 937852028}
-  timeBetweenShooting: 0.25
+  bulletSpawnPoint: {fileID: 258151180}
+  bulletPrefab: {fileID: 4736814324575834385, guid: a140e82a50b536b468a07417065870d6, type: 3}
   spread: 0.05
-  reloadTime: 1
+  timeBetweenShooting: 0.25
   magazineSize: 50
   bulletsPerTap: 1
-  damageAmount: 10
+  reloadTime: 1
+  bulletSpeed: 50
+  damage: 5
+--- !u!114 &988562743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988562735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2b259197f367e42a06692ddb9bf85f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionAction: {fileID: -4000992866607052840, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
+  fireAction: {fileID: -6611774575552843809, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
+  moveAction: {fileID: 5093770014828397296, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
+  jumpAction: {fileID: 1199911120038055113, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
 --- !u!1 &1380471290
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,7 +2303,7 @@ Transform:
   m_GameObject: {fileID: 1968076648}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.65, y: 0.74, z: 0}
+  m_LocalPosition: {x: 0.57, y: 0.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -1,5 +1,4 @@
-using System.Collections;
-using Characters;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Combat
@@ -7,49 +6,52 @@ namespace Combat
     public class FireLaser : MonoBehaviour
     {
         [SerializeField] private GameObject laserSpawnPoint;
-        [SerializeField] private LineRenderer laserLineRenderer;
+        [SerializeField] private GameObject laserPrefab; // The prefab with the LineRenderer
         [SerializeField] private int damageAmount;
         [SerializeField] private float maxLaserDistance;
-        private Enemy _enemy;
         private bool _isFiring;
+        private LineRenderer _laserLineRenderer;
+
+        public static event Bullet.HitHandler OnLaserHit;
 
         private void Awake()
         {
-            laserLineRenderer.enabled = false;
-            _enemy = GetComponent<Enemy>();
+            _laserLineRenderer = null;
         }
 
         public void FireLaserProjectile(Vector3 direction)
         {
             if (_isFiring) return;
             _isFiring = true;
-            laserLineRenderer.enabled = true;
-            StartCoroutine(ShootLaser());
+            
+            _laserLineRenderer = Instantiate(laserPrefab, laserSpawnPoint.transform.position, Quaternion.identity).GetComponent<LineRenderer>();
+            _laserLineRenderer.enabled = true;
+
+            ShootLaserAsync(direction).Forget();
         }
 
-        private IEnumerator ShootLaser()
+        private async UniTask ShootLaserAsync(Vector3 direction)
         {
-            float fireDuration = 2f; // Duration to fire the laser
+            float fireDuration = 1f;
             float elapsedTime = 0f;
 
             while (elapsedTime < fireDuration)
             {
-                laserLineRenderer.SetPosition(0, laserSpawnPoint.transform.position);
-
-                if (Physics.Raycast(laserSpawnPoint.transform.position, _enemy.directionToPlayer, out RaycastHit hit, maxLaserDistance))
+                _laserLineRenderer.SetPosition(0, laserSpawnPoint.transform.position); // Set start point to spawn point
+                Vector3 endPoint = laserSpawnPoint.transform.position + direction * maxLaserDistance;
+                
+                if (Physics.Raycast(laserSpawnPoint.transform.position, direction, out RaycastHit hit, maxLaserDistance))
                 {
-                    Debug.Log("Laser Hit: " + hit.collider.name);
-                    laserLineRenderer.SetPosition(1, hit.point);
-                    Health health = hit.collider.GetComponent<Health>();
-                    health?.TakeDamage(damageAmount);
+                    _laserLineRenderer.SetPosition(1, hit.point);  // Set end point to hit point
+                    OnLaserHit?.Invoke(damageAmount, hit.collider.gameObject);
                 }
                 else
                 {
-                    laserLineRenderer.SetPosition(1, laserSpawnPoint.transform.position + _enemy.directionToPlayer * maxLaserDistance);
+                    _laserLineRenderer.SetPosition(1, endPoint);  // Set end point to max distance if no hit
                 }
 
                 elapsedTime += Time.deltaTime;
-                yield return null;
+                await UniTask.Yield(); 
             }
 
             StopFiring();
@@ -58,7 +60,10 @@ namespace Combat
         private void StopFiring()
         {
             _isFiring = false;
-            laserLineRenderer.enabled = false;
+            if (_laserLineRenderer != null)
+            {
+                _laserLineRenderer.enabled = false;
+            }
         }
     }
 }
