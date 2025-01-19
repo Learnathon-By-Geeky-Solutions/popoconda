@@ -68,6 +68,11 @@ namespace Characters
             get { return fuelConsumeRate; }
             set { fuelConsumeRate = value; }
         }
+        public float FuelFillRate
+        {
+            get { return fuelFillRate; }
+            set { fuelFillRate = value; }
+        }
         
         public float JetpackFuelMax => jetpackFuelMax;  // Getter for max jetpack fuel
     }

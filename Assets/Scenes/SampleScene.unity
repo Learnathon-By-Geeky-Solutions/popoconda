@@ -1720,7 +1720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 988562743}
   playerHealth:
-    maxHealth: 1000
+    maxHealth: 10000
   player:
     playerGfx: {fileID: 745792545}
     gunRotatePoint: {fileID: 419358403}
@@ -1728,8 +1728,7 @@ MonoBehaviour:
     flySpeed: 35
     jetpackFuelMax: 25
     fuelConsumeRate: 3
-    fuelFillRate: 1
-  hudHandler: {fileID: 937852028}
+    fuelFillRate: 2
 --- !u!54 &988562737
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1841,8 +1840,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpawnPoint: {fileID: 258151180}
   bulletPrefab: {fileID: 4736814324575834385, guid: a140e82a50b536b468a07417065870d6, type: 3}
-  spread: 0.05
-  timeBetweenShooting: 0.25
+  spread: 0
+  timeBetweenShooting: 0.1
   magazineSize: 50
   bulletsPerTap: 1
   reloadTime: 1
