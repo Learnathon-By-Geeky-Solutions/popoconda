@@ -11,7 +11,7 @@ namespace UI
         
         private Label _playerHealthLabel;
         private Label _enemyHealthLabel;
-        private static Label _jetpackFuelLabel;
+        private Label _jetpackFuelLabel;
         private Label _ammoLabel;
         
         void Start()
@@ -58,7 +58,7 @@ namespace UI
             }
         }
         
-        private static void UpdateJetpackFuel(float currentFuelPercentage)
+        private void UpdateJetpackFuel(float currentFuelPercentage)
         {
             if (_jetpackFuelLabel != null)
             {

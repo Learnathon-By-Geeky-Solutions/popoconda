@@ -11,7 +11,7 @@
             <ui:Label name="player-health"/>
         </ui:VisualElement>
         <ui:VisualElement class="ammo-count">
-            <ui:Label name="ammo-label" text="Hello" />
+            <ui:Label name="ammo-label"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

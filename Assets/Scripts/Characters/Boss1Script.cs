@@ -12,14 +12,12 @@ namespace Characters
         [SerializeField] private HudHandler hudHandler;
 
         private Enemy _enemy;
-        public Health enemyHealth;
+        [SerializeField] private Health enemyHealth;
         private ShootingController _shootingController;
         private FireLaser _fireLaser;
-
-        private Vector2 _playerPosition;
+        
         private Vector2 _playerDirection;
         private float _distanceToPlayer;
-        private float _rotationZ;
 
         private bool _isAlive;
         
@@ -62,10 +60,10 @@ namespace Characters
             {
                 if (_playerDirection != Vector2.zero)
                 {
-                    _rotationZ = Mathf.Atan2(_playerDirection.y, _playerDirection.x) * Mathf.Rad2Deg;
+                    float rotationZ = Mathf.Atan2(_playerDirection.y, _playerDirection.x) * Mathf.Rad2Deg;
                     bool isFacingRight = _playerDirection.x > 0;
                     transform.localScale = new Vector3(isFacingRight ? 1 : -1, 1, 1);
-                    gunRotatePoint.transform.rotation = Quaternion.Euler(0, 0, isFacingRight ? _rotationZ : _rotationZ + 180f);
+                    gunRotatePoint.transform.rotation = Quaternion.Euler(0, 0, isFacingRight ? rotationZ : rotationZ + 180f);
                 }
                 await UniTask.Delay(50);
             }
@@ -124,8 +122,7 @@ namespace Characters
 
         private void GetPosition(Vector3 playerPosition)
         {
-            _playerPosition = playerPosition;
-            _playerDirection = _playerPosition - (Vector2)transform.position;
+            _playerDirection = playerPosition - transform.position;
             _distanceToPlayer = _playerDirection.magnitude;
         }
     }
