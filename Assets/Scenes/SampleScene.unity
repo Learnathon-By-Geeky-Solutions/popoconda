@@ -459,6 +459,8 @@ MonoBehaviour:
   hudHandler: {fileID: 937852028}
   enemyHealth:
     maxHealth: 500
+    regenRate: 0
+    regenDelay: 0
 --- !u!114 &192731085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1720,7 +1722,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 988562743}
   playerHealth:
-    maxHealth: 10000
+    maxHealth: 1000
+    regenRate: 5
+    regenDelay: 250
   player:
     playerGfx: {fileID: 745792545}
     gunRotatePoint: {fileID: 419358403}

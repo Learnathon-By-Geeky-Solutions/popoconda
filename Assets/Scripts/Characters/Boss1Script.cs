@@ -31,7 +31,7 @@ namespace Characters
             _enemy = GetComponent<Enemy>();
             _isAlive = true;
 
-            enemyHealth.Initialize();
+            enemyHealth.Initialize(false);
             enemyHealth.OnDeath += OnBossDeath;
             enemyHealth.OnHealthChange += UpdateHealthUI;
             Bullet.OnBulletHit += ApplyDamage;

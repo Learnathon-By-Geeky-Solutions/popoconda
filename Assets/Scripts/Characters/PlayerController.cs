@@ -33,7 +33,7 @@ namespace Characters
             _shootingController = GetComponent<ShootingController>();
 
             player.Initialize();
-            playerHealth.Initialize();
+            playerHealth.Initialize(true);
             playerHealth.OnHealthChange += UpdateHealthUI;
             playerHealth.OnDeath += OnPlayerDeath;
             Bullet.OnBulletHit += ApplyDamage;
