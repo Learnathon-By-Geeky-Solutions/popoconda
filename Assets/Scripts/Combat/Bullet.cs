@@ -42,6 +42,7 @@ namespace Combat
 
         private void OnTriggerEnter(Collider other)
         {
+            if(!other) return;
             float distance = Vector3.Distance(_spawnPosition, transform.position);
             if (distance <= 12f)
             {

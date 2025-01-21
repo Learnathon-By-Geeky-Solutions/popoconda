@@ -11,7 +11,7 @@ namespace Combat
         [SerializeField] private int maxHealth;
         [SerializeField] private int regenRate;
         [SerializeField] private int regenDelay; // Delay in milliseconds between each regen tick
-        private int _currentHealth;
+        public int _currentHealth;
         private bool _isPlayer;
 
         private CancellationTokenSource _regenCancelToken;
@@ -65,7 +65,7 @@ namespace Combat
             _regenCancelToken?.Cancel();
         }
 
-        public void Dispose()
+        public void DisposeToken()
         {
             _regenCancelToken?.Cancel();
             _regenCancelToken?.Dispose();

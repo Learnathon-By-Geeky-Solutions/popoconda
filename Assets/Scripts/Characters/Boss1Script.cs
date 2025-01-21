@@ -22,6 +22,7 @@ namespace Characters
         private bool _isAlive;
         
         public static event Health.StatEventWithFloat OnEnemyHealthChange;
+        public static event Health.StatEvent OnBoss1Death;
 
 
         private void Awake()
@@ -44,6 +45,9 @@ namespace Characters
         private void OnDestroy()
         {
             PlayerController.OnPlayerPosition -= GetPosition;
+            enemyHealth.OnDeath -= OnBossDeath;
+            enemyHealth.OnHealthChange -= UpdateHealthUI;
+            Bullet.OnBulletHit -= ApplyDamage;
         }
 
         private void Update()
@@ -118,7 +122,11 @@ namespace Characters
         private void OnBossDeath()
         {
             _isAlive = false;
+            Destroy(gameObject);
+            OnBoss1Death?.Invoke();
         }
+        
+
 
         private void GetPosition(Vector3 playerPosition)
         {

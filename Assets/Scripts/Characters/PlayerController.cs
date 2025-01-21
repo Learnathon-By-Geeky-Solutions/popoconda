@@ -28,10 +28,12 @@ namespace Characters
 
         private void Awake()
         {
+            
+            DontDestroyOnLoad(gameObject);
+
             _playerCamera = Camera.main;
             _playerRigidbody = GetComponent<Rigidbody>();
             _shootingController = GetComponent<ShootingController>();
-
             player.Initialize();
             playerHealth.Initialize(true);
             playerHealth.OnHealthChange += UpdateHealthUI;
