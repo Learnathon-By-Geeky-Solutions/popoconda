@@ -1147,6 +1147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad9c251b369adf4eb5827373cc8f2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunRotatePoint: {fileID: 1281018190}
+  enemyHealth:
+    maxHealth: 150
+    regenRate: 0
+    regenDelay: 0
 --- !u!136 &1105364552
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1201,7 +1206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunRotatePoint: {fileID: 1281018190}
   enemyHealth:
-    maxHealth: 500
+    maxHealth: 150
     regenRate: 0
     regenDelay: 0
 --- !u!114 &1105364555
