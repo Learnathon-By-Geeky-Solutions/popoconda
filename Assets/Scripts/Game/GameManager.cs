@@ -8,12 +8,12 @@ namespace Game
     {
         private void OnEnable()
         {
-            Boss1Script.OnBoss1Death += LoadNextLevel;
+            Enemy.OnBossDeath += LoadNextLevel;
         }
         
         private void OnDisable()
         {
-            Boss1Script.OnBoss1Death -= LoadNextLevel;
+            Enemy.OnBossDeath -= LoadNextLevel;
         }
         
         private static void LoadNextLevel()
