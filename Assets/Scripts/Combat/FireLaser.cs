@@ -37,25 +37,32 @@ namespace Combat
 
             while (elapsedTime < fireDuration)
             {
-                _laserLineRenderer.SetPosition(0, laserSpawnPoint.transform.position); // Set start point to spawn point
+                if (_laserLineRenderer == null || laserSpawnPoint == null)
+                {
+                    StopFiring();
+                    return;
+                }
+
+                _laserLineRenderer.SetPosition(0, laserSpawnPoint.transform.position);
                 Vector3 endPoint = laserSpawnPoint.transform.position + direction * maxLaserDistance;
-                
+
                 if (Physics.Raycast(laserSpawnPoint.transform.position, direction, out RaycastHit hit, maxLaserDistance))
                 {
-                    _laserLineRenderer.SetPosition(1, hit.point);  // Set end point to hit point
+                    _laserLineRenderer.SetPosition(1, hit.point);
                     OnLaserHit?.Invoke(damageAmount, hit.collider.gameObject);
                 }
                 else
                 {
-                    _laserLineRenderer.SetPosition(1, endPoint);  // Set end point to max distance if no hit
+                    _laserLineRenderer.SetPosition(1, endPoint);
                 }
 
                 elapsedTime += Time.deltaTime;
-                await UniTask.Yield(); 
+                await UniTask.Yield();
             }
 
             StopFiring();
         }
+
 
         private void StopFiring()
         {

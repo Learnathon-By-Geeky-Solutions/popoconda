@@ -1,4 +1,5 @@
 using System;
+using Combat;
 using UnityEngine;
 
 namespace Characters
@@ -17,6 +18,8 @@ namespace Characters
         [SerializeField] private float fuelConsumeRate;
         [SerializeField] private float fuelFillRate;
         
+        public static event Health.StatEvent OnPlayerDeath;
+        
         private bool _isJumping;
         public bool IsAlive { get; set; }
         
@@ -30,6 +33,7 @@ namespace Characters
         public void Die()
         {
             IsAlive = false;
+            OnPlayerDeath?.Invoke();
             Debug.Log("PlayerDied");
         }
         

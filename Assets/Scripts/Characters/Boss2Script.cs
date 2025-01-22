@@ -1,46 +1,40 @@
 using UnityEngine;
 using Combat;
 using Cysharp.Threading.Tasks;
-using Random = UnityEngine.Random;
 
 namespace Characters
 {
-    public class Boss1Script : MonoBehaviour
+    public class Boss2Script : MonoBehaviour
     {
-        
         private Enemy _enemy;
         [SerializeField] private GameObject gunRotatePoint;
         
         [SerializeField] private Health enemyHealth;
         private ShootingController _shootingController;
-        private FireLaser _fireLaser;
         
         private Vector2 _playerDirection;
         private float _distanceToPlayer;
-
+        
         private bool _isAlive;
         
         public static event Health.StatEventWithFloat OnEnemyHealthChange;
-        public static event Health.StatEvent OnBoss1Death;
-
-
+        public static event Health.StatEvent OnBoss2Death;
+        
         private void Awake()
         {
             _shootingController = GetComponent<ShootingController>();
-            _fireLaser = GetComponent<FireLaser>();
             _enemy = GetComponent<Enemy>();
             _isAlive = true;
-
+            
             enemyHealth.Initialize(false);
             enemyHealth.OnDeath += OnBossDeath;
             enemyHealth.OnHealthChange += UpdateHealthUI;
             Bullet.OnBulletHit += ApplyDamage;
             PlayerController.OnPlayerPosition += GetPosition;
-
-            ScheduleFireActionsAsync().Forget();
+            
             UpdatePositionAsync().Forget();
         }
-
+        
         private void OnDestroy()
         {
             PlayerController.OnPlayerPosition -= GetPosition;
@@ -48,15 +42,21 @@ namespace Characters
             enemyHealth.OnHealthChange -= UpdateHealthUI;
             Bullet.OnBulletHit -= ApplyDamage;
         }
-
+        
         private void Update()
         {
             if (_isAlive)
             {
                 _enemy.MoveTowardsPlayer(_playerDirection, _distanceToPlayer);
             }
+            _shootingController.FireBullet(_playerDirection);
         }
-
+        
+        private void GetPosition(Vector3 playerPosition)
+        {
+            _playerDirection = (playerPosition - transform.position).normalized;
+            _distanceToPlayer = Vector3.Distance(playerPosition, transform.position);
+        }
         private async UniTask UpdatePositionAsync()
         {
             while (_isAlive)
@@ -71,40 +71,7 @@ namespace Characters
                 await UniTask.Delay(50);
             }
         }
-
-        private async UniTask ScheduleFireActionsAsync()
-        {
-            while (_isAlive)
-            {
-                await UniTask.Delay(1000);
-                if (_isAlive)
-                {
-                    await FireActionsAsync();
-                }
-            }
-        }
-
-        private async UniTask FireActionsAsync()
-        {
-            bool isFiringBullet = Random.Range(0, 3) != 0;
-            float fireDuration = isFiringBullet ? Random.Range(15f, 20f) : Random.Range(5f, 7f);
-            float startTime = Time.time;
-
-            while (Time.time - startTime < fireDuration && _isAlive)
-            {
-                if (isFiringBullet)
-                {
-                    _shootingController.FireBullet(_playerDirection);
-                }
-                else
-                {
-                    _fireLaser.FireLaserProjectile(_playerDirection);
-                }
-                await UniTask.Delay(100);
-            }
-            await ScheduleFireActionsAsync();
-        }
-
+        
         private void ApplyDamage(int damage, GameObject hitObject)
         {
             if (hitObject == gameObject)
@@ -112,25 +79,20 @@ namespace Characters
                 enemyHealth.TakeDamage(damage);
             }
         }
-
+        
         private static void UpdateHealthUI(float currentHealth)
         {
+            Debug.Log("Boss2 health: " + currentHealth);
             OnEnemyHealthChange?.Invoke(currentHealth);
         }
-
+        
         private void OnBossDeath()
         {
             _isAlive = false;
+            OnBoss2Death?.Invoke();
             Destroy(gameObject);
-            OnBoss1Death?.Invoke();
         }
         
-
-
-        private void GetPosition(Vector3 playerPosition)
-        {
-            _playerDirection = playerPosition - transform.position;
-            _distanceToPlayer = _playerDirection.magnitude;
-        }
+        
     }
 }
