@@ -10,8 +10,8 @@ namespace Combat
     {
         [SerializeField] private int maxHealth;
         [SerializeField] private int regenRate;
-        [SerializeField] private int regenDelay; // Delay in milliseconds between each regen tick
-        public int _currentHealth;
+        [SerializeField] private int regenDelay;
+        private int _currentHealth;
         private bool _isPlayer;
 
         private CancellationTokenSource _regenCancelToken;
