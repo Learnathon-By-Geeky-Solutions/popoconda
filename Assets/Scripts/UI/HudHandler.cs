@@ -31,6 +31,7 @@ namespace UI
             PlayerController.OnPlayerHealthChange += UpdatePlayerHealth;
             PlayerController.OnJetpackFuelChange += UpdateJetpackFuel;
             Boss1Script.OnEnemyHealthChange += UpdateEnemyHealth;
+            Boss2Script.OnEnemyHealthChange += UpdateEnemyHealth;
             ShootingController.OnBulletCountChange += UpdateAmmo;
         }
 
@@ -39,6 +40,7 @@ namespace UI
             PlayerController.OnPlayerHealthChange -= UpdatePlayerHealth;
             PlayerController.OnJetpackFuelChange -= UpdateJetpackFuel;
             Boss1Script.OnEnemyHealthChange -= UpdateEnemyHealth;
+            Boss2Script.OnEnemyHealthChange -= UpdateEnemyHealth;
             ShootingController.OnBulletCountChange -= UpdateAmmo;
         }
 

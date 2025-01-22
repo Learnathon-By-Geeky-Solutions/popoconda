@@ -27,10 +27,7 @@ namespace Characters
         public static event Health.StatEventWithFloat OnJetpackFuelChange;
 
         private void Awake()
-        {
-            
-            DontDestroyOnLoad(gameObject);
-
+        { 
             _playerCamera = Camera.main;
             _playerRigidbody = GetComponent<Rigidbody>();
             _shootingController = GetComponent<ShootingController>();
@@ -38,8 +35,6 @@ namespace Characters
             playerHealth.Initialize(true);
             playerHealth.OnHealthChange += UpdateHealthUI;
             playerHealth.OnDeath += OnPlayerDeath;
-            Bullet.OnBulletHit += ApplyDamage;
-            FireLaser.OnLaserHit += ApplyDamage;
         }
 
         private void Update()
@@ -63,14 +58,18 @@ namespace Characters
             inputManager.OnMoveAxisChanged += HandleMoveAxis;
             inputManager.OnJumpPressed += HandleJump;
             inputManager.OnFirePressed += HandleFire;
+            Bullet.OnBulletHit += ApplyDamage;
+            FireLaser.OnLaserHit += ApplyDamage;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             inputManager.OnPositionChanged -= HandleMousePosition;
             inputManager.OnMoveAxisChanged -= HandleMoveAxis;
             inputManager.OnJumpPressed -= HandleJump;
             inputManager.OnFirePressed -= HandleFire;
+            Bullet.OnBulletHit -= ApplyDamage;
+            FireLaser.OnLaserHit -= ApplyDamage;
         }
 
         private void HandleMousePosition(Vector2 screenPosition)
