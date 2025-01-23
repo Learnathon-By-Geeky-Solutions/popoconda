@@ -561,7 +561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 450460040}
   m_Layer: 0
-  m_Name: LaserSpawnPoint
+  m_Name: StunRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -576,7 +576,7 @@ Transform:
   m_GameObject: {fileID: 450460039}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.57, y: 0.71, z: 0}
+  m_LocalPosition: {x: 0.57, y: -0.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -590,6 +590,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 769169631677092782, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
+      propertyPath: player.flySpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 769169631677092782, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
+      propertyPath: player.moveSpeed
+      value: 225
+      objectReference: {fileID: 0}
     - target: {fileID: 7036334297370378598, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1126,8 +1134,8 @@ GameObject:
   - component: {fileID: 1105364553}
   - component: {fileID: 1105364552}
   - component: {fileID: 1105364554}
-  - component: {fileID: 1105364550}
   - component: {fileID: 1105364555}
+  - component: {fileID: 1105364556}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1135,23 +1143,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1105364550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1105364549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fad9c251b369adf4eb5827373cc8f2d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunRotatePoint: {fileID: 1281018190}
-  enemyHealth:
-    maxHealth: 150
-    regenRate: 0
-    regenDelay: 0
 --- !u!136 &1105364552
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1209,6 +1200,8 @@ MonoBehaviour:
     maxHealth: 150
     regenRate: 0
     regenDelay: 0
+  stunChance: 0.2
+  coreHeatTime: 3
 --- !u!114 &1105364555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1224,12 +1217,26 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 1734512669}
   bulletPrefab: {fileID: 4736814324575834385, guid: a140e82a50b536b468a07417065870d6, type: 3}
   spread: 0
-  timeBetweenShooting: 0.5
+  timeBetweenShooting: 0
   magazineSize: 10
   bulletsPerTap: 1
-  reloadTime: 2
+  reloadTime: 1
   bulletSpeed: 100
-  damage: 20
+  damage: 50
+--- !u!114 &1105364556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105364549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0c5e3cb69644345ad63c11a9904fb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunDuration: 5
+  stunRadius: 17
 --- !u!1 &1281018190
 GameObject:
   m_ObjectHideFlags: 0
