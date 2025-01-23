@@ -35,10 +35,8 @@ namespace Characters
             _shootingController = GetComponent<ShootingController>();
             player.Initialize();
             playerHealth.Initialize(true);
-            playerHealth.OnHealthChange += UpdateHealthUI;
-            playerHealth.OnDeath += OnPlayerDeath;
+            
         }
-
         private void Update()
         {
             OnPlayerPosition?.Invoke(transform.position);
@@ -60,6 +58,8 @@ namespace Characters
             inputManager.OnMoveAxisChanged += HandleMoveAxis;
             inputManager.OnJumpPressed += HandleJump;
             inputManager.OnFirePressed += HandleFire;
+            playerHealth.OnHealthChange += UpdateHealthUI;
+            playerHealth.OnDeath += OnPlayerDeath;
             Bullet.OnBulletHit += ApplyDamage;
             FireLaser.OnLaserHit += ApplyDamage;
             StunController.OnStun +=  Stunned;
@@ -71,6 +71,8 @@ namespace Characters
             inputManager.OnMoveAxisChanged -= HandleMoveAxis;
             inputManager.OnJumpPressed -= HandleJump;
             inputManager.OnFirePressed -= HandleFire;
+            playerHealth.OnHealthChange -= UpdateHealthUI;
+            playerHealth.OnDeath -= OnPlayerDeath;
             Bullet.OnBulletHit -= ApplyDamage;
             FireLaser.OnLaserHit -= ApplyDamage;
             StunController.OnStun -= Stunned;

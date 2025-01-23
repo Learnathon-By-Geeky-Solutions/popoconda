@@ -46,7 +46,7 @@ namespace Combat
                 await UniTask.Delay((int)(stunDuration * 1000));
                 
                 OnStun?.Invoke(false);
-                Debug.Log("Player unstunned!");
+                Debug.Log("Player un-stunned!");
             }
             else
             {

@@ -16,7 +16,6 @@ namespace UI
         
         void Start()
         {
-            
             VisualElement root = hudDocument.rootVisualElement;
             
             // get label elements
@@ -24,10 +23,7 @@ namespace UI
             _enemyHealthLabel = root.Q<Label>("enemy-health");
             _jetpackFuelLabel = root.Q<Label>("jetpack-fuel");
             _ammoLabel = root.Q<Label>("ammo-label");
-        }
-
-        private void OnEnable()
-        {
+            
             PlayerController.OnPlayerHealthChange += UpdatePlayerHealth;
             PlayerController.OnJetpackFuelChange += UpdateJetpackFuel;
             Enemy.OnEnemyHealthChange += UpdateEnemyHealth;
