@@ -281,7 +281,6 @@ GameObject:
   - component: {fileID: 192731083}
   - component: {fileID: 192731082}
   - component: {fileID: 192731084}
-  - component: {fileID: 192731085}
   - component: {fileID: 192731086}
   - component: {fileID: 192731087}
   m_Layer: 0
@@ -341,23 +340,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71007956194406e40aa4d0272747592a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunRotatePoint: {fileID: 784686002}
-  enemyHealth:
-    maxHealth: 100
-    regenRate: 0
-    regenDelay: 0
---- !u!114 &192731085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192731080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fad9c251b369adf4eb5827373cc8f2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gunRotatePoint: {fileID: 784686002}

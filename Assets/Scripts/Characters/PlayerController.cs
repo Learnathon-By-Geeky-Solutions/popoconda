@@ -17,6 +17,8 @@ namespace Characters
 
         private ShootingController _shootingController;
         private Vector3 _direction;
+        
+        private bool _isStunned;
 
         private CancellationTokenSource _cancellationTokenSource;
         
@@ -60,6 +62,7 @@ namespace Characters
             inputManager.OnFirePressed += HandleFire;
             Bullet.OnBulletHit += ApplyDamage;
             FireLaser.OnLaserHit += ApplyDamage;
+            StunController.OnStun +=  Stunned;
         }
 
         private void OnDestroy()
@@ -70,11 +73,12 @@ namespace Characters
             inputManager.OnFirePressed -= HandleFire;
             Bullet.OnBulletHit -= ApplyDamage;
             FireLaser.OnLaserHit -= ApplyDamage;
+            StunController.OnStun -= Stunned;
         }
 
         private void HandleMousePosition(Vector2 screenPosition)
         {
-            if (_playerCamera == null || !player.IsAlive) return;
+            if (_playerCamera == null || _isStunned) return;
 
             Ray ray = _playerCamera.ScreenPointToRay(screenPosition);
             Plane gunPlane = new Plane(Vector3.forward, player.GunRotatePoint.transform.position);
@@ -92,13 +96,13 @@ namespace Characters
 
         private void HandleMoveAxis(float value)
         {
-            if (!player.IsAlive) return;
+            if (_isStunned) return;
             _playerRigidbody.AddRelativeForce(Vector3.right * (value * player.MoveSpeed * Time.fixedDeltaTime));
         }
 
         private void HandleJump()
         {
-            if (!player.IsAlive || player.JetpackFuel <= 0) return;
+            if (_isStunned || player.JetpackFuel <= 0) return;
 
             _playerRigidbody.AddForce(Vector3.up * (player.FlySpeed * Time.deltaTime), ForceMode.VelocityChange);
             player.JetpackFuel -= Time.deltaTime * player.FuelConsumeRate;
@@ -130,7 +134,7 @@ namespace Characters
 
         private void HandleFire()
         {
-            if (!player.IsAlive) return;
+            if (_isStunned) return;
             _shootingController.FireBullet(_direction);
         }
 
@@ -140,6 +144,11 @@ namespace Characters
             {
                 playerHealth.TakeDamage(damage);
             }
+        }
+        
+        private void Stunned(bool isStunned)
+        {
+            _isStunned = isStunned;
         }
     }
 }
