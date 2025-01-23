@@ -25,7 +25,7 @@ namespace Combat
             }
         }
 
-        public async void Stun()
+        public async UniTask Stun()
         {
             if (_playerTransform == null)
             {
