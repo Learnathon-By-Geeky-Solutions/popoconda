@@ -94,6 +94,7 @@ namespace Characters
             _isAlive = false;
             Destroy(gameObject);
             OnBossDeath?.Invoke();
+            ShootingController = null;
         }
     }
 }

@@ -17,7 +17,6 @@ namespace Combat
 
         private void Awake()
         {
-            // Assuming the player has the tag "Player"
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {

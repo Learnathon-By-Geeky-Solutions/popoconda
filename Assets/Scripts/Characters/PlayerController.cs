@@ -60,6 +60,7 @@ namespace Characters
             inputManager.OnFirePressed += HandleFire;
             playerHealth.OnHealthChange += UpdateHealthUI;
             playerHealth.OnDeath += OnPlayerDeath;
+            EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit += ApplyDamage;
             FireLaser.OnLaserHit += ApplyDamage;
             StunController.OnStun +=  Stunned;
@@ -73,6 +74,7 @@ namespace Characters
             inputManager.OnFirePressed -= HandleFire;
             playerHealth.OnHealthChange -= UpdateHealthUI;
             playerHealth.OnDeath -= OnPlayerDeath;
+            EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit -= ApplyDamage;
             FireLaser.OnLaserHit -= ApplyDamage;
             StunController.OnStun -= Stunned;
@@ -146,6 +148,10 @@ namespace Characters
             {
                 playerHealth.TakeDamage(damage);
             }
+        }
+        private void ApplyBlastDamage(int damage)
+        {
+            playerHealth.TakeDamage(damage);
         }
         
         private void Stunned(bool isStunned)
