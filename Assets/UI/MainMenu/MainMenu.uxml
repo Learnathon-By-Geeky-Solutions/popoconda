@@ -1,0 +1,10 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MainMenu/mainmenu.uss?fileID=7433441132597879392&amp;guid=ee808b0afe507e74fb715c89a73d3fcb&amp;type=3#mainmenu" />
+    <engine:VisualElement name="panel" class="panel" style="background-image: url(&quot;project://database/Assets/UI/MainMenu/MainMenu.jpg?fileID=2800000&amp;guid=5d600d47a57f0854abe668bb7d1a7446&amp;type=3#MainMenu&quot;);">
+        <engine:VisualElement name="menu" class="menu">
+            <engine:Button text="Play" name="play-button" class="menu-button" />
+            <engine:Button text="Options" name="option-button" class="menu-button" />
+            <engine:Button text="Quit" name="quit-button" class="menu-button" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>
