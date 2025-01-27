@@ -23,7 +23,7 @@ namespace Characters
         private CancellationTokenSource _cancellationTokenSource;
         
         public delegate void PlayerPosition(Vector3 position);
-        public static event PlayerPosition OnPlayerPosition;
+        public static event PlayerPosition OnPlayerPositionChange;
 
         public static event Health.StatEventWithFloat OnPlayerHealthChange;
         public static event Health.StatEventWithFloat OnJetpackFuelChange;
@@ -39,7 +39,7 @@ namespace Characters
         }
         private void Update()
         {
-            OnPlayerPosition?.Invoke(transform.position);
+            OnPlayerPositionChange?.Invoke(transform.position);
         }
 
         private static void UpdateHealthUI(float currentHealth)
@@ -54,7 +54,7 @@ namespace Characters
 
         private void OnEnable()
         {
-            inputManager.OnPositionChanged += HandleMousePosition;
+            inputManager.OnMousePositionChanged += HandleMousePosition;
             inputManager.OnMoveAxisChanged += HandleMoveAxis;
             inputManager.OnJumpPressed += HandleJump;
             inputManager.OnFirePressed += HandleFire;
@@ -68,7 +68,7 @@ namespace Characters
 
         private void OnDestroy()
         {
-            inputManager.OnPositionChanged -= HandleMousePosition;
+            inputManager.OnMousePositionChanged -= HandleMousePosition;
             inputManager.OnMoveAxisChanged -= HandleMoveAxis;
             inputManager.OnJumpPressed -= HandleJump;
             inputManager.OnFirePressed -= HandleFire;

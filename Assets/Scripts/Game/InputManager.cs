@@ -14,7 +14,7 @@ namespace Game
         public delegate void MoveAxisDelegate(float value);
         public delegate void SimpleActionDelegate();
         
-        public event PositionChangeDelegate OnPositionChanged;
+        public event PositionChangeDelegate OnMousePositionChanged;
         public event MoveAxisDelegate OnMoveAxisChanged;
         public event SimpleActionDelegate OnJumpPressed;
         public event SimpleActionDelegate OnFirePressed;
@@ -47,7 +47,7 @@ namespace Game
         
         private void HandlePositionChange(InputAction.CallbackContext context)
         {
-            OnPositionChanged?.Invoke(context.ReadValue<Vector2>());
+            OnMousePositionChanged?.Invoke(context.ReadValue<Vector2>());
         }
 
         private void HandleMoveAxisChange(InputAction.CallbackContext context)
@@ -55,12 +55,12 @@ namespace Game
             OnMoveAxisChanged?.Invoke(context.ReadValue<float>());
         }
 
-        private void HandleJumpPressed(InputAction.CallbackContext context)
+        private void HandleJumpPressed(InputAction.CallbackContext _)
         {
             OnJumpPressed?.Invoke();
         }
 
-        private void HandleFirePressed(InputAction.CallbackContext context)
+        private void HandleFirePressed(InputAction.CallbackContext _)
         {
             OnFirePressed?.Invoke();
         }

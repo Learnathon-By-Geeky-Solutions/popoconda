@@ -30,7 +30,7 @@ namespace Characters
         
         protected virtual void OnEnable()
         {
-            PlayerController.OnPlayerPosition += GetPosition;
+            PlayerController.OnPlayerPositionChange += Move;
             enemyHealth.OnDeath += OnEnemyDeath;
             enemyHealth.OnHealthChange += UpdateHealthUI;
             Bullet.OnBulletHit += ApplyDamage;
@@ -38,29 +38,18 @@ namespace Characters
         
         protected virtual void OnDestroy()
         {
-            PlayerController.OnPlayerPosition -= GetPosition;
-            enemyHealth.OnDeath -= OnBossDeath;
+            PlayerController.OnPlayerPositionChange -= Move;
+            enemyHealth.OnDeath -= OnEnemyDeath;
             enemyHealth.OnHealthChange -= UpdateHealthUI;
             Bullet.OnBulletHit -= ApplyDamage;
         }
-        private void GetPosition(Vector3 playerPosition)
+        private void Move(Vector3 playerPosition)
         {
             PlayerDirection = playerPosition - transform.position;
             _distanceToPlayer = PlayerDirection.magnitude;
-        }
-
-        private void Update()
-        {
-            MoveTowardsPlayer(PlayerDirection, _distanceToPlayer);
+            if(_distanceToPlayer >= 16) transform.position += new Vector3(PlayerDirection.x * (0.3f * Time.deltaTime), 0, 0);
         }
         
-        private void MoveTowardsPlayer(Vector3 direction, float distance)
-        {
-            if (distance >= 16f)
-            {
-                transform.position += new Vector3(direction.x * (0.3f * Time.deltaTime), 0, 0);
-            }
-        }
         private async UniTask UpdatePositionAsync()
         {
             while (_isAlive)
