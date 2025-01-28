@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: player.moveSpeed
       value: 225
       objectReference: {fileID: 0}
+    - target: {fileID: 769169631677092782, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
+      propertyPath: playerHealth.regenDelay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7036334297370378598, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
       propertyPath: m_Name
       value: Player
@@ -489,6 +493,7 @@ GameObject:
   - component: {fileID: 343908324}
   - component: {fileID: 343908320}
   - component: {fileID: 343908325}
+  - component: {fileID: 343908326}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -576,6 +581,7 @@ MonoBehaviour:
     regenDelay: 0
   blastChance: 1
   coreHeatTime: 2
+  dashChance: 1
 --- !u!114 &343908325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,6 +596,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blastRadius: 15
   blastDamage: 150
+--- !u!114 &343908326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343908318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96284ab8f008be044b84f59ece6a8754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashDistance: 10
+  dashSpeed: 15
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 65
 --- !u!1 &370957186
 GameObject:
   m_ObjectHideFlags: 0

@@ -51,9 +51,10 @@ namespace Combat
 
         private async UniTaskVoid RegenHealthAsync(CancellationToken cancellationToken)
         {
+            await UniTask.Delay(regenDelay * 1000, cancellationToken: cancellationToken);
             while (_currentHealth < maxHealth)
             {
-                await UniTask.Delay(regenDelay, cancellationToken: cancellationToken);
+                await UniTask.Delay(250, cancellationToken: cancellationToken);
                 _currentHealth = Mathf.Min(_currentHealth + regenRate, maxHealth);
                 float healthPercentage = (float)_currentHealth / maxHealth;
                 OnHealthChange?.Invoke(healthPercentage);

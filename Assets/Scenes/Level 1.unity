@@ -1819,6 +1819,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 769169631677092782, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
+      propertyPath: playerHealth.regenDelay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4267091979377677437, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
       propertyPath: m_Enabled
       value: 1
