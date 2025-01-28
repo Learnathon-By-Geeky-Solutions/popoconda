@@ -8,10 +8,14 @@ namespace Characters
     public class Boss3Script : Enemy
     {
         private EnergyBlast _energyBlast;
+        private Dash _dash;
         
         [Header("EnergyBlastSettings")]
-        [SerializeField] private float blastChance = 0.5f; // 20% chance to use energy blast
-        [SerializeField] private float coreHeatTime = 2f; // Time to "charge" the energy blast
+        [SerializeField] private float blastChance;
+        [SerializeField] private float coreHeatTime;
+        
+        [Header("DashSettings")]
+        [SerializeField] private float dashChance;
         
         private CancellationToken _cancellationToken;
 
@@ -19,7 +23,8 @@ namespace Characters
         {
             base.Awake();
             _cancellationToken = this.GetCancellationTokenOnDestroy();
-            _energyBlast = GetComponent<EnergyBlast>(); // Ensure EnergyBlast component is attached
+            _energyBlast = GetComponent<EnergyBlast>();
+            _dash = GetComponent<Dash>();
             PerformActionsAsync().Forget();
         }
         
@@ -29,7 +34,12 @@ namespace Characters
             {
                 await FireBulletsForDurationAsync();
                 
-                // Randomly decide whether to use energy blast
+                if (Random.value < dashChance && !_dash.IsDashing)
+                {
+                    float dashDirection = (Random.value < 1f) ? -1 : 1;
+                    await _dash.DashAsync(dashDirection, _cancellationToken);
+                }
+                
                 if (Random.value < blastChance)
                 {
                     await UseEnergyBlastAsync();
@@ -39,10 +49,10 @@ namespace Characters
         
         private async UniTask FireBulletsForDurationAsync()
         {
-            float fireDuration = Random.Range(1, 2);
+            float fireDuration = Random.Range(10, 12);
             float startTime = Time.time;
 
-            while (Time.time - startTime < fireDuration && this && gameObject.activeInHierarchy)
+            while (Time.time - startTime < fireDuration && this && gameObject.activeInHierarchy && !_dash.IsDashing)
             {
                 ShootingController.FireBullet(PlayerDirection);
                 await UniTask.Delay(500, cancellationToken: _cancellationToken);
