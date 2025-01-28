@@ -12,7 +12,6 @@ namespace Characters
         protected Vector3 PlayerDirection;
         [SerializeField] protected Health enemyHealth;
         
-        private float _distanceToPlayer;
         
         private bool _isAlive;
         
@@ -46,8 +45,8 @@ namespace Characters
         private void Move(Vector3 playerPosition)
         {
             PlayerDirection = playerPosition - transform.position;
-            _distanceToPlayer = PlayerDirection.magnitude;
-            if(_distanceToPlayer >= 16) transform.position += new Vector3(PlayerDirection.x * (0.3f * Time.deltaTime), 0, 0);
+            float distanceToPlayer = PlayerDirection.magnitude;
+            if(distanceToPlayer >= 16) transform.position += new Vector3(PlayerDirection.x * (0.3f * Time.deltaTime), 0, 0);
         }
         
         private async UniTask UpdatePositionAsync()

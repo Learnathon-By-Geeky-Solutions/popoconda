@@ -4,7 +4,6 @@ namespace Combat
 {
     public class EnergyBlast : MonoBehaviour
     {
-        //[SerializeField] private GameObject blastCore;
         [SerializeField] private float blastRadius;
         [SerializeField] private int blastDamage;
         
