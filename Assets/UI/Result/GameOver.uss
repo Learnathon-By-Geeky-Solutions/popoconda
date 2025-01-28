@@ -1,0 +1,32 @@
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-image: url("project://database/Assets/UI/Result/GameOverScreen.png?fileID=2800000&guid=93e3b3b84eaa4ba4fb940eedd0fce608&type=3#GameOverScreen");
+    flex-direction: column;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: 5%;
+}
+
+.button {
+    margin: 25px;
+    padding: 17px;
+    background-size: 100% 100%;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/UI/MainMenu/Button.png?fileID=2800000&guid=53412c50d9525284093e11e9fab57548&type=3#Button");
+    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
+    color: rgb(184, 177, 29);
+    font-size: 20px;
+    border-width: 0;
+}
+.button:hover {
+    color: rgb(255, 251, 0);
+}
