@@ -1,0 +1,9 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Result/YouWin.uss?fileID=7433441132597879392&amp;guid=b9ce5807651c16e46a644787094a4942&amp;type=3#YouWin" />
+    <engine:VisualElement name="container" class="container" >
+        <engine:VisualElement name="Buttons" class="buttons">
+            <engine:Button text="Next Level" name="next-level-button" class="button" />
+            <engine:Button text="Go To Main Menu" name="main-menu-button" class="button" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>
