@@ -16,27 +16,27 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: 3daeb134ec1ebbf45b9655de581714c2
   m_Entries:
   - m_Id: 323445511487488
-    m_Key: PlayKey
+    m_Key: play-button
     m_Metadata:
       m_Items: []
   - m_Id: 324272045228032
-    m_Key: OptionKey
+    m_Key: option-button
     m_Metadata:
       m_Items: []
   - m_Id: 324769875558400
-    m_Key: ExitKey
+    m_Key: quit-button
     m_Metadata:
       m_Items: []
   - m_Id: 325106762055680
-    m_Key: RetryKey
+    m_Key: retry-button
     m_Metadata:
       m_Items: []
   - m_Id: 325330276515840
-    m_Key: MenuKey
+    m_Key: main-menu-button
     m_Metadata:
       m_Items: []
   - m_Id: 325751741153280
-    m_Key: NextKey
+    m_Key: next-level-button
     m_Metadata:
       m_Items: []
   m_Metadata:

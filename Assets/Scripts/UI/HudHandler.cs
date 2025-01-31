@@ -30,7 +30,7 @@ namespace UI
             ShootingController.OnBulletCountChange += UpdateAmmo;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             PlayerController.OnPlayerHealthChange -= UpdatePlayerHealth;
             PlayerController.OnJetpackFuelChange -= UpdateJetpackFuel;
@@ -59,6 +59,7 @@ namespace UI
             if (_jetpackFuelLabel != null)
             {
                 _jetpackFuelLabel.style.height = new Length(currentFuelPercentage * 100, LengthUnit.Percent);
+                Debug.Log("Jetpack Fuel: " + currentFuelPercentage);
             }
         }
 
