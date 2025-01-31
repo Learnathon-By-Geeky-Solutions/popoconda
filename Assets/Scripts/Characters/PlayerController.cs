@@ -35,7 +35,7 @@ namespace Characters
             _shootingController = GetComponent<ShootingController>();
             player.Initialize();
             playerHealth.Initialize(true);
-            
+            OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
         }
         private void Update()
         {
@@ -78,6 +78,10 @@ namespace Characters
             Bullet.OnBulletHit -= ApplyDamage;
             FireLaser.OnLaserHit -= ApplyDamage;
             StunController.OnStun -= Stunned;
+            
+            // Cancel the refill task
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
         }
 
         private void HandleMousePosition(Vector2 screenPosition)
