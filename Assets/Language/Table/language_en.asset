@@ -17,7 +17,31 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 3daeb134ec1ebbf45b9655de581714c2, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 323445511487488
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 324272045228032
+    m_Localized: Option
+    m_Metadata:
+      m_Items: []
+  - m_Id: 324769875558400
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 325106762055680
+    m_Localized: Retry Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 325330276515840
+    m_Localized: Back To Main Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 325751741153280
+    m_Localized: Next Level
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
