@@ -19,13 +19,21 @@
 .button {
     background-image: url("project://database/Assets/UI/MainMenu/Button.png?fileID=2800000&guid=53412c50d9525284093e11e9fab57548&type=3#Button");
     background-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
     color: rgb(184, 177, 29);
     margin: 5px;
     font-size: 18px;
     margin-top: 15px;
     border-width: 0;
 }
+
+.english-font {
+    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
+}
+
+.bangla-font {
+    -unity-font-definition: url("project://database/Assets/Font/LiSirajeeSylhetiUnicode-Regular.ttf?fileID=12800000&guid=61a81b52d06ba1243b41e07b8523cb5f&type=3#LiSirajeeSylhetiUnicode-Regular");
+}
+
 .button:hover {
     color: rgb(255, 251, 0);
 }
