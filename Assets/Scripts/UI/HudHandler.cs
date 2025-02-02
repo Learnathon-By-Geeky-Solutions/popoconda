@@ -59,7 +59,6 @@ namespace UI
             if (_jetpackFuelLabel != null)
             {
                 _jetpackFuelLabel.style.height = new Length(currentFuelPercentage * 100, LengthUnit.Percent);
-                Debug.Log("Jetpack Fuel: " + currentFuelPercentage);
             }
         }
 
