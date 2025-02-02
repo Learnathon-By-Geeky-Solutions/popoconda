@@ -39,7 +39,10 @@ namespace Characters
         }
         private void Update()
         {
-            OnPlayerPositionChange?.Invoke(transform.position);
+            if (gameObject && gameObject.activeInHierarchy)
+            {
+                OnPlayerPositionChange?.Invoke(transform.position);
+            }
         }
 
         private static void UpdateHealthUI(float currentHealth)
@@ -105,7 +108,7 @@ namespace Characters
         private void HandleMoveAxis(float value)
         {
             if (_isStunned) return;
-            _playerRigidbody.AddRelativeForce(Vector3.right * (value * player.MoveSpeed * Time.fixedDeltaTime));
+            _playerRigidbody.AddRelativeForce(Vector3.right * (value * player.MoveSpeed * Time.deltaTime));
         }
 
         private void HandleJump()

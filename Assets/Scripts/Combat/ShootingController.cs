@@ -1,5 +1,5 @@
 using UnityEngine;
-using Cysharp.Threading.Tasks; // Import UniTask
+using Cysharp.Threading.Tasks;
 
 namespace Combat
 {
@@ -18,7 +18,7 @@ namespace Combat
         private int _bulletsLeft;
         private bool _isReloading;
         private bool _canShoot = true;
-        
+
         public delegate void StatEventWithInt(int value);
         public static event StatEventWithInt OnBulletCountChange;
 
@@ -26,7 +26,7 @@ namespace Combat
         {
             _bulletsLeft = magazineSize;
         }
-        
+
         public void FireBullet(Vector3 direction)
         {
             if (!_canShoot || _isReloading || _bulletsLeft <= 0) return; // Prevent shooting if conditions aren't met
@@ -40,9 +40,9 @@ namespace Combat
                     Random.Range(-spread, spread),
                     Random.Range(-spread, spread),
                     0);
-                
+
                 GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(adjustedDirection));
-                
+
                 Bullet bulletScript = bullet.GetComponent<Bullet>();
                 if (bulletScript != null)
                 {
@@ -52,11 +52,15 @@ namespace Combat
                 }
 
                 _bulletsLeft--;
-                if(gameObject.CompareTag("Player")) OnBulletCountChange?.Invoke(_bulletsLeft);
+                if (gameObject.CompareTag("Player")) OnBulletCountChange?.Invoke(_bulletsLeft);
             }
 
             // Delay between shooting to control fire rate
-            UniTask.Delay((int)(timeBetweenShooting * 1000)).ContinueWith(() => _canShoot = true);
+            UniTask.Void(async () =>
+            {
+                await UniTask.Delay((int)(timeBetweenShooting * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
+                if (this) _canShoot = true;
+            });
 
             // If no bullets left, trigger reloading
             if (_bulletsLeft <= 0)
@@ -64,16 +68,22 @@ namespace Combat
                 StartReloading();
             }
         }
-        
-        private async UniTask StartReloading()
+
+        private void StartReloading()
         {
             if (_isReloading) return; // Prevent multiple reloads at the same time
 
             _isReloading = true;
-            await UniTask.Delay((int)(reloadTime * 1000)); // Wait for reload time to complete
-            _bulletsLeft = magazineSize;
-            if(gameObject.CompareTag("Player")) OnBulletCountChange?.Invoke(_bulletsLeft);
-            _isReloading = false;
+            UniTask.Void(async () =>
+            {
+                await UniTask.Delay((int)(reloadTime * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
+                if (this)
+                {
+                    _bulletsLeft = magazineSize;
+                    if (gameObject.CompareTag("Player")) OnBulletCountChange?.Invoke(_bulletsLeft);
+                    _isReloading = false;
+                }
+            });
         }
     }
 }
