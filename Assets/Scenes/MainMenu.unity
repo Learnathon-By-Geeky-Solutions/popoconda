@@ -266,6 +266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 191433487}
   - component: {fileID: 191433486}
+  - component: {fileID: 191433488}
   m_Layer: 5
   m_Name: GameOver-ui
   m_TagString: Untagged
@@ -307,6 +308,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &191433488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191433485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d376df0956f0dd46baed75800e085f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverDocument: {fileID: 191433486}
 --- !u!1 &1155806806
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,6 +331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1155806808}
   - component: {fileID: 1155806807}
+  - component: {fileID: 1155806809}
   m_Layer: 5
   m_Name: YouWin-ui
   m_TagString: Untagged
@@ -358,6 +373,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1155806809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155806806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1f92d2af68030b4b99f56c7a776845c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameWinDocument: {fileID: 1155806807}
 --- !u!1 &1167074452
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,8 +417,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiDocuments:
   - {fileID: 1882463290}
-  - {fileID: 1155806807}
-  - {fileID: 191433486}
   selectedLanguage: 0
 --- !u!4 &1167074454
 Transform:

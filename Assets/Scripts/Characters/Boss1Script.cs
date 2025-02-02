@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 using Combat;
 using Cysharp.Threading.Tasks;
@@ -8,21 +9,33 @@ namespace Characters
     public class Boss1Script : Enemy
     {
         private FireLaser _fireLaser;
+        
+        private CancellationTokenSource _cancellationTokenSource;
 
         protected override void Awake()
         {
             base.Awake();
             _fireLaser = GetComponent<FireLaser>();
-            PerformActionsAsync().Forget();
+            _cancellationTokenSource = new CancellationTokenSource();
+            PerformActionsAsync(_cancellationTokenSource.Token).Forget();
         }
-
-        private async UniTask PerformActionsAsync()
+        
+        protected override void OnDestroy()
         {
-            await UniTask.Delay(1000);
-            await FireActionsAsync();
+            // Cancel and dispose the token source
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
+
+            base.OnDestroy(); // Call base OnDestroy to ensure correct event unsubscription
         }
 
-        private async UniTask FireActionsAsync()
+        private async UniTask PerformActionsAsync(CancellationToken token)
+        {
+            await UniTask.Delay(1000, cancellationToken: token);
+            await FireActionsAsync(token);
+        }
+
+        private async UniTask FireActionsAsync(CancellationToken token)
         {
             bool isFiringBullet = Random.Range(0, 3) != 0;
             float fireDuration = isFiringBullet ? Random.Range(15f, 20f) : Random.Range(5f, 7f);
@@ -30,10 +43,11 @@ namespace Characters
 
             while (Time.time - startTime < fireDuration)
             {
-                if (!this || !gameObject.activeInHierarchy)
+                if (gameObject == null || !gameObject.activeInHierarchy || token.IsCancellationRequested)
                 {
-                    return;
+                    return; // Exit if object is destroyed or task is cancelled
                 }
+
                 if (isFiringBullet)
                 {
                     ShootingController.FireBullet(PlayerDirection);
@@ -42,9 +56,14 @@ namespace Characters
                 {
                     _fireLaser.FireLaserProjectile(PlayerDirection);
                 }
-                await UniTask.Delay(100);
+
+                await UniTask.Delay(100, cancellationToken: token);
             }
-            await PerformActionsAsync();
+
+            if (!token.IsCancellationRequested) 
+            {
+                await PerformActionsAsync(token); // Repeat action if not cancelled
+            }
         }
     }
 }
