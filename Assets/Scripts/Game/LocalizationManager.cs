@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace Game
@@ -10,11 +11,8 @@ namespace Game
     {
         public static LocalizationManager Instance { get; private set; }
 
-        [Header("UI Documents")]
-        public List<UIDocument> uiDocuments; // Assign all UIDocuments in Inspector
-
         private enum Language { English, Bangla }  // Enum for language selection
-        [SerializeField] private Language selectedLanguage = Language.English;
+        [SerializeField] private Language selectedLanguage;
 
         private string _currentLanguage;
         private readonly Dictionary<string, LocalizedString> _localizedStrings = new Dictionary<string, LocalizedString>();
@@ -35,9 +33,22 @@ namespace Game
         private void Start()
         {
             _currentLanguage = LocalizationSettings.SelectedLocale.Identifier.Code;
-            Debug.Log("Current Language: " + _currentLanguage);
 
             LocalizationSettings.SelectedLocaleChanged += UpdateAllUI;
+            SceneManager.sceneLoaded += OnSceneLoaded; // Subscribe to scene load events
+
+            UpdateAllUI(LocalizationSettings.SelectedLocale);
+        }
+
+        private void OnDestroy()
+        {
+            LocalizationSettings.SelectedLocaleChanged -= UpdateAllUI;
+            SceneManager.sceneLoaded -= OnSceneLoaded; // Unsubscribe to avoid memory leaks
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            // Update UI whenever a new scene is loaded
             UpdateAllUI(LocalizationSettings.SelectedLocale);
         }
 
@@ -47,6 +58,7 @@ namespace Game
             if (_currentLanguage != newLangCode)
             {
                 SetLanguage(newLangCode);
+                Debug.Log("Current Language: " + _currentLanguage);
             }
         }
 
@@ -60,6 +72,9 @@ namespace Game
         private void UpdateAllUI(Locale locale)
         {
             bool isBangla = locale.Identifier.Code == "bn";
+
+            // Find all UIDocuments in the current scene
+            UIDocument[] uiDocuments = FindObjectsByType<UIDocument>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
             foreach (var uiDocument in uiDocuments)
             {
