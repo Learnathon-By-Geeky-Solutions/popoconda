@@ -415,8 +415,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974cab365a5715a4394d19356e1762ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiDocuments:
-  - {fileID: 1882463290}
   selectedLanguage: 0
 --- !u!4 &1167074454
 Transform:
