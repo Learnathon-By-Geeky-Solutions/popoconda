@@ -1950,6 +1950,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 769169631677092782, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
+      propertyPath: crosshairTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: e916db252abeacd4d9cd601a811a7fff, type: 3}
+    - target: {fileID: 769169631677092782, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
       propertyPath: player.moveSpeed
       value: 750
       objectReference: {fileID: 0}
