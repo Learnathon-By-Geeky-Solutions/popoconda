@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using Cursor = UnityEngine.Cursor;
 
 namespace UI
 {
@@ -18,7 +19,7 @@ namespace UI
             _playButton = root.Q<Button>("play-button");
             _optionsButton = root.Q<Button>("option-button");
             _quitButton = root.Q<Button>("quit-button");
-            
+            Cursor.visible = true;
             _playButton.clicked += HandlePlayButtonClicked;
             _optionsButton.clicked += HandleOptionsButtonClicked;
             _quitButton.clicked += HandleQuitButtonClicked;

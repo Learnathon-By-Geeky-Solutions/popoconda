@@ -9,6 +9,7 @@ namespace Characters
     public class PlayerController : MonoBehaviour
     {
         private Rigidbody _playerRigidbody;
+        [SerializeField] private Texture2D crosshairTexture;
         [SerializeField] private InputManager inputManager;
 
         private Camera _playerCamera;
@@ -32,6 +33,7 @@ namespace Characters
         { 
             _playerCamera = Camera.main;
             _playerRigidbody = GetComponent<Rigidbody>();
+            Cursor.visible = false;
             _shootingController = GetComponent<ShootingController>();
             player.Initialize();
             playerHealth.Initialize(true);
@@ -102,6 +104,18 @@ namespace Characters
 
                 player.GunRotatePoint.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
                 player.PlayerGfx.transform.localScale = _direction.x < 0 ? new Vector3(-1, 1, 1) : Vector3.one;
+            }
+        }
+        
+        // Show the crosshair on the screen using OnGUI
+        private void OnGUI()
+        {
+            if (crosshairTexture != null)
+            {
+                Vector2 mousePosition = Event.current.mousePosition;
+                float crosshairSize = 32f; // Adjust size as needed
+                GUI.DrawTexture(new Rect(mousePosition.x - crosshairSize / 2, mousePosition.y - crosshairSize / 2, crosshairSize, crosshairSize), crosshairTexture);
+                
             }
         }
 

@@ -2,6 +2,7 @@ using Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 namespace UI
 {
@@ -35,6 +36,7 @@ namespace UI
         private void HandleGameOver()
         {
             gameOverDocument.rootVisualElement.style.display = DisplayStyle.Flex;
+            Cursor.visible = true;
         }
         
         private static void HandleRetryButtonClicked()
