@@ -1,0 +1,3 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement name="DamageEffect" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/UI/HUD/BloodOverlay_0.PNG?fileID=2800000&amp;guid=169c09c8482ef8d4285f12d6ec92521f&amp;type=3#BloodOverlay_0&quot;);" />
+</engine:UXML>
