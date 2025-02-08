@@ -276,23 +276,23 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 68b79ac082e274b4990e3ca348a0d4cd, type: 2}
     - target: {fileID: 7022659154866594499, guid: a52b7b544f75da84aa4a412a836ac5ce, type: 3}
       propertyPath: OnAuthSuccess.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7022659154866594499, guid: a52b7b544f75da84aa4a412a836ac5ce, type: 3}
       propertyPath: OnAuthSuccess.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7022659154866594499, guid: a52b7b544f75da84aa4a412a836ac5ce, type: 3}
       propertyPath: OnAuthSuccess.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11500000, guid: 86b3eb1a86161514ca6f403dcdfd7246, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7022659154866594499, guid: a52b7b544f75da84aa4a412a836ac5ce, type: 3}
       propertyPath: OnAuthSuccess.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7022659154866594499, guid: a52b7b544f75da84aa4a412a836ac5ce, type: 3}
       propertyPath: OnAuthSuccess.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: set_name
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7022659154866594499, guid: a52b7b544f75da84aa4a412a836ac5ce, type: 3}
       propertyPath: OnAuthSuccess.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
