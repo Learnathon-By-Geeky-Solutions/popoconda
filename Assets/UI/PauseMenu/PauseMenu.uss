@@ -1,0 +1,43 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/UI/PauseMenu/pause-menu.jpg?fileID=2800000&guid=afd16c28f2fca6e41af1989485a378c1&type=3#pause-menu");
+}
+
+.pause-button {
+    background-image: url("project://database/Assets/UI/MainMenu/Button.png?fileID=2800000&guid=53412c50d9525284093e11e9fab57548&type=3#Button");
+    height: 35px;
+    padding: 20px;
+    background-size: 100% 100%;
+    background-color: rgba(0, 0, 0, 0);
+    margin-bottom: 10px;
+    -unity-background-image-tint-color: rgb(255, 245, 242);
+    border-radius: 20px;
+    border-width: 0;
+    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
+    font-size: 18px;
+    color: rgb(184, 177, 29);
+}
+
+.english-font {
+    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
+}
+
+.bangla-font {
+    -unity-font-definition: url("project://database/Assets/Font/LiSirajeeSylhetiUnicode-Regular.ttf?fileID=12800000&guid=61a81b52d06ba1243b41e07b8523cb5f&type=3#LiSirajeeSylhetiUnicode-Regular");
+}
+
+.pause-button:hover {
+    color: rgb(255, 251, 0);
+}
+
+.game-paused-text {
+    font-size: 40px;
+    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
+    color: rgb(224, 155, 27);
+    margin-bottom: 20px;
+}

@@ -32,6 +32,17 @@ MonoBehaviour:
     m_Url: https://package.openupm.com
     m_Scopes:
     - com.cysharp.unitask
+    - com.needle.console-hyperlinks
+    - com.github.siccity.xnode
+    - com.textus-games.serialized-reference-ui
+    m_IsDefault: 0
+    m_Capabilities: 0
+    m_ConfigSource: 4
+  - m_Id: scoped:project:Studio23
+    m_Name: Studio23
+    m_Url: https://package.openupm.com
+    m_Scopes:
+    - com.studio23
     m_IsDefault: 0
     m_Capabilities: 0
     m_ConfigSource: 4
