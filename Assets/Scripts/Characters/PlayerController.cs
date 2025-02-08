@@ -122,7 +122,16 @@ namespace Characters
         private void HandleMoveAxis(float value)
         {
             if (_isStunned) return;
-            _playerRigidbody.AddRelativeForce(Vector3.right * (value * player.MoveSpeed * Time.deltaTime));
+
+            // Calculate target velocity only for the X-axis
+            float targetVelocityX = value * player.MoveSpeed;
+
+            // Preserve the existing Y and Z velocities (e.g., for gravity or jumping)
+            Vector3 currentVelocity = _playerRigidbody.linearVelocity;
+            Vector3 newVelocity = new Vector3(targetVelocityX, currentVelocity.y, currentVelocity.z);
+
+            // Apply the new velocity
+            _playerRigidbody.linearVelocity = newVelocity;
         }
 
         private void HandleJump()

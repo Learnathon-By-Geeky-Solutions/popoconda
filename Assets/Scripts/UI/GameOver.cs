@@ -46,7 +46,7 @@ namespace UI
         
         private static void HandleMenuButtonClicked()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
     }
 }
