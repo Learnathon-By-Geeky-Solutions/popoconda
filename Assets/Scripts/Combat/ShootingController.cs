@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using Weapon;
 
 namespace Combat
 {
@@ -7,14 +8,8 @@ namespace Combat
     {
         [SerializeField] private Transform bulletSpawnPoint;
         [SerializeField] private GameObject bulletPrefab;
-        [SerializeField] private float spread;
-        [SerializeField] private float timeBetweenShooting;
-        [SerializeField] private int magazineSize;
-        [SerializeField] private int bulletsPerTap;
-        [SerializeField] private float reloadTime;
-        [SerializeField] private float bulletSpeed;
-        [SerializeField] private int damage;
-
+        [SerializeField] private GunData gunData;
+        
         private int _bulletsLeft;
         private bool _isReloading;
         private bool _canShoot = true;
@@ -24,7 +19,7 @@ namespace Combat
 
         private void Awake()
         {
-            _bulletsLeft = magazineSize;
+            _bulletsLeft = gunData.magazineSize;
         }
 
         public void FireBullet(Vector3 direction)
@@ -33,12 +28,12 @@ namespace Combat
 
             _canShoot = false;
 
-            for (int i = 0; i < bulletsPerTap; i++)
+            for (int i = 0; i < gunData.bulletsPerTap; i++)
             {
                 // Apply spread to the direction
                 Vector3 adjustedDirection = direction + new Vector3(
-                    Random.Range(-spread, spread),
-                    Random.Range(-spread, spread),
+                    Random.Range(-gunData.spread, gunData.spread),
+                    Random.Range(-gunData.spread, gunData.spread),
                     0);
 
                 GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(adjustedDirection));
@@ -47,8 +42,8 @@ namespace Combat
                 if (bulletScript != null)
                 {
                     bulletScript.SetDirection(adjustedDirection.normalized); // Pass the normalized direction
-                    bulletScript.SetSpeed(bulletSpeed);
-                    bulletScript.SetDamageAmount(damage);
+                    bulletScript.SetSpeed(gunData.bulletSpeed);
+                    bulletScript.SetDamageAmount(gunData.damage);
                 }
 
                 _bulletsLeft--;
@@ -58,7 +53,7 @@ namespace Combat
             // Delay between shooting to control fire rate
             UniTask.Void(async () =>
             {
-                await UniTask.Delay((int)(timeBetweenShooting * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
+                await UniTask.Delay((int)(gunData.timeBetweenShooting * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
                 if (this) _canShoot = true;
             });
 
@@ -76,10 +71,10 @@ namespace Combat
             _isReloading = true;
             UniTask.Void(async () =>
             {
-                await UniTask.Delay((int)(reloadTime * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
+                await UniTask.Delay((int)(gunData.reloadTime * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
                 if (this)
                 {
-                    _bulletsLeft = magazineSize;
+                    _bulletsLeft = gunData.magazineSize;
                     if (gameObject.CompareTag("Player")) OnBulletCountChange?.Invoke(_bulletsLeft);
                     _isReloading = false;
                 }
