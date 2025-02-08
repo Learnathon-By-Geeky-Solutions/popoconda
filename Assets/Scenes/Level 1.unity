@@ -1214,13 +1214,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3ba81d60a65595c46bbec9666f877b72, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1226361400}
   m_SourcePrefab: {fileID: 100100000, guid: 3ba81d60a65595c46bbec9666f877b72, type: 3}
 --- !u!4 &1226361398 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3ba81d60a65595c46bbec9666f877b72, type: 3}
   m_PrefabInstance: {fileID: 1226361397}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1226361399 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3ba81d60a65595c46bbec9666f877b72, type: 3}
+  m_PrefabInstance: {fileID: 1226361397}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1226361400
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226361399}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7673246021391805175, guid: 3ba81d60a65595c46bbec9666f877b72, type: 3}
 --- !u!1 &1367139160
 GameObject:
   m_ObjectHideFlags: 0
@@ -1467,13 +1497,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3ba81d60a65595c46bbec9666f877b72, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1652325083}
   m_SourcePrefab: {fileID: 100100000, guid: 3ba81d60a65595c46bbec9666f877b72, type: 3}
 --- !u!4 &1652325081 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3ba81d60a65595c46bbec9666f877b72, type: 3}
   m_PrefabInstance: {fileID: 1652325080}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1652325082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3ba81d60a65595c46bbec9666f877b72, type: 3}
+  m_PrefabInstance: {fileID: 1652325080}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1652325083
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652325082}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7673246021391805175, guid: 3ba81d60a65595c46bbec9666f877b72, type: 3}
 --- !u!1001 &1681516809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2321,12 +2381,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 769169631677092782, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
+      propertyPath: player.flySpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 769169631677092782, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
       propertyPath: crosshairTexture
       value: 
       objectReference: {fileID: 2800000, guid: e916db252abeacd4d9cd601a811a7fff, type: 3}
     - target: {fileID: 769169631677092782, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
       propertyPath: player.moveSpeed
-      value: 750
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 769169631677092782, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
+      propertyPath: player.fuelConsumeRate
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 769169631677092782, guid: 1b44a2197b5d11549bbc8b8bab81a3aa, type: 3}
       propertyPath: playerHealth.regenDelay

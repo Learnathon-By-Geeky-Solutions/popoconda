@@ -1,5 +1,7 @@
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 using UnityEngine.InputSystem;
+using System.Threading;
 
 namespace Game
 {
@@ -19,6 +21,10 @@ namespace Game
         public event SimpleActionDelegate OnJumpPressed;
         public event SimpleActionDelegate OnFirePressed;
 
+        private CancellationTokenSource _moveCts;
+        private CancellationTokenSource _jumpCts;
+        private CancellationTokenSource _fireCts;
+
         private void OnEnable()
         {
             positionAction.action.Enable();
@@ -27,22 +33,36 @@ namespace Game
             fireAction.action.Enable();
             
             positionAction.action.performed += HandlePositionChange;
-            moveAction.action.performed += HandleMoveAxisChange;
+            moveAction.action.performed += HandleMovePressed;
+            moveAction.action.canceled += HandleMoveReleased;
             jumpAction.action.performed += HandleJumpPressed;
+            jumpAction.action.canceled += HandleJumpReleased;
             fireAction.action.performed += HandleFirePressed;
+            fireAction.action.canceled += HandleFireReleased;
         }
 
         private void OnDisable()
         {
             positionAction.action.performed -= HandlePositionChange;
-            moveAction.action.performed -= HandleMoveAxisChange;
+            moveAction.action.performed -= HandleMovePressed;
+            moveAction.action.canceled -= HandleMoveReleased;
             jumpAction.action.performed -= HandleJumpPressed;
+            jumpAction.action.canceled -= HandleJumpReleased;
             fireAction.action.performed -= HandleFirePressed;
+            fireAction.action.canceled -= HandleFireReleased;
             
             positionAction.action.Disable();
             moveAction.action.Disable();
             jumpAction.action.Disable();
             fireAction.action.Disable();
+            
+            // Cancel all the CancellationTokenSources
+            _moveCts?.Cancel();
+            _moveCts?.Dispose();
+            _jumpCts?.Cancel();
+            _jumpCts?.Dispose();
+            _fireCts?.Cancel();
+            _fireCts?.Dispose();
         }
         
         private void HandlePositionChange(InputAction.CallbackContext context)
@@ -50,34 +70,65 @@ namespace Game
             OnMousePositionChanged?.Invoke(context.ReadValue<Vector2>());
         }
 
-        private void HandleMoveAxisChange(InputAction.CallbackContext context)
+        private void HandleMovePressed(InputAction.CallbackContext context)
         {
-            OnMoveAxisChanged?.Invoke(context.ReadValue<float>());
+            _moveCts = new CancellationTokenSource();
+            MoveAction(_moveCts.Token).Forget();
         }
-
+        
+        private void HandleMoveReleased(InputAction.CallbackContext context)
+        {
+            _moveCts?.Cancel();
+        }
+        
         private void HandleJumpPressed(InputAction.CallbackContext _)
         {
-            OnJumpPressed?.Invoke();
+            _jumpCts = new CancellationTokenSource();
+            JumpAction(_jumpCts.Token).Forget();
+        }
+        
+        private void HandleJumpReleased(InputAction.CallbackContext _)
+        {
+            _jumpCts?.Cancel();
         }
 
         private void HandleFirePressed(InputAction.CallbackContext _)
         {
-            OnFirePressed?.Invoke();
+            _fireCts = new CancellationTokenSource();
+            FireAction(_fireCts.Token).Forget();
         }
         
-        private void Update()
+        private void HandleFireReleased(InputAction.CallbackContext _)
         {
-            if (moveAction.action.IsPressed())
+            _fireCts?.Cancel();
+        }
+        
+        private async UniTaskVoid MoveAction(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
             {
-                OnMoveAxisChanged?.Invoke(moveAction.action.ReadValue<float>());
+                float moveValue = moveAction.action.ReadValue<float>();
+                OnMoveAxisChanged?.Invoke(moveValue);
+                await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
             }
-            if (jumpAction.action.IsPressed())
+        }
+
+        
+        private async UniTaskVoid JumpAction(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
             {
                 OnJumpPressed?.Invoke();
+                await UniTask.Yield(PlayerLoopTiming.Update, token);
             }
-            if (fireAction.action.IsPressed())
+        }
+        
+        private async UniTaskVoid FireAction(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
             {
                 OnFirePressed?.Invoke();
+                await UniTask.Yield(PlayerLoopTiming.Update, token);
             }
         }
     }
