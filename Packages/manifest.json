@@ -1,6 +1,12 @@
 {
   "dependencies": {
     "com.cysharp.unitask": "2.5.10",
+    "com.studio23.ss2.authsystem": "4.0.4",
+    "com.studio23.ss2.bettercursormanager": "1.1.12",
+    "com.studio23.ss2.dialoguesystem": "0.4.37",
+    "com.studio23.ss2.loadingsystem": "1.1.3",
+    "com.studio23.ss2.savesystem": "2.2.2",
+    "com.studio23.ss2.splashscreensystem": "1.0.7",
     "com.unity.ai.navigation": "2.0.5",
     "com.unity.cinemachine": "3.1.2",
     "com.unity.collab-proxy": "2.6.0",
@@ -52,8 +58,19 @@
       "name": "package.openupm.com",
       "url": "https://package.openupm.com",
       "scopes": [
-        "com.cysharp.unitask"
+        "com.cysharp.unitask",
+        "com.needle.console-hyperlinks",
+        "com.github.siccity.xnode",
+        "com.textus-games.serialized-reference-ui"
       ]
+    },
+    {
+      "name": "Studio23",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.studio23"
+      ],
+      "overrideBuiltIns": false
     }
   ]
 }
