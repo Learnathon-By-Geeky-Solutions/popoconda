@@ -32,7 +32,7 @@
 }
 
 .bangla-font {
-    -unity-font-definition: url("project://database/Assets/Font/LiSirajeeSylhetiUnicode-Regular.ttf?fileID=12800000&guid=61a81b52d06ba1243b41e07b8523cb5f&type=3#LiSirajeeSylhetiUnicode-Regular");
+    -unity-font-definition: url("project://database/Assets/Font/Galada-Regular.ttf?fileID=12800000&guid=9c110ec80de6d1040a77f1a98c2bd4e7&type=3#Galada-Regular");
 }
 
 .button:hover {
