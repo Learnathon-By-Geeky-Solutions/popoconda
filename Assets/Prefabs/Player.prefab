@@ -303,10 +303,8 @@ GameObject:
   - component: {fileID: 7819200623024721951}
   - component: {fileID: 4267091979377677437}
   - component: {fileID: 7043964112723468805}
-  - component: {fileID: 4090956793466162846}
   - component: {fileID: 769169631677092782}
   - component: {fileID: 8903440999765799163}
-  - component: {fileID: 6552408679053951210}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -381,36 +379,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &4090956793466162846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7036334297370378598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Mouse and Keyboard
-  m_DefaultActionMap: Gameplay
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &769169631677092782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,12 +391,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b84c2dfc10187c24c92564ef9240f2dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputManager: {fileID: 6552408679053951210}
+  crosshairTexture: {fileID: 0}
+  inputManager: {fileID: 0}
   playerHealth:
     maxHealth: 1000
     regenRate: 5
     regenDelay: 250
-    _currentHealth: 0
   player:
     playerGfx: {fileID: 4196857832856859618}
     gunRotatePoint: {fileID: 7098654660671091623}
@@ -451,29 +419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpawnPoint: {fileID: 1300564304885914363}
   bulletPrefab: {fileID: 4736814324575834385, guid: a140e82a50b536b468a07417065870d6, type: 3}
-  spread: 0
-  timeBetweenShooting: 0.1
-  magazineSize: 50
-  bulletsPerTap: 1
-  reloadTime: 1
-  bulletSpeed: 50
-  damage: 5
---- !u!114 &6552408679053951210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7036334297370378598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d2b259197f367e42a06692ddb9bf85f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  positionAction: {fileID: -4000992866607052840, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
-  fireAction: {fileID: -6611774575552843809, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
-  moveAction: {fileID: 5093770014828397296, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
-  jumpAction: {fileID: 1199911120038055113, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
+  gunData: {fileID: 0}
 --- !u!1 &7098654660671091623
 GameObject:
   m_ObjectHideFlags: 0

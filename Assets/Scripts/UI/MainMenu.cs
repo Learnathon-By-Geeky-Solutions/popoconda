@@ -12,7 +12,7 @@ namespace UI
         private Button _optionsButton;
         private Button _quitButton;
         
-        private void Start()
+        private void OnEnable()
         {
             VisualElement root = mainMenuDocument.rootVisualElement;
             
