@@ -31,7 +31,7 @@
 }
 
 .bangla-font {
-    -unity-font-definition: url("project://database/Assets/Font/Galada-Regular.ttf?fileID=12800000&guid=9c110ec80de6d1040a77f1a98c2bd4e7&type=3#Galada-Regular");
+    -unity-font-definition: url("project://database/Assets/Font/LiSirajeeSylhetiANSIV1-Regular.ttf?fileID=12800000&guid=b555dec6fc9f9d4419109d33f25a9c4b&type=3#LiSirajeeSylhetiANSIV1-Regular");
 }
 
 .button:hover {

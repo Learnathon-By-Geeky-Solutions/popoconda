@@ -42,6 +42,14 @@ MonoBehaviour:
     m_Localized: Next Level
     m_Metadata:
       m_Items: []
+  - m_Id: 3388288518037504
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3388378976591872
+    m_Localized: Restart
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 61a81b52d06ba1243b41e07b8523cb5f
+guid: b555dec6fc9f9d4419109d33f25a9c4b
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Li Sirajee Sylheti Unicode
+  - Li Sirajee Sylheti ANSI V1
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
