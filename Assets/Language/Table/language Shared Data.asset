@@ -39,6 +39,14 @@ MonoBehaviour:
     m_Key: next-level-button
     m_Metadata:
       m_Items: []
+  - m_Id: 3388288518037504
+    m_Key: resume-button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3388378976591872
+    m_Key: restart-button
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
