@@ -26,7 +26,7 @@ namespace UI
             _mainMenuButton = root.Q<Button>("main-menu-button");
             
             pauseMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
-            UIDisableEvent?.Invoke();
+            HandleResumeButtonClicked();
             
             _resumeButton.clicked += HandleResumeButtonClicked;
             _restartButton.clicked += HandleRestartButtonClicked;
