@@ -36,11 +36,13 @@ namespace UI
         private void OnEnable()
         {
             InputManager.OnMenuPressed += HandlePause;
+            InputManager.OnCancelPressed += HandlePause;
             
         }
         private void OnDisable()
         {
             InputManager.OnMenuPressed -= HandlePause;
+            InputManager.OnCancelPressed -= HandlePause;
             _resumeButton.clicked -= HandleResumeButtonClicked;
             _restartButton.clicked -= HandleRestartButtonClicked;
             _mainMenuButton.clicked -= HandleMainMenuButtonClicked;
@@ -48,25 +50,19 @@ namespace UI
         
         private void HandlePause()
         {
-            if (pauseMenuDocument == null)
+            if ((int)Time.timeScale == 0)
             {
-                Debug.LogError("PauseMenu: UIDocument is missing or not assigned in Level 2!");
-                return;
+                HandleResumeButtonClicked();
             }
-
-            if (pauseMenuDocument.rootVisualElement == null)
+            else
             {
-                Debug.LogError("PauseMenu: RootVisualElement is null. Check if the UIDocument is correctly set up.");
-                return;
+                Time.timeScale = 0;
+                Debug.Log("Pause Menu Opened");
+                pauseMenuDocument.rootVisualElement.style.display = DisplayStyle.Flex;
+                UIEnableEvent?.Invoke();
+                Cursor.visible = true;
             }
-
-            Time.timeScale = 0;
-            Debug.Log("Pause Menu Opened");
-            pauseMenuDocument.rootVisualElement.style.display = DisplayStyle.Flex;
-            UIEnableEvent?.Invoke();
-            Cursor.visible = true;
         }
-
         
         private void HandleResumeButtonClicked()
         {
@@ -91,11 +87,6 @@ namespace UI
             Cursor.visible = false;
             pauseMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
             SceneManager.LoadScene(1);
-        }
-
-        private static void HandleUnpause()
-        {
-            Time.timeScale = 1;
         }
     }
 }
