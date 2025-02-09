@@ -12,6 +12,10 @@ namespace UI
         private Button _retryButton;
         private Button _mainMenuButton;
         
+        public delegate void UIEvent();
+        public static event UIEvent UIEnableEvent;
+        public static event UIEvent UIDisableEvent;
+        
         private void Start()
         {
             VisualElement root = gameOverDocument.rootVisualElement;
@@ -20,6 +24,7 @@ namespace UI
             _mainMenuButton = root.Q<Button>("main-menu-button");
             
             gameOverDocument.rootVisualElement.style.display = DisplayStyle.None;
+            UIDisableEvent?.Invoke();
 
             GameManager.LoseEvent += HandleGameOver;
             _retryButton.clicked += HandleRetryButtonClicked;
@@ -36,12 +41,14 @@ namespace UI
         private void HandleGameOver()
         {
             gameOverDocument.rootVisualElement.style.display = DisplayStyle.Flex;
+            UIEnableEvent?.Invoke();
             Cursor.visible = true;
         }
         
         private static void HandleRetryButtonClicked()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            
         }
         
         private static void HandleMenuButtonClicked()

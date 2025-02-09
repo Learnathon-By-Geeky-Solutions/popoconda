@@ -7,23 +7,39 @@ namespace Game
 {
     public class InputManager : MonoBehaviour
     {
+        private static InputManager _instance;
+        
         [SerializeField] private InputActionReference positionAction;
         [SerializeField] private InputActionReference fireAction;
         [SerializeField] private InputActionReference moveAction;
         [SerializeField] private InputActionReference jumpAction;
+        [SerializeField] private InputActionReference menuAction;
         
         public delegate void PositionChangeDelegate(Vector2 position);
         public delegate void MoveAxisDelegate(float value);
         public delegate void SimpleActionDelegate();
         
-        public event PositionChangeDelegate OnMousePositionChanged;
-        public event MoveAxisDelegate OnMoveAxisChanged;
-        public event SimpleActionDelegate OnJumpPressed;
-        public event SimpleActionDelegate OnFirePressed;
+        public static event PositionChangeDelegate OnMousePositionChanged;
+        public static event MoveAxisDelegate OnMoveAxisChanged;
+        public static event SimpleActionDelegate OnJumpPressed;
+        public static event SimpleActionDelegate OnFirePressed;
+        public static event SimpleActionDelegate OnMenuPressed;
 
         private CancellationTokenSource _moveCts;
         private CancellationTokenSource _jumpCts;
         private CancellationTokenSource _fireCts;
+        
+        private void Awake()
+        {
+            // if (_instance != null && _instance != this)
+            // {
+            //     Destroy(gameObject); // Destroy duplicate instance
+            //     return;
+            // }
+            //
+            // _instance = this;
+            // DontDestroyOnLoad(gameObject);
+        }
 
         private void OnEnable()
         {
@@ -31,6 +47,7 @@ namespace Game
             moveAction.action.Enable();
             jumpAction.action.Enable();
             fireAction.action.Enable();
+            menuAction.action.Enable();
             
             positionAction.action.performed += HandlePositionChange;
             moveAction.action.performed += HandleMovePressed;
@@ -39,6 +56,7 @@ namespace Game
             jumpAction.action.canceled += HandleJumpReleased;
             fireAction.action.performed += HandleFirePressed;
             fireAction.action.canceled += HandleFireReleased;
+            menuAction.action.performed += HandleMenuPressed;
         }
 
         private void OnDisable()
@@ -50,11 +68,13 @@ namespace Game
             jumpAction.action.canceled -= HandleJumpReleased;
             fireAction.action.performed -= HandleFirePressed;
             fireAction.action.canceled -= HandleFireReleased;
+            menuAction.action.performed -= HandleMenuPressed;
             
             positionAction.action.Disable();
             moveAction.action.Disable();
             jumpAction.action.Disable();
             fireAction.action.Disable();
+            menuAction.action.Disable();
             
             // Cancel all the CancellationTokenSources
             _moveCts?.Cancel();
@@ -101,6 +121,12 @@ namespace Game
         private void HandleFireReleased(InputAction.CallbackContext _)
         {
             _fireCts?.Cancel();
+        }
+        
+        private static void HandleMenuPressed(InputAction.CallbackContext _)
+        {
+            Debug.Log("Menu pressed");
+            OnMenuPressed?.Invoke();
         }
         
         private async UniTaskVoid MoveAction(CancellationToken token)

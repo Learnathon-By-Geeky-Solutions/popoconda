@@ -12,6 +12,10 @@ namespace UI
         private Button _nextLevelButton;
         private Button _mainMenuButton;
         
+        public delegate void UIEvent();
+        public static event UIEvent UIEnableEvent;
+        public static event UIEvent UIDisableEvent;
+        
         private void Start()
         {
             VisualElement root = gameWinDocument.rootVisualElement;
@@ -20,6 +24,7 @@ namespace UI
             _mainMenuButton = root.Q<Button>("main-menu-button");
             
             gameWinDocument.rootVisualElement.style.display = DisplayStyle.None;
+            UIDisableEvent?.Invoke();
             
             GameManager.WinEvent += HandleGameWin;
             _nextLevelButton.clicked += HandleNextLevelButtonClicked;
@@ -37,6 +42,7 @@ namespace UI
         private void HandleGameWin()
         {
             gameWinDocument.rootVisualElement.style.display = DisplayStyle.Flex;
+            UIEnableEvent?.Invoke();
             Cursor.visible = true;
         }
         

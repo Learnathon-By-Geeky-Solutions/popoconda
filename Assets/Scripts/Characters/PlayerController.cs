@@ -10,7 +10,6 @@ namespace Characters
     {
         private Rigidbody _playerRigidbody;
         [SerializeField] private Texture2D crosshairTexture;
-        [SerializeField] private InputManager inputManager;
 
         private Camera _playerCamera;
         [SerializeField] private Health playerHealth;
@@ -59,10 +58,10 @@ namespace Characters
 
         private void OnEnable()
         {
-            inputManager.OnMousePositionChanged += HandleMousePosition;
-            inputManager.OnMoveAxisChanged += HandleMoveAxis;
-            inputManager.OnJumpPressed += HandleJump;
-            inputManager.OnFirePressed += HandleFire;
+            InputManager.OnMousePositionChanged += HandleMousePosition;
+            InputManager.OnMoveAxisChanged += HandleMoveAxis;
+            InputManager.OnJumpPressed += HandleJump;
+            InputManager.OnFirePressed += HandleFire;
             playerHealth.OnHealthChange += UpdateHealthUI;
             playerHealth.OnDeath += OnPlayerDeath;
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
@@ -73,10 +72,10 @@ namespace Characters
 
         private void OnDestroy()
         {
-            inputManager.OnMousePositionChanged -= HandleMousePosition;
-            inputManager.OnMoveAxisChanged -= HandleMoveAxis;
-            inputManager.OnJumpPressed -= HandleJump;
-            inputManager.OnFirePressed -= HandleFire;
+            InputManager.OnMousePositionChanged -= HandleMousePosition;
+            InputManager.OnMoveAxisChanged -= HandleMoveAxis;
+            InputManager.OnJumpPressed -= HandleJump;
+            InputManager.OnFirePressed -= HandleFire;
             playerHealth.OnHealthChange -= UpdateHealthUI;
             playerHealth.OnDeath -= OnPlayerDeath;
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
