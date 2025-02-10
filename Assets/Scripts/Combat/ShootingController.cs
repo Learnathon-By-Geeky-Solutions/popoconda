@@ -19,7 +19,7 @@ namespace Combat
 
         private void Awake()
         {
-            _bulletsLeft = gunData.magazineSize;
+            _bulletsLeft = gunData.MagazineSize;
         }
 
         public void FireBullet(Vector3 direction)
@@ -28,12 +28,12 @@ namespace Combat
 
             _canShoot = false;
 
-            for (int i = 0; i < gunData.bulletsPerTap; i++)
+            for (int i = 0; i < gunData.BulletsPerTap; i++)
             {
                 // Apply spread to the direction
                 Vector3 adjustedDirection = direction + new Vector3(
-                    Random.Range(-gunData.spread, gunData.spread),
-                    Random.Range(-gunData.spread, gunData.spread),
+                    Random.Range(-gunData.Spread, gunData.Spread),
+                    Random.Range(-gunData.Spread, gunData.Spread),
                     0);
 
                 GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(adjustedDirection));
@@ -42,8 +42,8 @@ namespace Combat
                 if (bulletScript != null)
                 {
                     bulletScript.SetDirection(adjustedDirection.normalized); // Pass the normalized direction
-                    bulletScript.SetSpeed(gunData.bulletSpeed);
-                    bulletScript.SetDamageAmount(gunData.damage);
+                    bulletScript.SetSpeed(gunData.BulletSpeed);
+                    bulletScript.SetDamageAmount(gunData.Damage);
                 }
 
                 _bulletsLeft--;
@@ -53,7 +53,7 @@ namespace Combat
             // Delay between shooting to control fire rate
             UniTask.Void(async () =>
             {
-                await UniTask.Delay((int)(gunData.timeBetweenShooting * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
+                await UniTask.Delay((int)(gunData.TimeBetweenShooting * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
                 if (this) _canShoot = true;
             });
 
@@ -71,10 +71,10 @@ namespace Combat
             _isReloading = true;
             UniTask.Void(async () =>
             {
-                await UniTask.Delay((int)(gunData.reloadTime * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
+                await UniTask.Delay((int)(gunData.ReloadTime * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
                 if (this)
                 {
-                    _bulletsLeft = gunData.magazineSize;
+                    _bulletsLeft = gunData.MagazineSize;
                     if (gameObject.CompareTag("Player")) OnBulletCountChange?.Invoke(_bulletsLeft);
                     _isReloading = false;
                 }

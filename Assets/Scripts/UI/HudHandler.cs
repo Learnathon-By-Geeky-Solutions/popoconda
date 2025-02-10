@@ -1,6 +1,7 @@
 using UnityEngine;
 using Characters;
 using Combat;
+using Game;
 using UnityEngine.UIElements;
 
 namespace UI
@@ -28,6 +29,7 @@ namespace UI
             PlayerController.OnJetpackFuelChange += UpdateJetpackFuel;
             Enemy.OnEnemyHealthChange += UpdateEnemyHealth;
             ShootingController.OnBulletCountChange += UpdateAmmo;
+            GameManager.DisableHudEvent += DisableHud;
         }
 
         private void OnDestroy()
@@ -36,6 +38,7 @@ namespace UI
             PlayerController.OnJetpackFuelChange -= UpdateJetpackFuel;
             Enemy.OnEnemyHealthChange -= UpdateEnemyHealth;
             ShootingController.OnBulletCountChange -= UpdateAmmo;
+            GameManager.DisableHudEvent -= DisableHud;
         }
 
         private void UpdatePlayerHealth(float currentHealthPercentage)
@@ -69,6 +72,11 @@ namespace UI
                 // Update the ammo label
                 _ammoLabel.text = bulletsLeft.ToString();
             }
+        }
+        
+        private void DisableHud()
+        {
+            gameObject.SetActive(false);
         }
         
     }
