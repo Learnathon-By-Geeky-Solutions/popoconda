@@ -1,0 +1,51 @@
+.container {
+    height: 100%;
+    width: 100%;
+    background-image: url("project://database/Assets/UI/OptionMenu/background.jpg?fileID=2800000&guid=4a1e5e75908d85b4c912d7c54f3b20ac&type=3#background");
+    align-items: center;
+    justify-content: center;
+}
+
+.option-box {
+    background-color: rgba(121, 124, 44, 0.15);
+    width: 35%;
+    height: 60%;
+    border-top-width: 2px;
+    border-left-color: rgb(20, 125, 184);
+    border-right-color: rgb(20, 125, 184);
+    border-top-color: rgb(184, 20, 132);
+    border-bottom-color: rgb(66, 184, 20);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 2px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 25px;
+}
+
+.toggle-button {
+    margin: auto;
+    align-self: auto;
+    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
+    color: rgb(184, 114, 0);
+    font-size: 15px;
+}
+
+.label-text {
+    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
+    font-size: 40px;
+    color: rgb(150, 186, 9);
+}
+
+.text-button {
+    background-color: rgba(9, 105, 68, 0.65);
+}
+
+.english-font {
+    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
+    background-color: rgba(111, 67, 67, 0.06);
+}
+
+.bangla-font {
+    -unity-font-definition: url("project://database/Assets/Font/LiSirajeeSylhetiANSIV1-Regular.ttf?fileID=12800000&guid=b555dec6fc9f9d4419109d33f25a9c4b&type=3#LiSirajeeSylhetiANSIV1-Regular");
+}
