@@ -21,9 +21,6 @@ namespace Characters
         private bool _isStunned;
 
         private CancellationTokenSource _cancellationTokenSource;
-        
-        public delegate void PlayerPosition(Vector3 position);
-        public static event PlayerPosition OnPlayerPositionChange;
 
         public static event Health.StatEventWithFloat OnPlayerHealthChange;
         public static event Health.StatEventWithFloat OnJetpackFuelChange;
@@ -38,13 +35,6 @@ namespace Characters
             playerHealth.Initialize(true);
             OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
         }
-        private void Update()
-        {
-            if (gameObject && gameObject.activeInHierarchy)
-            {
-                OnPlayerPositionChange?.Invoke(transform.position);
-            }
-        }
 
         private static void UpdateHealthUI(float currentHealth)
         {
@@ -54,6 +44,7 @@ namespace Characters
         private void OnPlayerDeath()
         {
             player.Die();
+            gameObject.SetActive(false);
         }
 
         private void OnEnable()
@@ -64,6 +55,7 @@ namespace Characters
             InputManager.OnFirePressed += HandleFire;
             playerHealth.OnHealthChange += UpdateHealthUI;
             playerHealth.OnDeath += OnPlayerDeath;
+            GameManager.SetPlayerTransform(transform);
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit += ApplyDamage;
             FireLaser.OnLaserHit += ApplyDamage;
