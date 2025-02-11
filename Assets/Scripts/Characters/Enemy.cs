@@ -1,6 +1,7 @@
 using System.Threading;
 using UnityEngine;
 using Combat;
+using Game;
 using Cysharp.Threading.Tasks;
 
 namespace Characters
@@ -29,16 +30,19 @@ namespace Characters
 
         protected virtual void OnEnable()
         {
-            PlayerController.OnPlayerPositionChange += Move;
             enemyHealth.OnDeath += OnEnemyDeath;
             enemyHealth.OnHealthChange += UpdateHealthUI;
             Bullet.OnBulletHit += ApplyDamage;
         }
+        
+        protected virtual void Update()
+        {
+            Vector3 playerPosition = GameManager.GetPlayerPosition();
+            Move(playerPosition);
+        }
 
         protected virtual void OnDestroy()
         {
-            // Unsubscribe from events to avoid null reference when destroyed
-            PlayerController.OnPlayerPositionChange -= Move;
             enemyHealth.OnDeath -= OnEnemyDeath;
             enemyHealth.OnHealthChange -= UpdateHealthUI;
             Bullet.OnBulletHit -= ApplyDamage;
@@ -99,6 +103,7 @@ namespace Characters
             _cancellationTokenSource?.Cancel(); // Stop async operations when dead
             OnBossDeath?.Invoke(); // Trigger death event
             ShootingController = null; // Clear the shooting controller
+            gameObject.SetActive(false); // Deactivate the object
         }
     }
 }
