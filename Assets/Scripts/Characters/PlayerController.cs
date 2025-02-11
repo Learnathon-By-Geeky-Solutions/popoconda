@@ -91,10 +91,10 @@ namespace Characters
             {
                 Vector3 targetPosition = ray.GetPoint(distance);
                 _direction = targetPosition - player.GunRotatePoint.transform.position;
-                float rotationZ = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+                float rotationZ = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg + (player.PlayerGfx.transform.localScale.x < 0 ? 180f : 0f);
 
-                player.GunRotatePoint.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
                 player.PlayerGfx.transform.localScale = _direction.x < 0 ? new Vector3(-1, 1, 1) : Vector3.one;
+                player.GunRotatePoint.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
             }
         }
         
