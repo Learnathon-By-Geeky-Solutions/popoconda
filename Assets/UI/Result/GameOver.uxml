@@ -1,9 +1,19 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/Result/GameOver.uss?fileID=7433441132597879392&amp;guid=faa7fb9e85986e34b9940f0201d83f9d&amp;type=3#GameOver" />
+    <Style src="project://database/Assets/UI/Result/GameOver.uss?fileID=7433441132597879392&amp;guid=7d4c23d6434e25747a348a4a918712f4&amp;type=3#GameOver" />
     <engine:VisualElement name="container" class="container">
         <engine:VisualElement name="Buttons" class="buttons">
-            <engine:Button text="Retry Level" name="retry-button" class="button english-font bangla-font" />
-            <engine:Button text="Back To Main Menu" name="main-menu-button" class="button english-font bangla-font" />
+            <engine:Button text="Retry Level" name="retry-button" class="button">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(325106762055680)" />
+                    <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
+                </Bindings>
+            </engine:Button>
+            <engine:Button text="Back To Main Menu" name="main-menu-button" class="button">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(325330276515840)" />
+                    <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
+                </Bindings>
+            </engine:Button>
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

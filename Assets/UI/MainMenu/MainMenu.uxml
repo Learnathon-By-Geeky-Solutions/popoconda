@@ -2,9 +2,24 @@
     <Style src="project://database/Assets/UI/MainMenu/mainmenu.uss?fileID=7433441132597879392&amp;guid=ee808b0afe507e74fb715c89a73d3fcb&amp;type=3#mainmenu" />
     <engine:VisualElement name="panel" class="panel" style="background-image: url(&quot;project://database/Assets/UI/MainMenu/MainMenu.jpg?fileID=2800000&amp;guid=5d600d47a57f0854abe668bb7d1a7446&amp;type=3#MainMenu&quot;);">
         <engine:VisualElement name="menu" class="menu">
-            <engine:Button text="Play" name="play-button" class="menu-button bangla-font english-font" />
-            <engine:Button text="Options" name="option-button" class="menu-button bangla-font english-font" />
-            <engine:Button text="Quit" name="quit-button" class="menu-button bangla-font english-font" />
+            <engine:Button text="Play" name="play-button" class="menu-button">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(323445511487488)" update-trigger="WhenDirty" />
+                    <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
+                </Bindings>
+            </engine:Button>
+            <engine:Button text="Options" name="option-button" class="menu-button">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" update-trigger="WhenDirty" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(324272045228032)" />
+                    <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
+                </Bindings>
+            </engine:Button>
+            <engine:Button text="Quit" name="quit-button" class="menu-button">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(324769875558400)" />
+                    <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
+                </Bindings>
+            </engine:Button>
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

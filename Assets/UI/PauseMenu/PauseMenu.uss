@@ -18,17 +18,8 @@
     -unity-background-image-tint-color: rgb(255, 245, 242);
     border-radius: 20px;
     border-width: 0;
-    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
     font-size: 18px;
     color: rgb(184, 177, 29);
-}
-
-.english-font {
-    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
-}
-
-.bangla-font {
-    -unity-font-definition: url("project://database/Assets/Font/LiSirajeeSylhetiANSIV1-Regular.ttf?fileID=12800000&guid=b555dec6fc9f9d4419109d33f25a9c4b&type=3#LiSirajeeSylhetiANSIV1-Regular");
 }
 
 .pause-button:hover {

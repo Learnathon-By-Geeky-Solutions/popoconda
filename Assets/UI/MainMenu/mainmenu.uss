@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0);
-    background-image: url("project://database/Assets/UI/MainMenu/MainMenu.jpg?fileID=2800000&guid=f26e9666cdcc6dd458c8bb0dad6fc85c&type=3#Main_Menu");
+    background-image: url('project://database/Assets/UI/MainMenu/MainMenu.jpg?fileID=2800000&guid=f26e9666cdcc6dd458c8bb0dad6fc85c&type=3#Main_Menu');
 }
 
 .menu {
@@ -31,15 +31,6 @@
     color: rgb(184, 177, 29);
 }
 
-.english-font {
-    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
-}
-
-.bangla-font {
-    -unity-font-definition: url("project://database/Assets/Font/LiSirajeeSylhetiANSIV1-Regular.ttf?fileID=12800000&guid=b555dec6fc9f9d4419109d33f25a9c4b&type=3#LiSirajeeSylhetiANSIV1-Regular");
-}
-
 .menu-button:hover {
     color: rgb(255, 251, 0);
 }
-
