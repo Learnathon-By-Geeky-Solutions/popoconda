@@ -6,26 +6,29 @@ namespace Game
 {
     public class GameManager : MonoBehaviour
     {
-        private GameObject _player;
-        private GameObject _enemy;
-        private GameObject _hud;
-
+        private static GameManager Instance { get; set; }
+        
+        private static Transform _playerTransform;
+                
         public delegate void GameResult();
         public static event GameResult WinEvent;
         public static event GameResult LoseEvent;
         
+        public static event GameResult DisableHudEvent;
+        
 
-        private void Start()
+        
+        private void Awake()
         {
-            _player = GameObject.FindWithTag("Player");
-            _enemy = GameObject.FindWithTag("Enemy");
-            _hud = GameObject.FindWithTag("HUD");
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
 
-            if (_player == null) Debug.LogError("GameManager: No GameObject with tag 'Player' found!");
-            if (_enemy == null) Debug.LogError("GameManager: No GameObject with tag 'Enemy' found!");
-            if (_hud == null) Debug.LogError("GameManager: No GameObject with tag 'HUD' found!");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-
 
         private void OnEnable()
         {
@@ -38,21 +41,30 @@ namespace Game
             Enemy.OnBossDeath -= Win;
             Player.OnPlayerDeath -= Lose;
         }
+        
+        public static void SetPlayerTransform(Transform playerTransform)
+        {
+            if (_playerTransform == null)
+            {
+                _playerTransform = playerTransform;
+            }
+        }
+        
+        public static Vector3 GetPlayerPosition()
+        {
+            return _playerTransform.position;
+        }
 
         private void Win()
         {
-            if (_player != null) _player.SetActive(false);
-            if (_enemy != null) _enemy.SetActive(false);
-            if (_hud != null) _hud.SetActive(false);
             WinEvent?.Invoke();
+            DisableHudEvent?.Invoke();
         }
 
         private void Lose()
         {
-            if (_player != null) _player.SetActive(false);
-            if (_enemy != null) _enemy.SetActive(false);
-            if (_hud != null) _hud.SetActive(false);
             LoseEvent?.Invoke();
+            DisableHudEvent?.Invoke();
         }
 
     }
