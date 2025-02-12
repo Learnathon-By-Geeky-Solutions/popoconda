@@ -8,7 +8,7 @@
 
 .option-box {
     background-color: rgba(121, 124, 44, 0.15);
-    width: 35%;
+    width: auto;
     height: 60%;
     border-top-width: 2px;
     border-left-color: rgb(20, 125, 184);
@@ -39,6 +39,10 @@
 
 .text-button {
     background-color: rgba(9, 105, 68, 0.65);
+}
+
+.text-button:checked {
+    background-color: rgb(30, 37, 51);
 }
 
 .english-font {
