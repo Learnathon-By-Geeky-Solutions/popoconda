@@ -319,7 +319,7 @@ Transform:
   - {fileID: 147314832}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1167074452
+--- !u!1 &1076883005
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,35 +327,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1167074454}
-  - component: {fileID: 1167074453}
-  m_Layer: 0
-  m_Name: LocalizationManager
+  - component: {fileID: 1076883007}
+  - component: {fileID: 1076883006}
+  - component: {fileID: 1076883008}
+  m_Layer: 5
+  m_Name: OptionMenu-ui
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1167074453
+--- !u!114 &1076883006
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167074452}
+  m_GameObject: {fileID: 1076883005}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 974cab365a5715a4394d19356e1762ed, type: 3}
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedLanguage: 0
---- !u!4 &1167074454
+  m_PanelSettings: {fileID: 11400000, guid: 6a6037458777d0344bbe495ae36d5532, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: f6380c0e8cbcb504ca481e2d6a48890e, type: 3}
+  m_SortingOrder: 1
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &1076883007
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167074452}
+  m_GameObject: {fileID: 1076883005}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -364,6 +371,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1076883008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076883005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aab73de61dd2d942bdf3f8b17581f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionMenuDocument: {fileID: 1076883006}
 --- !u!1001 &1601625413
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -492,6 +512,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 68781115}
   - {fileID: 1882463291}
-  - {fileID: 1167074454}
   - {fileID: 998997455}
   - {fileID: 1601625413}
+  - {fileID: 1076883007}

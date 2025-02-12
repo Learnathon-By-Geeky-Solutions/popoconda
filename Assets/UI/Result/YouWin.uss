@@ -25,7 +25,6 @@
     margin-top: 15px;
     border-width: 0;
 }
-
 .english-font {
     -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
 }

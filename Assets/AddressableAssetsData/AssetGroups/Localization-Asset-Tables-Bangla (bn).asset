@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Asset-Tables-Bangla (bn)
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-Asset-Tables-Bangla (bn)
+  m_GUID: d9b0898209a11264a8113a38e72fe685
+  m_SerializeEntries:
+  - m_GUID: 00c7138dd82824b489e89380d6034dc4
+    m_Address: Font_bn
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-bn
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 34695397e22c47f43beffa09ef6fb516, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 8de0e8364f58bf74fa66bbba77673a87, type: 2}
+    - {fileID: 11400000, guid: cf8eebc38ff43cc4ebe27ce68c172765, type: 2}

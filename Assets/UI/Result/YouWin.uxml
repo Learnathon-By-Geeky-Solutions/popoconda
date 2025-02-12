@@ -1,9 +1,19 @@
 <engine:UXML xmlns:engine="UnityEngine.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/Result/YouWin.uss?fileID=7433441132597879392&amp;guid=b9ce5807651c16e46a644787094a4942&amp;type=3#YouWin" />
-    <engine:VisualElement name="container" class="container" >
+    <Style src="project://database/Assets/UI/Result/YouWin.uss?fileID=7433441132597879392&amp;guid=11c1c771be7f1f14e9edd14a19dcccf7&amp;type=3#YouWin" />
+    <engine:VisualElement name="container" class="container">
         <engine:VisualElement name="Buttons" class="buttons">
-            <engine:Button text="Next Level" name="next-level-button" class="button english-font bangla-font" />
-            <engine:Button text="Go To Main Menu" name="main-menu-button" class="button english-font bangla-font" />
+            <engine:Button text="Next Level" name="next-level-button" class="button">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(325751741153280)" />
+                    <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
+                </Bindings>
+            </engine:Button>
+            <engine:Button text="Go To Main Menu" name="main-menu-button" class="button">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(325330276515840)" />
+                    <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
+                </Bindings>
+            </engine:Button>
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

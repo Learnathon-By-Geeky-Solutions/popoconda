@@ -21,6 +21,9 @@ namespace Characters
         private bool _isStunned;
 
         private CancellationTokenSource _cancellationTokenSource;
+        
+        public delegate void StateEventWithFloat(float value);
+        public static event StateEventWithFloat OnPlayerMove;
 
         public static event Health.StatEventWithFloat OnPlayerHealthChange;
         public static event Health.StatEventWithFloat OnJetpackFuelChange;
@@ -80,6 +83,8 @@ namespace Characters
             _cancellationTokenSource?.Dispose();
         }
 
+        
+        // Handle the mouse aim position and rotate the player's gun towards the mouse
         private void HandleMousePosition(Vector2 screenPosition)
         {
             if (_playerCamera == null || _isStunned) return;
@@ -110,6 +115,8 @@ namespace Characters
             }
         }
 
+        
+        // Handle the player's movement on the X-axis
         private void HandleMoveAxis(float value)
         {
             if (_isStunned) return;
@@ -123,6 +130,14 @@ namespace Characters
 
             // Apply the new velocity
             _playerRigidbody.linearVelocity = newVelocity;
+            
+            float playerDirection = (_direction.x * value)/Mathf.Abs(_direction.x);
+
+            if (IsGrounded())
+            {
+                
+                OnPlayerMove?.Invoke(playerDirection);
+            }
         }
 
         private void HandleJump()
@@ -132,6 +147,7 @@ namespace Characters
             _playerRigidbody.AddForce(Vector3.up * (player.FlySpeed * Time.deltaTime), ForceMode.VelocityChange);
             player.JetpackFuel -= Time.deltaTime * player.FuelConsumeRate;
             OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
+            OnPlayerMove?.Invoke(0);
 
             ResetRefillTimer();
         }
@@ -179,5 +195,14 @@ namespace Characters
         {
             _isStunned = isStunned;
         }
+        
+        // ground check bool function using raycast and collision
+        private bool IsGrounded()
+        {
+            float distance = 1.5f;
+            Vector3 direction = Vector3.down;
+            return Physics.Raycast(transform.position, direction, distance);
+        }
+
     }
 }

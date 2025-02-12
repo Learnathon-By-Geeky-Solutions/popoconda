@@ -12,6 +12,9 @@ namespace UI
         private Button _optionsButton;
         private Button _quitButton;
         
+        public delegate void OnButtonClicked();
+        public static event OnButtonClicked OptionButtonClicked;
+        
         private void OnEnable()
         {
             VisualElement root = mainMenuDocument.rootVisualElement;
@@ -39,7 +42,7 @@ namespace UI
         
         private static void HandleOptionsButtonClicked()
         {
-            Debug.Log("Options button clicked");
+            OptionButtonClicked?.Invoke();
         }
         
         private static void HandleQuitButtonClicked()
