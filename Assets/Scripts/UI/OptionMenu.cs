@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.UIElements;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -10,7 +11,7 @@ namespace UI
         [SerializeField] private UIDocument optionMenuDocument;
         private Button _englishButton;
         private Button _banglaButton;
-        
+        private Button _backButton;
         
         private void OnEnable()
         {
@@ -18,6 +19,7 @@ namespace UI
             
             _englishButton = root.Q<Button>("english-text-button");
             _banglaButton = root.Q<Button>("bangla-text-button");
+            _backButton = root.Q<Button>("back-button");
             
             MainMenu.OptionButtonClicked += () => optionMenuDocument.sortingOrder = 1;
             
@@ -25,12 +27,14 @@ namespace UI
             
             _englishButton.clicked += HandleEnglishButtonClicked;
             _banglaButton.clicked += HandleBanglaButtonClicked;
+            _backButton.clicked += HandleBackButtonClicked;
         }
         
         private void OnDisable()
         {
             _englishButton.clicked -= HandleEnglishButtonClicked;
             _banglaButton.clicked -= HandleBanglaButtonClicked;
+            _backButton.clicked -= HandleBackButtonClicked;
         }
         
         private void HandleEnglishButtonClicked()
@@ -43,6 +47,13 @@ namespace UI
         {
             Debug.Log("Bangla button clicked");
             SetLocale("bn");  // Change locale to Bangla
+        }
+
+        private void HandleBackButtonClicked()
+        {
+            Debug.Log("Back button clicked");
+            optionMenuDocument.sortingOrder = -1;
+            
         }
 
         private void SetLocale(string localeCode)
@@ -58,7 +69,6 @@ namespace UI
                 Debug.LogWarning("Locale not found: " + localeCode);
             }
             
-            optionMenuDocument.sortingOrder = -1;
         }
     }
 }
