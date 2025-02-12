@@ -147,6 +147,7 @@ namespace Characters
             _playerRigidbody.AddForce(Vector3.up * (player.FlySpeed * Time.deltaTime), ForceMode.VelocityChange);
             player.JetpackFuel -= Time.deltaTime * player.FuelConsumeRate;
             OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
+            OnPlayerMove?.Invoke(0);
 
             ResetRefillTimer();
         }
