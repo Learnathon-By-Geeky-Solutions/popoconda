@@ -6,9 +6,22 @@
     justify-content: center;
 }
 
+.back-button {
+    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
+    font-size: 25px;
+    color: rgb(150, 186, 9);
+    align-self: flex-start;
+    background-color: rgb(55, 73, 76);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 8px;
+}
+
 .option-box {
     background-color: rgba(121, 124, 44, 0.15);
-    width: 35%;
+    width: auto;
     height: 60%;
     border-top-width: 2px;
     border-left-color: rgb(20, 125, 184);
@@ -27,8 +40,12 @@
     margin: auto;
     align-self: auto;
     -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
-    color: rgb(184, 114, 0);
+    color: rgb(184, 114, 0) ;
     font-size: 15px;
+}
+
+.toggle-button > Label {
+    color: rgb(184, 114, 0);
 }
 
 .label-text {
@@ -39,6 +56,10 @@
 
 .text-button {
     background-color: rgba(9, 105, 68, 0.65);
+}
+
+.text-button:checked {
+    background-color: rgb(30, 37, 51);
 }
 
 .english-font {
