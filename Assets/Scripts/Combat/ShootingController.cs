@@ -24,49 +24,77 @@ namespace Combat
 
         public void FireBullet(Vector3 direction)
         {
-            if (!_canShoot || _isReloading || _bulletsLeft <= 0) return; // Prevent shooting if conditions aren't met
-
+            if (!CanFire()) return;
+            
             _canShoot = false;
-
-            for (int i = 0; i < gunData.BulletsPerTap; i++)
-            {
-                // Apply spread to the direction
-                Vector3 adjustedDirection = direction + new Vector3(
-                    Random.Range(-gunData.Spread, gunData.Spread),
-                    Random.Range(-gunData.Spread, gunData.Spread),
-                    0);
-
-                GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(adjustedDirection));
-
-                Bullet bulletScript = bullet.GetComponent<Bullet>();
-                if (bulletScript != null)
-                {
-                    bulletScript.SetDirection(adjustedDirection.normalized); // Pass the normalized direction
-                    bulletScript.SetSpeed(gunData.BulletSpeed);
-                    bulletScript.SetDamageAmount(gunData.Damage);
-                }
-
-                _bulletsLeft--;
-                if (gameObject.CompareTag("Player")) OnBulletCountChange?.Invoke(_bulletsLeft);
-            }
-
-            // Delay between shooting to control fire rate
-            UniTask.Void(async () =>
-            {
-                await UniTask.Delay((int)(gunData.TimeBetweenShooting * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
-                if (this) _canShoot = true;
-            });
-
-            // If no bullets left, trigger reloading
+            ShootBullets(direction);
+            
+            HandleFireRate();
+            
             if (_bulletsLeft <= 0)
             {
                 StartReloading();
             }
         }
 
+        private bool CanFire()
+        {
+            return _canShoot && !_isReloading && _bulletsLeft > 0;
+        }
+
+        private void ShootBullets(Vector3 direction)
+        {
+            for (int i = 0; i < gunData.BulletsPerTap; i++)
+            {
+                Vector3 adjustedDirection = ApplyBulletSpread(direction);
+                SpawnBullet(adjustedDirection);
+                _bulletsLeft--;
+                UpdateBulletCount();
+            }
+        }
+
+        private Vector3 ApplyBulletSpread(Vector3 direction)
+        {
+            return direction + new Vector3(
+                Random.Range(-gunData.Spread, gunData.Spread),
+                Random.Range(-gunData.Spread, gunData.Spread),
+                0);
+        }
+
+        private void SpawnBullet(Vector3 direction)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(direction));
+            if (bullet.TryGetComponent(out Bullet bulletScript))
+            {
+                bulletScript.SetDirection(direction.normalized);
+                bulletScript.SetSpeed(gunData.BulletSpeed);
+                bulletScript.SetDamageAmount(gunData.Damage);
+            }
+        }
+
+        // <<summary>>
+        // Update the bullet count and invoke the event for UI to update the bullet count
+        // <<summary>>
+        private void UpdateBulletCount()
+        {
+            if (gameObject.CompareTag("Player"))
+            {
+                OnBulletCountChange?.Invoke(_bulletsLeft);
+            }
+        }
+
+        private void HandleFireRate()
+        {
+            UniTask.Void(async () =>
+            {
+                await UniTask.Delay((int)(gunData.TimeBetweenShooting * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
+                if (this) _canShoot = true;
+            });
+        }
+
         private void StartReloading()
         {
-            if (_isReloading) return; // Prevent multiple reloads at the same time
+            if (_isReloading) return;
 
             _isReloading = true;
             UniTask.Void(async () =>
@@ -75,7 +103,7 @@ namespace Combat
                 if (this)
                 {
                     _bulletsLeft = gunData.MagazineSize;
-                    if (gameObject.CompareTag("Player")) OnBulletCountChange?.Invoke(_bulletsLeft);
+                    UpdateBulletCount();
                     _isReloading = false;
                 }
             });
