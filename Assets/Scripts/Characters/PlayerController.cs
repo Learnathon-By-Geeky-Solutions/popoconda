@@ -3,6 +3,7 @@ using Combat;
 using Game;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using UnityEngine.InputSystem;
 
 namespace Characters
 {
@@ -39,17 +40,6 @@ namespace Characters
             OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
         }
 
-        private static void UpdateHealthUI(float currentHealth)
-        {
-            OnPlayerHealthChange?.Invoke(currentHealth);
-        }
-
-        private void OnPlayerDeath()
-        {
-            player.Die();
-            gameObject.SetActive(false);
-        }
-
         private void OnEnable()
         {
             InputManager.OnMousePositionChanged += HandleMousePosition;
@@ -82,9 +72,8 @@ namespace Characters
             _cancellationTokenSource?.Cancel();
             _cancellationTokenSource?.Dispose();
         }
-
         
-        // Handle the mouse aim position and rotate the player's gun towards the mouse
+        
         private void HandleMousePosition(Vector2 screenPosition)
         {
             if (_playerCamera == null || _isStunned) return;
@@ -94,13 +83,23 @@ namespace Characters
 
             if (gunPlane.Raycast(ray, out float distance))
             {
-                Vector3 targetPosition = ray.GetPoint(distance);
-                _direction = targetPosition - player.GunRotatePoint.transform.position;
-                float rotationZ = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg + (player.PlayerGfx.transform.localScale.x < 0 ? 180f : 0f);
-
-                player.PlayerGfx.transform.localScale = _direction.x < 0 ? new Vector3(-1, 1, 1) : Vector3.one;
-                player.GunRotatePoint.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
+                UpdateGunRotation(ray.GetPoint(distance));
             }
+        }
+        
+        // <<summary>>
+        // Update the gun rotation based on target position
+        // <<summary>>
+        private void UpdateGunRotation(Vector3 targetPosition)
+        {
+            _direction = targetPosition - player.GunRotatePoint.transform.position;
+            float rotationZ = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+
+            if (player.PlayerGfx.transform.localScale.x < 0)
+                rotationZ += 180f;
+            
+            player.PlayerGfx.transform.localScale = _direction.x < 0 ? new Vector3(-1, 1, 1) : Vector3.one;
+            player.GunRotatePoint.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
         }
         
         // Show the crosshair on the screen using OnGUI
@@ -111,32 +110,44 @@ namespace Characters
                 Vector2 mousePosition = Event.current.mousePosition;
                 float crosshairSize = 32f; // Adjust size as needed
                 GUI.DrawTexture(new Rect(mousePosition.x - crosshairSize / 2, mousePosition.y - crosshairSize / 2, crosshairSize, crosshairSize), crosshairTexture);
-                
             }
+        }
+        
+        private static void UpdateHealthUI(float currentHealth)
+        {
+            OnPlayerHealthChange?.Invoke(currentHealth);
+        }
+
+        private void OnPlayerDeath()
+        {
+            player.Die();
+            gameObject.SetActive(false);
         }
 
         
-        // Handle the player's movement on the X-axis
         private void HandleMoveAxis(float value)
         {
             if (_isStunned) return;
-
-            // Calculate target velocity only for the X-axis
-            float targetVelocityX = value * player.MoveSpeed;
-
-            // Preserve the existing Y and Z velocities (e.g., for gravity or jumping)
-            Vector3 currentVelocity = _playerRigidbody.linearVelocity;
-            Vector3 newVelocity = new Vector3(targetVelocityX, currentVelocity.y, currentVelocity.z);
-
-            // Apply the new velocity
-            _playerRigidbody.linearVelocity = newVelocity;
             
-            float playerDirection = (_direction.x * value)/Mathf.Abs(_direction.x);
+            ApplyMovement(value);
+            HandleMousePosition(Mouse.current.position.ReadValue());
+        }
+        
+        //<<summary>>
+        // Apply movement to the player in the x-axis (-1, 0, 1)
+        //<<summary>>
+        private void ApplyMovement(float value)
+        {
+            float targetVelocityX = value * player.MoveSpeed;
+            
+            Vector3 currentVelocity = _playerRigidbody.linearVelocity;
+            
+            _playerRigidbody.linearVelocity = new Vector3(targetVelocityX, currentVelocity.y, currentVelocity.z);
 
             if (IsGrounded())
             {
                 
-                OnPlayerMove?.Invoke(playerDirection);
+                OnPlayerMove?.Invoke(Mathf.Sign(_direction.x) * value);
             }
         }
 
@@ -150,6 +161,7 @@ namespace Characters
             OnPlayerMove?.Invoke(0);
 
             ResetRefillTimer();
+            HandleMousePosition(Mouse.current.position.ReadValue());
         }
 
         private void ResetRefillTimer()
@@ -196,7 +208,9 @@ namespace Characters
             _isStunned = isStunned;
         }
         
-        // ground check bool function using raycast and collision
+        // <<summary>>
+        // Check if the player is grounded
+        // <<summary>>
         private bool IsGrounded()
         {
             float distance = 1.5f;
