@@ -4,7 +4,7 @@
     height: 100%;
 }
 
-.enemy-health-bar {
+.enemy-health-bar-container {
     position: absolute;
     top: 10px;
     left: 50%;
@@ -14,6 +14,23 @@
     border-width: 2px;
     border-radius: 10px;
     flex-direction: row;
+}
+
+.enemy-health-bar {
+    margin: 0;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#enemy-health {
+    margin: 0;
+    justify-content: flex-start;
+    background-color: red;
+    height: 100%;
+    width: 100%;
 }
 
 .enemy-icon {
@@ -27,17 +44,7 @@
     -unity-background-image-tint-color: rgb(55, 55, 55);
 }
 
-#enemy-health {
-    margin: 0;
-    justify-content: flex-start;
-    background-color: red;
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-    position: absolute;
-}
-
-.jetpack-fuel-bar {
+.jetpack-fuel-bar-container {
     position: absolute;
     justify-content: flex-end;
     bottom: 60px;
@@ -49,12 +56,20 @@
     border-radius: 10px;
 }
 
+.jetpack-fuel-bar {
+    margin: 0;
+    justify-content: flex-end;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
 #jetpack-fuel {
     margin: 0;
     background-color: yellow;
     height: 100%;
     width: 100%;
-    border-radius: 10px;
 }
 
 .jetpack-icon {
@@ -69,7 +84,7 @@
     bottom: 0;
 }
 
-.player-health-bar {
+.player-health-bar-container {
     position: absolute;
     bottom: 10px;
     left: 30px;
@@ -80,14 +95,21 @@
     border-radius: 10px;
 }
 
+.player-health-bar {
+    margin: 0;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
 #player-health {
     margin: 0;
     justify-content: flex-start;
     background-color: green;
     height: 100%;
     width: 100%;
-    border-radius: 10px;
-    position: absolute;
 }
 
 .player-health-icon {
@@ -118,6 +140,7 @@
     font-size: 24px;
     margin: 0;
     padding: 0;
+    left: 20px;
 }
 
 .ammo-icon {
