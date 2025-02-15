@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.SceneManagement;
 using Cursor = UnityEngine.Cursor;
 
 namespace UI
@@ -12,8 +11,9 @@ namespace UI
         private Button _optionsButton;
         private Button _quitButton;
         
-        public delegate void OnButtonClicked();
-        public static event OnButtonClicked OptionButtonClicked;
+        public delegate void StatEvent();
+        public static event StatEvent OptionButtonClicked;
+        public static event StatEvent PlayButtonClicked;
         
         private void OnEnable()
         {
@@ -37,7 +37,7 @@ namespace UI
         
         private static void HandlePlayButtonClicked()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            PlayButtonClicked?.Invoke();
         }
         
         private static void HandleOptionsButtonClicked()

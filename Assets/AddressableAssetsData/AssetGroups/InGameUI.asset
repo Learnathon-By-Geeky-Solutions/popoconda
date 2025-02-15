@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: InGameUI
+  m_EditorClassIdentifier: 
+  m_GroupName: InGameUI
+  m_GUID: 49ec63abf7ee9ec4f9c57e738983ac08
+  m_SerializeEntries:
+  - m_GUID: 41a9ea532e2708d45b6231175ade5025
+    m_Address: Assets/Scenes/InGameUi.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 34695397e22c47f43beffa09ef6fb516, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: c7f710798707a6047be5231cef341e0e, type: 2}
+    - {fileID: 11400000, guid: aee12d9ad06da544bb1ca3539e234f11, type: 2}

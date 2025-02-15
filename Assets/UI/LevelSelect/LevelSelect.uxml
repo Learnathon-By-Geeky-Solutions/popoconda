@@ -1,0 +1,12 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/LevelSelect/LevelSelect.uss?fileID=7433441132597879392&amp;guid=53edd33b660519b4dbeffa3f323b118f&amp;type=3#LevelSelect" />
+    <engine:VisualElement name="VisualElement" class="full-screen">
+        <engine:Label text="Select Level" name="label" class="label-text text-button english-font" />
+        <engine:VisualElement name="container" class="container">
+            <engine:Button text="Level 1" name="level-1" class="buttons " />
+            <engine:Button text="Level 2" name="level-2" class="buttons button-active button-inactive text-button english-font" />
+            <engine:Button text="Level 3" name="level-3" class="buttons button-active button-inactive text-button english-font" />
+        </engine:VisualElement>
+        <engine:Button text="Back" name="back" class="buttons" style="margin-top: 20px; background-color: rgb(83, 157, 129);" />
+    </engine:VisualElement>
+</engine:UXML>
