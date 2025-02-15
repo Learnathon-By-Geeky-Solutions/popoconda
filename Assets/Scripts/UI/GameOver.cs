@@ -1,6 +1,5 @@
 using Game;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
 
@@ -12,9 +11,12 @@ namespace UI
         private Button _retryButton;
         private Button _mainMenuButton;
         
-        public delegate void UIEvent();
-        public static event UIEvent UIEnableEvent;
-        public static event UIEvent UIDisableEvent;
+        public delegate void StatEvent();
+        public static event StatEvent UIEnableEvent;
+        public static event StatEvent UIDisableEvent;
+        
+        public static event StatEvent RetryEvent;
+        public static event StatEvent MenuEvent;
         
         private void Start()
         {
@@ -47,13 +49,13 @@ namespace UI
         
         private static void HandleRetryButtonClicked()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            RetryEvent?.Invoke();
             
         }
         
         private static void HandleMenuButtonClicked()
         {
-            SceneManager.LoadScene(1);
+            MenuEvent?.Invoke();
         }
     }
 }

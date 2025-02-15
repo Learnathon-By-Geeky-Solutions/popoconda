@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.SceneManagement;
 using Game;
 using Cursor = UnityEngine.Cursor;
 
@@ -12,9 +11,11 @@ namespace UI
         private Button _nextLevelButton;
         private Button _mainMenuButton;
         
-        public delegate void UIEvent();
-        public static event UIEvent UIEnableEvent;
-        public static event UIEvent UIDisableEvent;
+        public delegate void StatEvent();
+        public static event StatEvent UIEnableEvent;
+        public static event StatEvent UIDisableEvent;
+        public static event StatEvent NextLevelEvent;
+        public static event StatEvent MenuEvent;
         
         private void Start()
         {
@@ -48,13 +49,13 @@ namespace UI
         
         private static void HandleNextLevelButtonClicked()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            NextLevelEvent?.Invoke();
         }
         
         private static void HandleMenuButtonClicked()
         {
             Debug.Log("Main Menu button clicked");
-            SceneManager.LoadScene(1);
+            MenuEvent?.Invoke();
         }
     }
 }

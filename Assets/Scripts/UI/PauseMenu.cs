@@ -2,7 +2,6 @@ using UnityEngine;
 using Game;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
-using UnityEngine.SceneManagement;
 
 namespace UI
 {
@@ -13,9 +12,12 @@ namespace UI
         private Button _restartButton;
         private Button _mainMenuButton;
         
-        public delegate void UIEvent();
-        public static event UIEvent UIEnableEvent;
-        public static event UIEvent UIDisableEvent;
+        public delegate void StatEvent();
+        public static event StatEvent UIEnableEvent;
+        public static event StatEvent UIDisableEvent;
+        public static event StatEvent RestartEvent;
+        public static event StatEvent MainMenuEvent;
+        
         
         private void Start()
         {
@@ -78,7 +80,7 @@ namespace UI
             Time.timeScale = 1;
             Cursor.visible = false;
             pauseMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            RestartEvent?.Invoke();
         }
         
         private void HandleMainMenuButtonClicked()
@@ -86,7 +88,7 @@ namespace UI
             Time.timeScale = 1;
             Cursor.visible = false;
             pauseMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
-            SceneManager.LoadScene(1);
+            MainMenuEvent?.Invoke();
         }
     }
 }
