@@ -21,7 +21,7 @@ You, a highly trained special operative equipped with advanced weaponry and a je
 ---
 
 ## How to Play  
-- Use a combination of firearms, equipment, and jetpack maneuvers to defeat enemies and bosses.  
+- Use Assult Rifle, and jetpack maneuvers to defeat enemies and bosses.  
 - Learn boss patterns, exploit their weaknesses, and adapt your strategy to progress.  
 
 ---
@@ -46,18 +46,17 @@ You, a highly trained special operative equipped with advanced weaponry and a je
 - **Abilities:**  
   - Jetpack flight  
   - Advanced firearms proficiency  
-  - Equipment like grenade types  
 
 ### Bosses  
 1. **Boss 1:**  
    - **Abilities:** Heavy weaponry and laser-type ability.  
    - **Weakness:** Slow movement speed makes it vulnerable to hit-and-run tactics and aerial assaults using the jetpack.  
 2. **Boss 2:**  
-   - **Abilities:** Sharp shooting and the ability to slow the protagonist's movement for a limited time.  
+   - **Abilities:** Sharp shooting and the ability to stun the protagonist's movement for a limited time.  
    - **Weakness:** Can’t shoot continuously for a long period.  
 3. **Boss 3:**  
    - **Abilities:** Fires powerful energy blasts and can perform quick dashes to avoid attacks.  
-   - **Weakness:** Weak fusion core exposed during its energy recharge phase, making it vulnerable to attacks.  
+   - **Weakness:** Cannot attack when its energy recharge phase, making it vulnerable to attacks.  
 
 ---
 
@@ -78,14 +77,14 @@ You, a highly trained special operative equipped with advanced weaponry and a je
 ---
 
 ## Game Flow Chart  
-- Menu → Boss Fight (Random).  
+- Menu → Boss Fight (Level select).  
 
 ---
 
 ## Audio & Sound Effects  
 
 ### Player Elements  
-- **Weapon Sounds:** Dynamic audio for firing and reloading.  
+- **Weapon Sounds:** Dynamic audio for firing.  
 - **Jetpack Sounds:** Sound for jetpack when using it.  
 
 ### Global Elements  
@@ -129,18 +128,3 @@ You, a highly trained special operative equipped with advanced weaponry and a je
 - Dynamic 2.5D visuals with cyberpunk aesthetics.  
 
 ---
-
-## Development  
-
-### Abstract Classes/Components  
-- **CharacterController:** Handles movement, combat, and jetpack functionality.  
-- **BossAI:** Governs unique attack patterns and behavior for each boss.  
-- **EnvironmentManager:** Manages background elements and interactive props.  
-
-### Derived Classes/Component Compositions  
-- **ProtagonistController:** Inherits from `CharacterController`, with additional jetpack logic.  
-- **Bosses:** Inherits from `BossAI`, with unique mutant-specific abilities.  
-- **LabEnvironment:** Inherits from `EnvironmentManager`, with destructible elements.  
-
-
-
