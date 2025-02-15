@@ -1,0 +1,79 @@
+.full-screen {
+    height: 100%;
+    width: 100%;
+    background-image: url("project://database/Assets/UI/OptionMenu/background.jpg?fileID=2800000&guid=4a1e5e75908d85b4c912d7c54f3b20ac&type=3#background");
+    align-content: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.label-text {
+    font-size: 30px;
+    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
+    color: rgb(190, 159, 13);
+    margin-bottom: 10px;
+}
+
+.container {
+    background-color: rgba(121, 124, 44, 0.15);
+    width: 30%;
+    height: 50%;
+    border-top-width: 2px;
+    border-left-color: rgb(20, 184, 134);
+    border-right-color: rgb(20, 184, 123);
+    border-top-color: rgb(224, 95, 11);
+    border-bottom-color: rgb(224, 96, 11);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons {
+    border-top-color: rgba(224, 96, 11, 0.93);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-left-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(224, 96, 11, 0.93);
+    border-right-color: rgba(224, 96, 11, 0.93);
+    border-bottom-color: rgba(224, 96, 11, 0.93);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgb(15, 141, 108);
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    min-width: 100px;
+    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
+    font-size: 18px;
+    color: rgba(31, 32, 36, 0.96);
+}
+
+.button-active {
+    background-color: rgb(15, 141, 108);
+}
+
+.button-inactive {
+    background-color: rgba(140, 106, 106, 0.44);
+}
+
+.english-font {
+    -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
+}
+
+.bangla-font {
+    -unity-font-definition: url("project://database/Assets/Font/LiSirajeeSylhetiANSIV1-Regular.ttf?fileID=12800000&guid=b555dec6fc9f9d4419109d33f25a9c4b&type=3#LiSirajeeSylhetiANSIV1-Regular");
+}
