@@ -52,6 +52,10 @@ namespace Game
         
         public static Vector3 GetPlayerPosition()
         {
+            if(_playerTransform == null)
+            {
+                return Vector3.zero;
+            }
             return _playerTransform.position;
         }
 
