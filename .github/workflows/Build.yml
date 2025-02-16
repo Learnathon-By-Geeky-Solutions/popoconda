@@ -1,16 +1,18 @@
-name: Build project
+name: Actions 😎
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  buildForWindowsAndWebGL:
+  buildForAllSupportedPlatforms:
     name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         targetPlatform:
-          - StandaloneWindows # Build a Windows standalone.
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
           - WebGL # WebGL.
     steps:
@@ -30,7 +32,12 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Build-${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}
+     
+      - name: Ask Butler to Send Package to itch
+        uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: ${{ matrix.targetPlatform }}
+          ITCH_GAME: steel-ascendant
+          ITCH_USER: nahiyansamit
+          PACKAGE: ./build/${{ matrix.targetPlatform }}
