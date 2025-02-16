@@ -41,6 +41,7 @@ namespace Combat
             _laserLineRenderer = Instantiate(laserPrefab, laserSpawnPoint.transform.position, Quaternion.identity)
                                  .GetComponent<LineRenderer>();
             _laserLineRenderer.enabled = true;
+            Destroy(_laserLineRenderer.gameObject, 1f);
 
             ShootLaserAsync(direction, _cancellationTokenSource.Token).Forget();
         }
