@@ -24,7 +24,7 @@
         </ui:VisualElement>
 
         <ui:VisualElement class="ammo-count">
-            <ui:Label name="ammo-label" text="10" />
+            <ui:Label name="ammo-label" />
             <ui:Label class="ammo-icon" style="left: 0;" />
         </ui:VisualElement>
     </ui:VisualElement>

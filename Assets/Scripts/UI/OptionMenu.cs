@@ -33,7 +33,7 @@ namespace UI
             }
            
             
-            optionMenuDocument.sortingOrder = -1;
+            optionMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
             
             _englishButton.clicked += HandleEnglishButtonClicked;
             _banglaButton.clicked += HandleBanglaButtonClicked;
@@ -64,13 +64,13 @@ namespace UI
         private void HandleBackButtonClicked()
         {
             Debug.Log("Back button clicked");
-            optionMenuDocument.sortingOrder = -1;
+            optionMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
             
         }
         
         private void HandleOptionMenuClicked()
         {
-            optionMenuDocument.sortingOrder = 1;
+            optionMenuDocument.rootVisualElement.style.display = DisplayStyle.Flex;
         }
 
         private static void SetLocale(string localeCode)
