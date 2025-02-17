@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: OptionMenu
+  m_EditorClassIdentifier: 
+  m_GroupName: OptionMenu
+  m_GUID: 4339bf251e4de2f47a6627e5852d6b96
+  m_SerializeEntries:
+  - m_GUID: cf8291d564f74aa4abfc4904a667ca05
+    m_Address: Assets/Scenes/OptionMenu.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 34695397e22c47f43beffa09ef6fb516, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 2472c155dfd1e7f439eead054fe14a10, type: 2}
+    - {fileID: 11400000, guid: 465606e0fa9f41e4abb363d3ae444686, type: 2}
