@@ -13,11 +13,12 @@ namespace Scene
 
         private static SceneManager Instance { get; set; }
 
-        private static SceneInstance _mainMenuInstance;
-        private static SceneInstance _levelSelectMenuInstance;
-        private static SceneInstance _levelInstance;
-        private static SceneInstance _playerInstance;
-        private static SceneInstance _gameUiInstance;
+        private SceneInstance _mainMenuInstance;
+        private SceneInstance _optionMenuInstance;
+        private SceneInstance _levelSelectMenuInstance;
+        private SceneInstance _levelInstance;
+        private SceneInstance _playerInstance;
+        private SceneInstance _gameUiInstance;
 
         private int _currentLevelIndex = -1;
 
@@ -37,6 +38,8 @@ namespace Scene
         private void OnEnable()
         {
             MainMenu.PlayButtonClicked += LoadLevelSelectScene;
+            MainMenu.OptionButtonClicked += LoadOptionMenu;
+            OptionMenu.BackButtonClicked += LoadMainMenu;
             LevelSelectMenu.level1Event += LoadLevel1;
             LevelSelectMenu.level2Event += LoadLevel2;
             LevelSelectMenu.level3Event += LoadLevel3;
@@ -53,6 +56,8 @@ namespace Scene
         private void OnDisable()
         {
             MainMenu.PlayButtonClicked -= LoadLevelSelectScene;
+            MainMenu.OptionButtonClicked -= LoadOptionMenu;
+            OptionMenu.BackButtonClicked -= LoadMainMenu;
             LevelSelectMenu.level1Event -= LoadLevel1;
             LevelSelectMenu.level2Event -= LoadLevel2;
             LevelSelectMenu.level3Event -= LoadLevel3;
@@ -64,6 +69,51 @@ namespace Scene
             PauseMenu.RestartEvent -= LoadCurrentLevel;
             PauseMenu.MainMenuEvent -= LoadMainMenu;
             MainMenuLoader.MainMenuEvent -= LoadMainMenu;
+        }
+        
+        private void LoadMainMenu()
+        {
+            if (sceneData.MainMenuScene == null)
+            {
+                Debug.LogError("Main Menu scene not assigned in SceneDataSO!");
+                return;
+            }
+            
+            if(_optionMenuInstance.Scene.isLoaded)
+            {
+                Addressables.UnloadSceneAsync(_optionMenuInstance);
+            }
+            if (_levelInstance.Scene.isLoaded)
+            {
+                Addressables.UnloadSceneAsync(_levelInstance);
+            }
+            if (_playerInstance.Scene.isLoaded)
+            {
+                Addressables.UnloadSceneAsync(_playerInstance);
+            }
+            if (_gameUiInstance.Scene.isLoaded)
+            {
+                Addressables.UnloadSceneAsync(_gameUiInstance);
+            }
+
+            Addressables.LoadSceneAsync(sceneData.MainMenuScene, USM.LoadSceneMode.Additive)
+                .Completed += handle => _mainMenuInstance = handle.Result;
+        }
+        
+        private void LoadOptionMenu()
+        {
+            if (sceneData.OptionMenuScene == null)
+            {
+                Debug.LogError("Option Menu scene not assigned in SceneDataSO!");
+                return;
+            }
+            
+            if (_mainMenuInstance.Scene.isLoaded)
+            {
+                Addressables.UnloadSceneAsync(_mainMenuInstance);
+            }
+            Addressables.LoadSceneAsync(sceneData.OptionMenuScene, USM.LoadSceneMode.Additive)
+                .Completed += handle => _optionMenuInstance = handle.Result;
         }
         
         private void LoadLevelSelectScene()
@@ -185,36 +235,16 @@ namespace Scene
             };
         }
 
-        private void LoadMainMenu()
-        {
-            if (sceneData.MainMenuScene == null)
-            {
-                Debug.LogError("Main Menu scene not assigned in SceneDataSO!");
-                return;
-            }
-            
-            if (_levelInstance.Scene.isLoaded)
-            {
-                Addressables.UnloadSceneAsync(_levelInstance);
-            }
-            if (_playerInstance.Scene.isLoaded)
-            {
-                Addressables.UnloadSceneAsync(_playerInstance);
-            }
-            if (_gameUiInstance.Scene.isLoaded)
-            {
-                Addressables.UnloadSceneAsync(_gameUiInstance);
-            }
-
-            Addressables.LoadSceneAsync(sceneData.MainMenuScene, USM.LoadSceneMode.Additive)
-                .Completed += handle => _mainMenuInstance = handle.Result;
-        }
-
         private void LoadLevel(AssetReference levelReference)
         {
             Debug.Log($"Loading Level: {levelReference.RuntimeKey}");
             Debug.Log("Corrent level index: " + _currentLevelIndex);
-
+            
+            if(_levelSelectMenuInstance.Scene.isLoaded)
+            {
+                Addressables.UnloadSceneAsync(_levelSelectMenuInstance);
+            }
+            
             levelReference.LoadSceneAsync(USM.LoadSceneMode.Additive).Completed += handle =>
             {
                 _levelInstance = handle.Result;
