@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using USM = UnityEngine.SceneManagement;
@@ -19,8 +20,12 @@ namespace Scene
         private SceneInstance _levelInstance;
         private SceneInstance _playerInstance;
         private SceneInstance _gameUiInstance;
-
+        
+        private int _unlockedLevels;
         private int _currentLevelIndex = -1;
+        
+        public delegate void StateEventWithInt(int value);
+        public static event StateEventWithInt OnLevelUnlock;
 
         private void Awake()
         {
@@ -33,6 +38,13 @@ namespace Scene
             {
                 Destroy(gameObject);
             }
+        }
+        
+        private async void Start()
+        {
+            await UniTask.DelayFrame(1); // Ensure SaveSystem has loaded first
+            _unlockedLevels = GameManager.GetUnlockedLevels();
+            Debug.Log("SceneManager Loaded Unlocked Levels: " + _unlockedLevels);
         }
 
         private void OnEnable()
@@ -79,6 +91,10 @@ namespace Scene
                 return;
             }
             
+            if(_levelSelectMenuInstance.Scene.isLoaded)
+            {
+                Addressables.UnloadSceneAsync(_levelSelectMenuInstance);
+            }
             if(_optionMenuInstance.Scene.isLoaded)
             {
                 Addressables.UnloadSceneAsync(_optionMenuInstance);
@@ -154,6 +170,12 @@ namespace Scene
                 Debug.LogError("No levels found in SceneDataSO!");
                 return;
             }
+            if(_unlockedLevels < 1)
+            {
+                Debug.Log("Unlocked levels: " + _unlockedLevels);
+                Debug.Log("Level 2 is locked!");
+                return;
+            }
             
             Addressables.UnloadSceneAsync(_levelSelectMenuInstance);
             _currentLevelIndex = 1;
@@ -167,6 +189,13 @@ namespace Scene
             if (sceneData.Levels.Count == 0)
             {
                 Debug.LogError("No levels found in SceneDataSO!");
+                return;
+            }
+            
+            if(_unlockedLevels < 2)
+            {
+                Debug.Log("Level 3 is locked!");
+                Debug.Log("Unlocked levels: " + _unlockedLevels);
                 return;
             }
             
@@ -184,6 +213,13 @@ namespace Scene
                 Debug.LogError("No levels found in SceneDataSO!");
                 return;
             }
+            
+            if(_unlockedLevels  <= _currentLevelIndex)
+            {
+                _unlockedLevels++;
+                OnLevelUnlock?.Invoke(_unlockedLevels);
+            }
+            Debug.Log("Unlocked levels: " + _unlockedLevels);
 
             _currentLevelIndex++;
             if (_currentLevelIndex >= sceneData.Levels.Count)
@@ -239,11 +275,6 @@ namespace Scene
         {
             Debug.Log($"Loading Level: {levelReference.RuntimeKey}");
             Debug.Log("Corrent level index: " + _currentLevelIndex);
-            
-            if(_levelSelectMenuInstance.Scene.isLoaded)
-            {
-                Addressables.UnloadSceneAsync(_levelSelectMenuInstance);
-            }
             
             levelReference.LoadSceneAsync(USM.LoadSceneMode.Additive).Completed += handle =>
             {
