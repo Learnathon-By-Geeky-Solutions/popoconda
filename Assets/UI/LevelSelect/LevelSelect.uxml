@@ -1,12 +1,37 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/LevelSelect/LevelSelect.uss?fileID=7433441132597879392&amp;guid=53edd33b660519b4dbeffa3f323b118f&amp;type=3#LevelSelect" />
     <engine:VisualElement name="VisualElement" class="full-screen">
-        <engine:Label text="Select Level" name="label" class="label-text text-button english-font" />
+        <engine:Label text="Select Level" name="label" class="label-text text-button english-font">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(6431133372579840)" />
+                <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
+            </Bindings>
+        </engine:Label>
         <engine:VisualElement name="container" class="container">
-            <engine:Button text="Level 1" name="level-1" class="buttons " />
-            <engine:Button text="Level 2" name="level-2" class="buttons button-active button-inactive text-button english-font" />
-            <engine:Button text="Level 3" name="level-3" class="buttons button-active button-inactive text-button english-font" />
+            <engine:Button text="Level 1" name="level-1" class="buttons ">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(6432018848874496)" />
+                    <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
+                </Bindings>
+            </engine:Button>
+            <engine:Button text="Level 2" name="level-2" class="buttons button-active button-inactive text-button english-font">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(6432241688051712)" />
+                    <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
+                </Bindings>
+            </engine:Button>
+            <engine:Button text="Level 3" name="level-3" class="buttons button-active button-inactive text-button english-font">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(6432457812148224)" />
+                    <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
+                </Bindings>
+            </engine:Button>
         </engine:VisualElement>
-        <engine:Button text="Back" name="back" class="buttons" style="margin-top: 20px; background-color: rgb(83, 157, 129);" />
+        <engine:Button text="Back" name="back" class="buttons" style="margin-top: 20px; background-color: rgb(83, 157, 129);">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(6432574472519680)" />
+                <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
+            </Bindings>
+        </engine:Button>
     </engine:VisualElement>
 </engine:UXML>

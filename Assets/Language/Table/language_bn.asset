@@ -54,6 +54,26 @@ MonoBehaviour:
     m_Localized: 'fvlv '
     m_Metadata:
       m_Items: []
+  - m_Id: 6431133372579840
+    m_Localized: "avc wbe\xA9vPb Ki\u201Cb\r\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6432018848874496
+    m_Localized: avc -1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6432241688051712
+    m_Localized: avc -2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6432457812148224
+    m_Localized: avc -3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6432574472519680
+    m_Localized: "wd\u2021i hvb"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

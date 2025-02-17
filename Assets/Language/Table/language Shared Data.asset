@@ -51,6 +51,26 @@ MonoBehaviour:
     m_Key: language-toggle
     m_Metadata:
       m_Items: []
+  - m_Id: 6431133372579840
+    m_Key: level-select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6432018848874496
+    m_Key: Level-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6432241688051712
+    m_Key: Level-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6432457812148224
+    m_Key: Level-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6432574472519680
+    m_Key: back-button
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
