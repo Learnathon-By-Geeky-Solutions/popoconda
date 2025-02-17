@@ -8,12 +8,14 @@ namespace Scene
     public class SceneData : ScriptableObject
     {
         [SerializeField] private AssetReference mainMenuScene;
+        [SerializeField] private AssetReference optionMenuScene;
         [SerializeField] private AssetReference levelSelectScene;
         [SerializeField] private AssetReference playerScene;
         [SerializeField] private AssetReference gameUIScene;
         [SerializeField] private List<AssetReference> levels; // Stores all level scenes
         
         public AssetReference MainMenuScene => mainMenuScene;
+        public AssetReference OptionMenuScene => optionMenuScene;
         public AssetReference LevelSelectScene => levelSelectScene;
         public AssetReference PlayerScene => playerScene;
         public AssetReference GameUIScene => gameUIScene;

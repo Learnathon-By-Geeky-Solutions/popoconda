@@ -18,6 +18,12 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  optionMenuScene:
+    m_AssetGUID: cf8291d564f74aa4abfc4904a667ca05
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   levelSelectScene:
     m_AssetGUID: 337d5164968629747a04993a90701a73
     m_SubObjectName: 

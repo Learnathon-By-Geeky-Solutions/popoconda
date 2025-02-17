@@ -54,6 +54,26 @@ MonoBehaviour:
     m_Localized: Language
     m_Metadata:
       m_Items: []
+  - m_Id: 6431133372579840
+    m_Localized: Select Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6432018848874496
+    m_Localized: Level 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6432241688051712
+    m_Localized: Level 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6432457812148224
+    m_Localized: Level 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6432574472519680
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
