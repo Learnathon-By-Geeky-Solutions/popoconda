@@ -13,6 +13,9 @@ namespace UI
         private Button _banglaButton;
         private Button _backButton;
         
+        public delegate void StatEvent();
+        public static event StatEvent BackButtonClicked;
+        
         private void OnEnable()
         {
             VisualElement root = optionMenuDocument.rootVisualElement;
@@ -21,8 +24,6 @@ namespace UI
             _englishButton = root.Q<Button>("english-text-button");
             _banglaButton = root.Q<Button>("bangla-text-button");
             _backButton = root.Q<Button>("back-button");
-            
-            MainMenu.OptionButtonClicked += HandleOptionMenuClicked;
 
             if (LocalizationSettings.SelectedLocale.LocaleName == "Bangla (bn)")
             {
@@ -31,9 +32,6 @@ namespace UI
                 state[0] = false; 
                 _languageToggle.value = state;
             }
-           
-            
-            optionMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
             
             _englishButton.clicked += HandleEnglishButtonClicked;
             _banglaButton.clicked += HandleBanglaButtonClicked;
@@ -45,8 +43,6 @@ namespace UI
             _englishButton.clicked -= HandleEnglishButtonClicked;
             _banglaButton.clicked -= HandleBanglaButtonClicked;
             _backButton.clicked -= HandleBackButtonClicked;
-            
-            MainMenu.OptionButtonClicked -= HandleOptionMenuClicked;
         }
         
         private static void HandleEnglishButtonClicked()
@@ -61,18 +57,12 @@ namespace UI
             SetLocale("bn");  // Change locale to Bangla
         }
 
-        private void HandleBackButtonClicked()
+        private static void HandleBackButtonClicked()
         {
             Debug.Log("Back button clicked");
-            optionMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
-            
+            BackButtonClicked?.Invoke();
         }
         
-        private void HandleOptionMenuClicked()
-        {
-            optionMenuDocument.rootVisualElement.style.display = DisplayStyle.Flex;
-        }
-
         private static void SetLocale(string localeCode)
         {
             Locale newLocale = LocalizationSettings.AvailableLocales.GetLocale(localeCode);
