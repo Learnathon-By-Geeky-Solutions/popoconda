@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using Game;
-using Cursor = UnityEngine.Cursor;
 
 namespace UI
 {
@@ -44,7 +43,7 @@ namespace UI
         {
             gameWinDocument.rootVisualElement.style.display = DisplayStyle.Flex;
             UIEnableEvent?.Invoke();
-            Cursor.visible = true;
+            
         }
         
         private static void HandleNextLevelButtonClicked()
