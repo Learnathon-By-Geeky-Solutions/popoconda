@@ -38,6 +38,7 @@ namespace Characters
         protected virtual void Update()
         {
             Vector3 playerPosition = GameManager.GetPlayerPosition();
+            PlayerDirection = playerPosition - gunRotatePoint.transform.position;
             Move(playerPosition);
         }
 
@@ -54,10 +55,11 @@ namespace Characters
 
         private void Move(Vector3 playerPosition)
         {
-            PlayerDirection = playerPosition - transform.position;
-            float distanceToPlayer = PlayerDirection.magnitude;
-            if (distanceToPlayer >= 16) 
+            float distanceToPlayer = playerPosition.x - transform.position.x;
+            if (Mathf.Abs(distanceToPlayer) >= 16)
+            {
                 transform.position += new Vector3(PlayerDirection.x * (0.3f * Time.deltaTime), 0, 0);
+            }
         }
 
         private async UniTask UpdatePositionAsync(CancellationToken token)
