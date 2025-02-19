@@ -14,8 +14,12 @@ namespace Characters
         [SerializeField] protected Health enemyHealth;
 
         private bool _isAlive;
+        
+        public delegate void StatEvent();
+        public static event StatEvent OnEnemyMove;
+        public static event StatEvent OnEnemyStop;
         public static event Health.StatEventWithFloat OnEnemyHealthChange;
-        public static event Health.StatEvent OnBossDeath;
+        public static event StatEvent OnBossDeath;
 
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -59,6 +63,11 @@ namespace Characters
             if (Mathf.Abs(distanceToPlayer) >= 16)
             {
                 transform.position += new Vector3(PlayerDirection.x * (0.3f * Time.deltaTime), 0, 0);
+                OnEnemyMove?.Invoke();
+            }
+            else
+            {
+                OnEnemyStop?.Invoke();
             }
         }
 
