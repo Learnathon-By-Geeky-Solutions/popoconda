@@ -1,7 +1,7 @@
 using Game;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Cursor = UnityEngine.Cursor;
+
 
 namespace UI
 {
@@ -44,7 +44,7 @@ namespace UI
         {
             gameOverDocument.rootVisualElement.style.display = DisplayStyle.Flex;
             UIEnableEvent?.Invoke();
-            Cursor.visible = true;
+           
         }
         
         private static void HandleRetryButtonClicked()

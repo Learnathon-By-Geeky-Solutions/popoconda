@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using USM = UnityEngine.SceneManagement;
@@ -17,10 +18,13 @@ namespace Scene
         private SceneInstance _optionMenuInstance;
         private SceneInstance _levelSelectMenuInstance;
         private SceneInstance _levelInstance;
-        private SceneInstance _playerInstance;
         private SceneInstance _gameUiInstance;
-
+        
+        private int _unlockedLevels;
         private int _currentLevelIndex = -1;
+        
+        public delegate void StateEventWithInt(int value);
+        public static event StateEventWithInt OnLevelUnlock;
 
         private void Awake()
         {
@@ -33,6 +37,13 @@ namespace Scene
             {
                 Destroy(gameObject);
             }
+        }
+        
+        private async void Start()
+        {
+            await UniTask.DelayFrame(1); // Ensure SaveSystem has loaded first
+            _unlockedLevels = GameManager.GetUnlockedLevels();
+            Debug.Log("SceneManager Loaded Unlocked Levels: " + _unlockedLevels);
         }
 
         private void OnEnable()
@@ -75,45 +86,20 @@ namespace Scene
         {
             if (sceneData.MainMenuScene == null)
             {
-                Debug.LogError("Main Menu scene not assigned in SceneDataSO!");
                 return;
             }
-            
-            if(_optionMenuInstance.Scene.isLoaded)
-            {
-                Addressables.UnloadSceneAsync(_optionMenuInstance);
-            }
-            if (_levelInstance.Scene.isLoaded)
-            {
-                Addressables.UnloadSceneAsync(_levelInstance);
-            }
-            if (_playerInstance.Scene.isLoaded)
-            {
-                Addressables.UnloadSceneAsync(_playerInstance);
-            }
-            if (_gameUiInstance.Scene.isLoaded)
-            {
-                Addressables.UnloadSceneAsync(_gameUiInstance);
-            }
 
-            Addressables.LoadSceneAsync(sceneData.MainMenuScene, USM.LoadSceneMode.Additive)
-                .Completed += handle => _mainMenuInstance = handle.Result;
+            Addressables.LoadSceneAsync(sceneData.MainMenuScene);
         }
         
         private void LoadOptionMenu()
         {
             if (sceneData.OptionMenuScene == null)
             {
-                Debug.LogError("Option Menu scene not assigned in SceneDataSO!");
                 return;
             }
             
-            if (_mainMenuInstance.Scene.isLoaded)
-            {
-                Addressables.UnloadSceneAsync(_mainMenuInstance);
-            }
-            Addressables.LoadSceneAsync(sceneData.OptionMenuScene, USM.LoadSceneMode.Additive)
-                .Completed += handle => _optionMenuInstance = handle.Result;
+            Addressables.LoadSceneAsync(sceneData.OptionMenuScene);
         }
         
         private void LoadLevelSelectScene()
@@ -124,12 +110,7 @@ namespace Scene
                 return;
             }
             
-            if (_mainMenuInstance.Scene.isLoaded)
-            {
-                Addressables.UnloadSceneAsync(_mainMenuInstance);
-            }
-            Addressables.LoadSceneAsync(sceneData.LevelSelectScene, USM.LoadSceneMode.Additive)
-                .Completed += handle => _levelSelectMenuInstance = handle.Result;
+            Addressables.LoadSceneAsync(sceneData.LevelSelectScene);
         }
         
         private void LoadLevel1()
@@ -140,11 +121,8 @@ namespace Scene
                 return;
             }
             
-            Addressables.UnloadSceneAsync(_levelSelectMenuInstance);
             _currentLevelIndex = 0;
             LoadLevel(sceneData.Levels[_currentLevelIndex]);
-            LoadPlayer();
-            LoadGameUI();
         }
         
         private void LoadLevel2()
@@ -154,12 +132,15 @@ namespace Scene
                 Debug.LogError("No levels found in SceneDataSO!");
                 return;
             }
+            if(_unlockedLevels < 1)
+            {
+                Debug.Log("Unlocked levels: " + _unlockedLevels);
+                Debug.Log("Level 2 is locked!");
+                return;
+            }
             
-            Addressables.UnloadSceneAsync(_levelSelectMenuInstance);
             _currentLevelIndex = 1;
             LoadLevel(sceneData.Levels[_currentLevelIndex]);
-            LoadPlayer();
-            LoadGameUI();
         }
         
         private void LoadLevel3()
@@ -170,11 +151,15 @@ namespace Scene
                 return;
             }
             
-            Addressables.UnloadSceneAsync(_levelSelectMenuInstance);
+            if(_unlockedLevels < 2)
+            {
+                Debug.Log("Level 3 is locked!");
+                Debug.Log("Unlocked levels: " + _unlockedLevels);
+                return;
+            }
+            
             _currentLevelIndex = 2;
             LoadLevel(sceneData.Levels[_currentLevelIndex]);
-            LoadPlayer();
-            LoadGameUI();
         }
 
         private void LoadNextLevel()
@@ -184,6 +169,9 @@ namespace Scene
                 Debug.LogError("No levels found in SceneDataSO!");
                 return;
             }
+            
+            UnlockLevel();
+            Debug.Log("Unlocked levels: " + _unlockedLevels);
 
             _currentLevelIndex++;
             if (_currentLevelIndex >= sceneData.Levels.Count)
@@ -193,22 +181,10 @@ namespace Scene
                 return;
             }
             
-            Addressables.UnloadSceneAsync(_levelInstance);
             LoadLevel(sceneData.Levels[_currentLevelIndex]);
-            Addressables.UnloadSceneAsync(_playerInstance).Completed += handle =>
-            {
-                _playerInstance = handle.Result;
-                LoadPlayer();
-
-            };
-            Addressables.UnloadSceneAsync(_gameUiInstance).Completed += handle =>
-            {
-                _gameUiInstance = handle.Result;
-                LoadGameUI();
-            };
         }
 
-        private void LoadCurrentLevel()
+        private async void LoadCurrentLevel()
         {
             if (sceneData.Levels.Count == 0)
             {
@@ -216,46 +192,31 @@ namespace Scene
                 return;
             }
 
-            // unload the current level
-            Addressables.UnloadSceneAsync(_levelInstance).Completed += handle =>
-            {
-                _levelInstance = handle.Result;
-                LoadLevel(sceneData.Levels[_currentLevelIndex]);
-            };
-            Addressables.UnloadSceneAsync(_playerInstance).Completed += handle =>
-            {
-                _playerInstance = handle.Result;
-                LoadPlayer();
+            Debug.Log($"Reloading level: {_currentLevelIndex}");
 
-            };
-            Addressables.UnloadSceneAsync(_gameUiInstance).Completed += handle =>
+            // Check if the current level is valid
+            if (_levelInstance.Scene.IsValid())
             {
-                _gameUiInstance = handle.Result;
-                LoadGameUI();
-            };
+                // Unload the current level scene
+                await Addressables.UnloadSceneAsync(_levelInstance).ToUniTask();
+                _levelInstance = default;
+            }
+
+            // Load the level again
+            LoadLevel(sceneData.Levels[_currentLevelIndex]);
         }
+
+
 
         private void LoadLevel(AssetReference levelReference)
         {
             Debug.Log($"Loading Level: {levelReference.RuntimeKey}");
             Debug.Log("Corrent level index: " + _currentLevelIndex);
             
-            if(_levelSelectMenuInstance.Scene.isLoaded)
-            {
-                Addressables.UnloadSceneAsync(_levelSelectMenuInstance);
-            }
-            
-            levelReference.LoadSceneAsync(USM.LoadSceneMode.Additive).Completed += handle =>
+            levelReference.LoadSceneAsync().Completed += handle =>
             {
                 _levelInstance = handle.Result;
-            };
-        }
-
-        private void LoadPlayer()
-        {
-            sceneData.PlayerScene.LoadSceneAsync(USM.LoadSceneMode.Additive).Completed += pHandle =>
-            {
-                _playerInstance = pHandle.Result;
+                LoadGameUI();
             };
         }
         
@@ -265,6 +226,15 @@ namespace Scene
             {
                 _gameUiInstance = uiHandle.Result;
             };
+        }
+
+        private void UnlockLevel()
+        {
+            if(_unlockedLevels  <= _currentLevelIndex)
+            {
+                _unlockedLevels++;
+                OnLevelUnlock?.Invoke(_unlockedLevels);
+            }
         }
 
     }

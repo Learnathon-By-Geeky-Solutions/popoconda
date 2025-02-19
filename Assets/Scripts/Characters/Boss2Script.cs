@@ -63,7 +63,7 @@ namespace Characters
 
             if (this && gameObject.activeInHierarchy)
             {
-                await _stunController.Stun();
+                _stunController.Stun();
                 Debug.Log("Stunned. Switching back to firing.");
             }
 

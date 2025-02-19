@@ -1,7 +1,7 @@
 using UnityEngine;
 using Game;
 using UnityEngine.UIElements;
-using Cursor = UnityEngine.Cursor;
+
 
 namespace UI
 {
@@ -28,6 +28,7 @@ namespace UI
             _mainMenuButton = root.Q<Button>("main-menu-button");
             
             pauseMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
+            UIDisableEvent?.Invoke();
             HandleResumeButtonClicked();
             
             _resumeButton.clicked += HandleResumeButtonClicked;
@@ -62,23 +63,19 @@ namespace UI
                 Debug.Log("Pause Menu Opened");
                 pauseMenuDocument.rootVisualElement.style.display = DisplayStyle.Flex;
                 UIEnableEvent?.Invoke();
-                Cursor.visible = true;
             }
         }
         
         private void HandleResumeButtonClicked()
         {
             Time.timeScale = 1;
-            Cursor.visible = false;
             pauseMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
             UIDisableEvent?.Invoke();
-            Cursor.visible = false;
         }
         
         private void HandleRestartButtonClicked()
         {
             Time.timeScale = 1;
-            Cursor.visible = false;
             pauseMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
             RestartEvent?.Invoke();
         }
@@ -86,7 +83,6 @@ namespace UI
         private void HandleMainMenuButtonClicked()
         {
             Time.timeScale = 1;
-            Cursor.visible = false;
             pauseMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
             MainMenuEvent?.Invoke();
         }

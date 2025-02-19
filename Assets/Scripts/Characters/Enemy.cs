@@ -14,8 +14,12 @@ namespace Characters
         [SerializeField] protected Health enemyHealth;
 
         private bool _isAlive;
+        
+        public delegate void StatEvent();
+        public static event StatEvent OnEnemyMove;
+        public static event StatEvent OnEnemyStop;
         public static event Health.StatEventWithFloat OnEnemyHealthChange;
-        public static event Health.StatEvent OnBossDeath;
+        public static event StatEvent OnBossDeath;
 
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -38,6 +42,7 @@ namespace Characters
         protected virtual void Update()
         {
             Vector3 playerPosition = GameManager.GetPlayerPosition();
+            PlayerDirection = playerPosition - gunRotatePoint.transform.position;
             Move(playerPosition);
         }
 
@@ -54,10 +59,16 @@ namespace Characters
 
         private void Move(Vector3 playerPosition)
         {
-            PlayerDirection = playerPosition - transform.position;
-            float distanceToPlayer = PlayerDirection.magnitude;
-            if (distanceToPlayer >= 16) 
+            float distanceToPlayer = playerPosition.x - transform.position.x;
+            if (Mathf.Abs(distanceToPlayer) >= 16)
+            {
                 transform.position += new Vector3(PlayerDirection.x * (0.3f * Time.deltaTime), 0, 0);
+                OnEnemyMove?.Invoke();
+            }
+            else
+            {
+                OnEnemyStop?.Invoke();
+            }
         }
 
         private async UniTask UpdatePositionAsync(CancellationToken token)
