@@ -20,7 +20,6 @@ namespace Scene
         private SceneInstance _levelInstance;
         private SceneInstance _gameUiInstance;
         
-        private int _unlockedLevels;
         private int _currentLevelIndex = -1;
         
         public delegate void StateEventWithInt(int value);
@@ -37,13 +36,6 @@ namespace Scene
             {
                 Destroy(gameObject);
             }
-        }
-        
-        private async void Start()
-        {
-            await UniTask.DelayFrame(1); // Ensure SaveSystem has loaded first
-            _unlockedLevels = GameManager.GetUnlockedLevels();
-            Debug.Log("SceneManager Loaded Unlocked Levels: " + _unlockedLevels);
         }
 
         private void OnEnable()
@@ -132,9 +124,9 @@ namespace Scene
                 Debug.LogError("No levels found in SceneDataSO!");
                 return;
             }
-            if(_unlockedLevels < 1)
+            if(LevelManager.UnlockedLevels < 1)
             {
-                Debug.Log("Unlocked levels: " + _unlockedLevels);
+                Debug.Log("Unlocked levels: " + LevelManager.UnlockedLevels);
                 Debug.Log("Level 2 is locked!");
                 return;
             }
@@ -151,10 +143,10 @@ namespace Scene
                 return;
             }
             
-            if(_unlockedLevels < 2)
+            if(LevelManager.UnlockedLevels < 2)
             {
                 Debug.Log("Level 3 is locked!");
-                Debug.Log("Unlocked levels: " + _unlockedLevels);
+                Debug.Log("Unlocked levels: " + LevelManager.UnlockedLevels);
                 return;
             }
             
@@ -171,7 +163,7 @@ namespace Scene
             }
             
             UnlockLevel();
-            Debug.Log("Unlocked levels: " + _unlockedLevels);
+            Debug.Log("Unlocked levels: " + LevelManager.UnlockedLevels);
 
             _currentLevelIndex++;
             if (_currentLevelIndex >= sceneData.Levels.Count)
@@ -230,10 +222,9 @@ namespace Scene
 
         private void UnlockLevel()
         {
-            if(_unlockedLevels  <= _currentLevelIndex)
+            if(LevelManager.UnlockedLevels  <= _currentLevelIndex)
             {
-                _unlockedLevels++;
-                OnLevelUnlock?.Invoke(_unlockedLevels);
+                OnLevelUnlock?.Invoke(LevelManager.UnlockedLevels + 1);
             }
         }
 
