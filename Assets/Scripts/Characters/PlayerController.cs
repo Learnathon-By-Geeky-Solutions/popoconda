@@ -47,11 +47,13 @@ namespace Characters
             InputManager.OnFirePressed += HandleFire;
             playerHealth.OnHealthChange += UpdateHealthUI;
             playerHealth.OnDeath += OnPlayerDeath;
-            GameManager.SetPlayerTransform(transform);
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit += ApplyDamage;
             FireLaser.OnLaserHit += ApplyDamage;
             StunController.OnStun +=  Stunned;
+            
+            GameManager.SetPlayerTransform(transform);
+
         }
 
         private void OnDestroy()
@@ -66,6 +68,8 @@ namespace Characters
             Bullet.OnBulletHit -= ApplyDamage;
             FireLaser.OnLaserHit -= ApplyDamage;
             StunController.OnStun -= Stunned;
+            
+            GameManager.ClearPlayerTransform();
             
             // Cancel the refill task
             _cancellationTokenSource?.Cancel();
