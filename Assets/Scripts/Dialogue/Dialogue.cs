@@ -10,7 +10,7 @@ namespace Dialogue
         [Serializable]
         public class DialogueEntry
         {
-            public string speakerID; // Key to identify the speaker
+            public int speakerID; // Key to identify the speaker
             public LocalizedString dialogueText; // Localized dialogue text
         }
 

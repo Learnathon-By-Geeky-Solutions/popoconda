@@ -216,6 +216,7 @@ MonoBehaviour:
   jumpAction: {fileID: 1199911120038055113, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
   menuAction: {fileID: -1862543386121042639, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
   cancelAction: {fileID: -5291649344164140276, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
+  nextAction: {fileID: -5743437231210457932, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
 --- !u!114 &304782596
 MonoBehaviour:
   m_ObjectHideFlags: 0

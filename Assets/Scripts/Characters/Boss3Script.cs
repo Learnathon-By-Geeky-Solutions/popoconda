@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using Combat;
+using Dialogue;
 using UnityEngine;
 
 namespace Characters
@@ -21,12 +22,25 @@ namespace Characters
 
         protected override void Awake()
         {
+            DialogueManager.OnDialogueEnd += HandleGameStart;
             base.Awake();
             _cancellationToken = this.GetCancellationTokenOnDestroy();
             _energyBlast = GetComponent<EnergyBlast>();
             _dash = GetComponent<Dash>();
             PerformActionsAsync().Forget();
         }
+        
+        protected override void OnDestroy()
+        {
+            DialogueManager.OnDialogueEnd -= HandleGameStart;
+            base.OnDestroy();
+        }
+        
+        private void HandleGameStart()
+        {
+            PerformActionsAsync().Forget();
+        }
+        
         
         private async UniTask PerformActionsAsync()
         {

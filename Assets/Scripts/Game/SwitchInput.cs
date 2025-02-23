@@ -1,3 +1,4 @@
+using Dialogue;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,33 +15,43 @@ namespace Game
             Debug.Log("Current action map: " + _playerInput.currentActionMap.name);
             
 
-            GameOver.UIEnableEvent += HandleUiEnable;
-            GameOver.UIDisableEvent += HandleUiDisable;
-            GameWin.UIEnableEvent += HandleUiEnable;
-            GameWin.UIDisableEvent += HandleUiDisable;
-            PauseMenu.UIEnableEvent += HandleUiEnable;
-            PauseMenu.UIDisableEvent += HandleUiDisable;
+            GameOver.UIEnableEvent += EnableUIMap;
+            GameOver.UIDisableEvent += EnableGamplayMap;
+            GameWin.UIEnableEvent += EnableUIMap;
+            GameWin.UIDisableEvent += EnableGamplayMap;
+            PauseMenu.UIEnableEvent += EnableUIMap;
+            PauseMenu.UIDisableEvent += EnableGamplayMap;
+            DialogueManager.OnDialogueStart += EnableCutsceneMap;
+            DialogueManager.OnDialogueEnd += EnableGamplayMap;
         }
         
         private void OnDisable()
         {
-            GameOver.UIEnableEvent -= HandleUiEnable;
-            GameOver.UIDisableEvent -= HandleUiDisable;
-            GameWin.UIEnableEvent -= HandleUiEnable;
-            GameWin.UIDisableEvent -= HandleUiDisable;
-            PauseMenu.UIEnableEvent -= HandleUiEnable;
-            PauseMenu.UIDisableEvent -= HandleUiDisable;
+            GameOver.UIEnableEvent -= EnableUIMap;
+            GameOver.UIDisableEvent -= EnableGamplayMap;
+            GameWin.UIEnableEvent -= EnableUIMap;
+            GameWin.UIDisableEvent -= EnableGamplayMap;
+            PauseMenu.UIEnableEvent -= EnableUIMap;
+            PauseMenu.UIDisableEvent -= EnableGamplayMap;
+            DialogueManager.OnDialogueStart -= EnableCutsceneMap;
+            DialogueManager.OnDialogueEnd -= EnableGamplayMap;
         }
         
-        private void HandleUiEnable()
+        private void EnableUIMap()
         {
             _playerInput.SwitchCurrentActionMap("UI");
             Debug.Log("Current action map: " + _playerInput.currentActionMap.name);
         }
         
-        private void HandleUiDisable()
+        private void EnableGamplayMap()
         {
             _playerInput.SwitchCurrentActionMap("GamePlay");
+            Debug.Log("Current action map: " + _playerInput.currentActionMap.name);
+        }
+        
+        private void EnableCutsceneMap()
+        {
+            _playerInput.SwitchCurrentActionMap("Cutscene");
             Debug.Log("Current action map: " + _playerInput.currentActionMap.name);
         }
     }

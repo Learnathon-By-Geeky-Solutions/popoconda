@@ -1,6 +1,7 @@
 using System.Threading;
 using Combat;
 using Cysharp.Threading.Tasks;
+using Dialogue;
 using UnityEngine;
 
 namespace Characters
@@ -19,9 +20,20 @@ namespace Characters
 
         protected override void Awake()
         {
+            DialogueManager.OnDialogueEnd += HandleGameStart;
             base.Awake();
             _stunController = GetComponent<StunController>();
             _cancellationToken = this.GetCancellationTokenOnDestroy();
+        }
+        
+        protected override void OnDestroy()
+        {
+            DialogueManager.OnDialogueEnd -= HandleGameStart;
+            base.OnDestroy();
+        }
+        
+        private void HandleGameStart()
+        {
             PerformActionsAsync().Forget();
         }
 
