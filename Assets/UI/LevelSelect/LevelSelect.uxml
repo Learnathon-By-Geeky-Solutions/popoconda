@@ -14,13 +14,13 @@
                     <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
                 </Bindings>
             </engine:Button>
-            <engine:Button text="Level 2" name="level-2" class="buttons button-active button-inactive text-button english-font">
+            <engine:Button text="Level 2" name="level-2" class="buttons text-button english-font">
                 <Bindings>
                     <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(6432241688051712)" />
                     <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
                 </Bindings>
             </engine:Button>
-            <engine:Button text="Level 3" name="level-3" class="buttons button-active button-inactive text-button english-font">
+            <engine:Button text="Level 3" name="level-3" class="buttons text-button english-font">
                 <Bindings>
                     <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(6432457812148224)" />
                     <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
