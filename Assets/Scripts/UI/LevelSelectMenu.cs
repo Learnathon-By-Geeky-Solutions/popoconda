@@ -12,10 +12,9 @@ namespace UI
       private Button _level3Button;
       private Button _backButton;
       
+      public delegate void StatEventWithInt(int level);
       public delegate void StatEvent();
-      public static event StatEvent level1Event;
-      public static event StatEvent level2Event;
-      public static event StatEvent level3Event;
+      public static event StatEventWithInt levelEvent;
       public static event StatEvent backEvent;
 
       private void Start()
@@ -59,19 +58,19 @@ namespace UI
       
       private static void HandleLevel1ButtonClicked()
       {
-         level1Event?.Invoke();
+         levelEvent?.Invoke(0);
          Debug.Log("Level 1 button clicked");
       }
       
       private static void HandleLevel2ButtonClicked()
       {
-         level2Event?.Invoke();
+         levelEvent?.Invoke(1);
          Debug.Log("Level 2 button clicked");
       }
       
       private static void HandleLevel3ButtonClicked()
       {
-         level3Event?.Invoke();
+         levelEvent?.Invoke(2);
          Debug.Log("Level 3 button clicked");
       }
       
