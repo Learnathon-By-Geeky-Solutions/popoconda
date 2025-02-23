@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Game;
 
 namespace UI
 {
@@ -32,6 +32,9 @@ namespace UI
          _level2Button.clicked += HandleLevel2ButtonClicked;
          _level3Button.clicked += HandleLevel3ButtonClicked;
          _backButton.clicked += HandleBackButtonClicked;
+         
+         // Update button by LevelManager.UnlockedLevel
+         UpdateLevel();
       }
       
       private void OnDestroy()
@@ -40,6 +43,18 @@ namespace UI
          _level2Button.clicked -= HandleLevel2ButtonClicked;
          _level3Button.clicked -= HandleLevel3ButtonClicked;
          _backButton.clicked -= HandleBackButtonClicked;
+      }
+
+      private void UpdateLevel()
+      {
+         if (LevelManager.UnlockedLevels < 1)
+         {
+            _level2Button.SetEnabled(false);
+         }
+         if (LevelManager.UnlockedLevels < 2)
+         {
+            _level3Button.SetEnabled(false);
+         }
       }
       
       private static void HandleLevel1ButtonClicked()
