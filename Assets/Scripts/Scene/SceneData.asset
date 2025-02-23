@@ -30,14 +30,14 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  playerScene:
-    m_AssetGUID: 7e8c54812fd268d468caab3c3711bcc7
+  gameUIScene:
+    m_AssetGUID: 41a9ea532e2708d45b6231175ade5025
     m_SubObjectName: 
     m_SubObjectGUID: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  gameUIScene:
-    m_AssetGUID: 41a9ea532e2708d45b6231175ade5025
+  dialogueScene:
+    m_AssetGUID: 45a50f7a5b6ac524894a1547e8975e31
     m_SubObjectName: 
     m_SubObjectGUID: 
     m_SubObjectType: 
@@ -58,3 +58,9 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_SubObjectType: 
     m_EditorAssetChanged: 1
+  dialogues:
+  - m_AssetGUID: cfb98db3f0b024f48ab59f6f913ee67f
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
