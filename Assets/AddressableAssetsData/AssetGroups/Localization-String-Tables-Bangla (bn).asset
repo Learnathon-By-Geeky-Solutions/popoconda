@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-Bangla (bn)
   m_GUID: a2b1df36dca5949438e50a4f61ce046a
   m_SerializeEntries:
+  - m_GUID: aac74eb7db5a1a34682eebfb38d5ed59
+    m_Address: DialogueLevel1_bn
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-bn
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d7444a7a3485a044592395609ae3eaae
     m_Address: language_bn
     m_ReadOnly: 1
