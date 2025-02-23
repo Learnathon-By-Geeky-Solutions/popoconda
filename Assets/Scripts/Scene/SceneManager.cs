@@ -43,9 +43,7 @@ namespace Scene
             MainMenu.PlayButtonClicked += LoadLevelSelectScene;
             MainMenu.OptionButtonClicked += LoadOptionMenu;
             OptionMenu.BackButtonClicked += LoadMainMenu;
-            LevelSelectMenu.level1Event += LoadLevel1;
-            LevelSelectMenu.level2Event += LoadLevel2;
-            LevelSelectMenu.level3Event += LoadLevel3;
+            LevelSelectMenu.levelEvent += LoadLevel;
             LevelSelectMenu.backEvent += LoadMainMenu;
             GameOver.RetryEvent += LoadCurrentLevel;
             GameOver.MenuEvent += LoadMainMenu;
@@ -61,9 +59,7 @@ namespace Scene
             MainMenu.PlayButtonClicked -= LoadLevelSelectScene;
             MainMenu.OptionButtonClicked -= LoadOptionMenu;
             OptionMenu.BackButtonClicked -= LoadMainMenu;
-            LevelSelectMenu.level1Event -= LoadLevel1;
-            LevelSelectMenu.level2Event -= LoadLevel2;
-            LevelSelectMenu.level3Event -= LoadLevel3;
+            LevelSelectMenu.levelEvent -= LoadLevel;
             LevelSelectMenu.backEvent -= LoadMainMenu;
             GameOver.RetryEvent -= LoadCurrentLevel;
             GameOver.MenuEvent -= LoadMainMenu;
@@ -105,7 +101,7 @@ namespace Scene
             Addressables.LoadSceneAsync(sceneData.LevelSelectScene);
         }
         
-        private void LoadLevel1()
+        private void LoadLevel(int level)
         {
             if (sceneData.Levels.Count == 0)
             {
@@ -113,44 +109,7 @@ namespace Scene
                 return;
             }
             
-            _currentLevelIndex = 0;
-            LoadLevel(sceneData.Levels[_currentLevelIndex]);
-        }
-        
-        private void LoadLevel2()
-        {
-            if (sceneData.Levels.Count == 0)
-            {
-                Debug.LogError("No levels found in SceneDataSO!");
-                return;
-            }
-            if(LevelManager.UnlockedLevels < 1)
-            {
-                Debug.Log("Unlocked levels: " + LevelManager.UnlockedLevels);
-                Debug.Log("Level 2 is locked!");
-                return;
-            }
-            
-            _currentLevelIndex = 1;
-            LoadLevel(sceneData.Levels[_currentLevelIndex]);
-        }
-        
-        private void LoadLevel3()
-        {
-            if (sceneData.Levels.Count == 0)
-            {
-                Debug.LogError("No levels found in SceneDataSO!");
-                return;
-            }
-            
-            if(LevelManager.UnlockedLevels < 2)
-            {
-                Debug.Log("Level 3 is locked!");
-                Debug.Log("Unlocked levels: " + LevelManager.UnlockedLevels);
-                return;
-            }
-            
-            _currentLevelIndex = 2;
+            _currentLevelIndex = level;
             LoadLevel(sceneData.Levels[_currentLevelIndex]);
         }
 

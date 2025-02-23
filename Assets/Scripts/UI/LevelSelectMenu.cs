@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Game;
 
 namespace UI
 {
@@ -12,10 +12,9 @@ namespace UI
       private Button _level3Button;
       private Button _backButton;
       
+      public delegate void StatEventWithInt(int level);
       public delegate void StatEvent();
-      public static event StatEvent level1Event;
-      public static event StatEvent level2Event;
-      public static event StatEvent level3Event;
+      public static event StatEventWithInt levelEvent;
       public static event StatEvent backEvent;
 
       private void Start()
@@ -32,6 +31,9 @@ namespace UI
          _level2Button.clicked += HandleLevel2ButtonClicked;
          _level3Button.clicked += HandleLevel3ButtonClicked;
          _backButton.clicked += HandleBackButtonClicked;
+         
+         // Update button by LevelManager.UnlockedLevel
+         UpdateLevel();
       }
       
       private void OnDestroy()
@@ -41,22 +43,34 @@ namespace UI
          _level3Button.clicked -= HandleLevel3ButtonClicked;
          _backButton.clicked -= HandleBackButtonClicked;
       }
+
+      private void UpdateLevel()
+      {
+         if (LevelManager.UnlockedLevels < 1)
+         {
+            _level2Button.SetEnabled(false);
+         }
+         if (LevelManager.UnlockedLevels < 2)
+         {
+            _level3Button.SetEnabled(false);
+         }
+      }
       
       private static void HandleLevel1ButtonClicked()
       {
-         level1Event?.Invoke();
+         levelEvent?.Invoke(0);
          Debug.Log("Level 1 button clicked");
       }
       
       private static void HandleLevel2ButtonClicked()
       {
-         level2Event?.Invoke();
+         levelEvent?.Invoke(1);
          Debug.Log("Level 2 button clicked");
       }
       
       private static void HandleLevel3ButtonClicked()
       {
-         level3Event?.Invoke();
+         levelEvent?.Invoke(2);
          Debug.Log("Level 3 button clicked");
       }
       
