@@ -19,6 +19,10 @@ MonoBehaviour:
     m_Key: font
     m_Metadata:
       m_Items: []
+  - m_Id: 4677784585699328
+    m_Key: text-font
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items:
     - rid: 4775052812376605388
@@ -36,6 +40,10 @@ MonoBehaviour:
       data:
         m_Entries:
         - m_KeyId: 15812763648
+          m_TableCodes:
+          - bn
+          - en
+        - m_KeyId: 4677784585699328
           m_TableCodes:
           - bn
           - en
