@@ -27,7 +27,6 @@ namespace Characters
             _cancellationToken = this.GetCancellationTokenOnDestroy();
             _energyBlast = GetComponent<EnergyBlast>();
             _dash = GetComponent<Dash>();
-            PerformActionsAsync().Forget();
         }
         
         protected override void OnDestroy()

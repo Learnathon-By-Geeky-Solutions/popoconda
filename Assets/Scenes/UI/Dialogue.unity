@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueDocument: {fileID: 79277963}
-  dialoguelist: {fileID: 11400000, guid: 92ba594e47f228e4aa9dba11391f519f, type: 2}
+  dialogueList: {fileID: 11400000, guid: 92ba594e47f228e4aa9dba11391f519f, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
