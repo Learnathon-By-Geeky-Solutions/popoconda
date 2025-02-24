@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-Bangla (bn)
   m_GUID: 43081f7c2c602be4fb7fa37934403ef6
   m_SerializeEntries:
+  - m_GUID: 155c364b8d7388e468cb854686bfe865
+    m_Address: LiAlinurNakkhatraANSI-V2
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-bn
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b555dec6fc9f9d4419109d33f25a9c4b
     m_Address: LiSirajeeSylhetiANSIV1-Regular
     m_ReadOnly: 1

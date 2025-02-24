@@ -14,11 +14,11 @@ namespace Dialogue
         private Label _dialogueText;
         
         
-        public DialogueList dialoguelist;
+        public DialogueList dialogueList;
         private Dialogue _currentDialogue;
         
         private string _currentSpeaker;
-        private string _currentDialoguetext;
+        private string _currentDialogueText;
         
         private int _currentDialogueIndex;
         
@@ -56,14 +56,14 @@ namespace Dialogue
             _currentDialogueIndex = 0;
 
             // Load the asset asynchronously
-            dialoguelist.Levels[levelIndex].LoadAssetAsync<Dialogue>().Completed += handle =>
+            dialogueList.Levels[levelIndex].LoadAssetAsync<Dialogue>().Completed += handle =>
             {
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                 {
                     _currentDialogue = handle.Result; // Assign the loaded asset
 
                     UpdateDialogueText();
-                    Addressables.Release(dialoguelist.Levels[levelIndex].Asset); // Release the asset after loading
+                    Addressables.Release(dialogueList.Levels[levelIndex].Asset); // Release the asset after loading
                 }
                 else
                 {
@@ -78,11 +78,12 @@ namespace Dialogue
             {
                 _currentDialogueIndex++;
                 _currentSpeaker = _currentDialogue.characterName[_currentDialogue.dialogues[_currentDialogueIndex].speakerID];
-                _currentDialoguetext = _currentDialogue.dialogues[_currentDialogueIndex].dialogueText.GetLocalizedString();
+                _currentDialogueText = _currentDialogue.dialogues[_currentDialogueIndex].dialogueText.GetLocalizedString();
                 
                 _characterName.text = _currentSpeaker;
                 _characterName.style.color = _currentDialogue.characterColor[_currentDialogue.dialogues[_currentDialogueIndex].speakerID];
-                _dialogueText.text = _currentDialoguetext;
+                
+                DisplayDialogueGradually(_currentDialogueText);
             }
             else
             {
@@ -100,7 +101,7 @@ namespace Dialogue
                 // Asynchronous localization
                 _currentDialogue.dialogues[0].dialogueText.StringChanged += localizedText =>
                 {
-                    _currentDialoguetext = localizedText;
+                    _currentDialogueText = localizedText;
                     UpdateDialogueUI();
                 };
 
@@ -117,7 +118,27 @@ namespace Dialogue
         {
             _characterName.text = _currentSpeaker;
             _characterName.style.color = _currentDialogue.characterColor[_currentDialogue.dialogues[_currentDialogueIndex].speakerID];
-            _dialogueText.text = _currentDialoguetext;
+
+            // Start displaying dialogue word by word
+            DisplayDialogueGradually(_currentDialogueText);
+        }
+        
+        private void DisplayDialogueGradually(string fullText)
+        {
+            _dialogueText.text = ""; // Clear text before starting
+
+            string[] words = fullText.Split(' '); // Split dialogue into words
+            int wordIndex = 0;
+
+            // Schedule a repeating task to add words one by one
+            dialogueDocument.rootVisualElement.schedule.Execute(() =>
+            {
+                if (wordIndex < words.Length)
+                {
+                    _dialogueText.text += (wordIndex == 0 ? "" : " ") + words[wordIndex];
+                    wordIndex++;
+                }
+            }).Every(250); // Adjust delay (in milliseconds) for word appearance speed
         }
     }
     

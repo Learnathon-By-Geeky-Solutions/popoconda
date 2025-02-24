@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-English (en)
   m_GUID: 760d3d7858a6b7549bb3354030b5e6f9
   m_SerializeEntries:
+  - m_GUID: 9c110ec80de6d1040a77f1a98c2bd4e7
+    m_Address: Galada-Regular
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d9d80d18a8596094a9c885c0b857dcfd
     m_Address: Kamikaze
     m_ReadOnly: 1
