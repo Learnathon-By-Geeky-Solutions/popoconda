@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using Characters;
 using Studio23.SS2.SaveSystem.Core;
@@ -29,7 +30,12 @@ namespace Game
             DontDestroyOnLoad(gameObject);
         }
         
-        private async void Start()
+        private void Start()
+        {
+            InitializeSaveSystem();
+        }
+
+        private static async Task InitializeSaveSystem()
         {
             await SaveSystem.Instance.Initialize();
         }

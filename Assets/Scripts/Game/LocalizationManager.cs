@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Studio23.SS2.SaveSystem.Core;
@@ -28,7 +29,12 @@ namespace Game
             }
         }
         
-        private async void Start()
+        private void Start()
+        {
+            InitializeLoadGame();
+        }
+        
+        private static async Task InitializeLoadGame()
         {
             await SaveSystem.Instance.Load();
         }
