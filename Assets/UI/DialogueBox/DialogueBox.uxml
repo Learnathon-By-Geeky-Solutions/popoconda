@@ -1,0 +1,23 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/DialogueBox/DialogueBox.uss?fileID=7433441132597879392&amp;guid=6d7e581874ad8e04ea500046aa1e22a5&amp;type=3#DialogueBox" />
+    <engine:VisualElement name="VisualElement" style="flex-grow: 1;">
+        <engine:VisualElement name="DialogueBox" style="flex-grow: 1; background-color: rgba(110, 138, 123, 0.68); position: absolute; bottom: auto; left: 5px; right: auto; width: 50%; height: 20%; align-items: flex-start; justify-content: flex-start; align-self: center; padding-left: 10px; top: 15px;">
+            <engine:Label text="Name" name="Caracter-Name" style="font-size: 24px; -unity-font-style: bold;" />
+            <engine:Label text="Dialogue Body" name="Dialogue-body" style="align-self: stretch; width: 95%; height: 30%; font-size: 18px;">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(4677784585699328)" />
+                </Bindings>
+            </engine:Label>
+            <engine:Label text="Press Space to Next" name="Next-text" style="margin-bottom: 1px; padding-bottom: 0; justify-content: flex-start; align-self: flex-end; align-items: auto; align-content: auto; position: absolute; bottom: 1px; color: rgb(238, 228, 14);" />
+        </engine:VisualElement>
+        <engine:VisualElement name="DialogueBox2" style="flex-grow: 1; background-color: rgba(138, 120, 110, 0.68); position: absolute; bottom: auto; left: auto; right: 5px; width: 50%; height: 20%; align-items: flex-start; justify-content: flex-start; align-self: center; padding-left: 10px; top: 15px;">
+            <engine:Label text="Name" name="Caracter-Name-2" style="font-size: 24px; -unity-font-style: bold; align-items: auto; align-self: flex-end;" />
+            <engine:Label text="Dialogue Body" name="Dialogue-body-2" style="align-self: stretch; width: 100%; height: 30%; font-size: 18px; -unity-text-align: upper-right; margin-right: 4px; padding-right: 8px;">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(4677784585699328)" />
+                </Bindings>
+            </engine:Label>
+            <engine:Label text="Press Space to Next" name="Next-text" style="margin-bottom: 1px; padding-bottom: 0; justify-content: flex-start; align-self: flex-start; align-items: auto; align-content: auto; position: absolute; bottom: 1px; color: rgb(238, 228, 14);" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

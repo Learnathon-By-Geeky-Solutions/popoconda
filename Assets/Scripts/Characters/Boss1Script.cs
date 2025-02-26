@@ -2,6 +2,7 @@ using System.Threading;
 using UnityEngine;
 using Combat;
 using Cysharp.Threading.Tasks;
+using Dialogue;
 using Random = UnityEngine.Random;
 
 namespace Characters
@@ -14,19 +15,26 @@ namespace Characters
 
         protected override void Awake()
         {
+            DialogueManager.OnDialogueEnd += HandleGameStart;
             base.Awake();
             _fireLaser = GetComponent<FireLaser>();
             _cancellationTokenSource = new CancellationTokenSource();
-            PerformActionsAsync(_cancellationTokenSource.Token).Forget();
         }
         
         protected override void OnDestroy()
         {
+            DialogueManager.OnDialogueEnd -= HandleGameStart;
+            
             // Cancel and dispose the token source
             _cancellationTokenSource?.Cancel();
             _cancellationTokenSource?.Dispose();
 
             base.OnDestroy(); // Call base OnDestroy to ensure correct event unsubscription
+        }
+        
+        private void HandleGameStart()
+        {
+            PerformActionsAsync(_cancellationTokenSource.Token).Forget();
         }
 
         private async UniTask PerformActionsAsync(CancellationToken token)

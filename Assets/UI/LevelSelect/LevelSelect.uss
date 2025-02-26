@@ -62,11 +62,11 @@
     color: rgba(31, 32, 36, 0.96);
 }
 
-.button-active {
+.button:active {
     background-color: rgb(15, 141, 108);
 }
 
-.button-inactive {
+.button:inactive {
     background-color: rgba(140, 106, 106, 0.44);
 }
 

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d308ba5590d384a98fd8642726b4d0, type: 3}
+  m_Name: Level1Dialogue
+  m_EditorClassIdentifier: 
+  characterName:
+  - Player
+  - Mr. Boss1
+  characterColor:
+  - {r: 0.16582236, g: 0.8773585, b: 0.037246335, a: 1}
+  - {r: 0.9811321, g: 0, b: 0, a: 1}
+  dialogues:
+  - speakerID: 0
+    dialogueText:
+      m_TableReference:
+        m_TableCollectionName: GUID:5e175e4ee7fe4a647a53ce080f657061
+      m_TableEntryReference:
+        m_KeyId: 889705267200
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - speakerID: 1
+    dialogueText:
+      m_TableReference:
+        m_TableCollectionName: GUID:5e175e4ee7fe4a647a53ce080f657061
+      m_TableEntryReference:
+        m_KeyId: 1154839805952
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - speakerID: 0
+    dialogueText:
+      m_TableReference:
+        m_TableCollectionName: GUID:5e175e4ee7fe4a647a53ce080f657061
+      m_TableEntryReference:
+        m_KeyId: 1342128062464
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - speakerID: 1
+    dialogueText:
+      m_TableReference:
+        m_TableCollectionName: GUID:5e175e4ee7fe4a647a53ce080f657061
+      m_TableEntryReference:
+        m_KeyId: 1579215290368
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

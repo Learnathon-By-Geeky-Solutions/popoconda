@@ -16,6 +16,7 @@ namespace Game
         [SerializeField] private InputActionReference jumpAction;
         [SerializeField] private InputActionReference menuAction;
         [SerializeField] private InputActionReference cancelAction;
+        [SerializeField] private InputActionReference nextAction;
 
         public delegate void PositionChangeDelegate(Vector2 position);
         public delegate void MoveAxisDelegate(float value);
@@ -27,6 +28,8 @@ namespace Game
         public static event SimpleActionDelegate OnFirePressed;
         public static event SimpleActionDelegate OnMenuPressed;
         public static event SimpleActionDelegate OnCancelPressed;
+        
+        public static event SimpleActionDelegate OnNextPressed;
 
         private CancellationTokenSource _moveCts;
         private CancellationTokenSource _jumpCts;
@@ -40,6 +43,7 @@ namespace Game
         private Action<InputAction.CallbackContext> _fireCanceled;
         private Action<InputAction.CallbackContext> _menuPerformed;
         private Action<InputAction.CallbackContext> _cancelPerformed;
+        private Action<InputAction.CallbackContext> _nextPerformed;
 
         private void Awake()
         {
@@ -61,6 +65,7 @@ namespace Game
             fireAction.action.Enable();
             menuAction.action.Enable();
             cancelAction.action.Enable();
+            nextAction.action.Enable();
 
             positionAction.action.performed += HandlePositionChange;
 
@@ -72,6 +77,7 @@ namespace Game
             _fireCanceled = _ => HandleFireReleased();
             _menuPerformed = _ => HandleMenuPressed();
             _cancelPerformed = _ => HandleCancelPressed();
+            _nextPerformed = _ => HandleNextPressed();
 
             moveAction.action.performed += _movePerformed;
             moveAction.action.canceled += _moveCanceled;
@@ -81,6 +87,7 @@ namespace Game
             fireAction.action.canceled += _fireCanceled;
             menuAction.action.performed += _menuPerformed;
             cancelAction.action.performed += _cancelPerformed;
+            nextAction.action.performed += _nextPerformed;
         }
 
         private void OnDisable()
@@ -95,6 +102,7 @@ namespace Game
             fireAction.action.canceled -= _fireCanceled;
             menuAction.action.performed -= _menuPerformed;
             cancelAction.action.performed -= _cancelPerformed;
+            nextAction.action.performed -= _nextPerformed;
 
             positionAction.action.Disable();
             moveAction.action.Disable();
@@ -102,6 +110,7 @@ namespace Game
             fireAction.action.Disable();
             menuAction.action.Disable();
             cancelAction.action.Disable();
+            nextAction.action.Disable();
 
             // Properly clean up events
             OnMousePositionChanged = null;
@@ -110,6 +119,7 @@ namespace Game
             OnFirePressed = null;
             OnMenuPressed = null;
             OnCancelPressed = null;
+            OnNextPressed = null;
 
             // Dispose of all CancellationTokens
             _moveCts?.Cancel();
@@ -174,6 +184,12 @@ namespace Game
         {
             Debug.Log("Cancel pressed");
             OnCancelPressed?.Invoke();
+        }
+        
+        private static void HandleNextPressed()
+        {
+            Debug.Log("Next pressed");
+            OnNextPressed?.Invoke();
         }
 
         private async UniTaskVoid MoveAction(CancellationToken token)
