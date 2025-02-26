@@ -10,41 +10,38 @@ namespace Dialogue
     public class DialogueManager : MonoBehaviour
     {
         [SerializeField] private UIDocument dialogueDocument;
-        private Label _characterName;
-        private Label _dialogueText;
-        
-        
+
+        private VisualElement _dialogueBoxLeft, _dialogueBoxRight;
+        private Label _characterNameLeft, _characterNameRight, _dialogueTextLeft, _dialogueTextRight;
+
         public DialogueList dialogueList;
         private Dialogue _currentDialogue;
-        
-        private string _currentSpeaker;
-        private string _currentDialogueText;
-        
         private int _currentDialogueIndex;
-        
+
         public delegate void StatEvent();
         
-        public static event StatEvent OnDialogueStart;
-        public static event StatEvent OnDialogueEnd;
+        public static event StatEvent OnDialogueStart, OnDialogueEnd;
+
         private void Awake()
         {
             OnDialogueStart?.Invoke();
-            
-            VisualElement root = dialogueDocument.rootVisualElement;
-            
-            _characterName = root.Q<Label>("Caracter-Name");
-            _dialogueText = root.Q<Label>("Dialogue-body");
+            var root = dialogueDocument.rootVisualElement;
+
+            _dialogueBoxLeft = root.Q<VisualElement>("DialogueBox");
+            _dialogueBoxRight = root.Q<VisualElement>("DialogueBox2");
+            _characterNameLeft = root.Q<Label>("Caracter-Name");
+            _characterNameRight = root.Q<Label>("Caracter-Name-2");
+            _dialogueTextLeft = root.Q<Label>("Dialogue-body");
+            _dialogueTextRight = root.Q<Label>("Dialogue-body-2");
         }
 
         private void OnEnable()
         {
             SceneManager.OnLevelLoaded += LoadDialogue;
             InputManager.OnNextPressed += ShowNextDialogue;
-            
-            Debug.Log("Dialogue Manager Enabled");
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             SceneManager.OnLevelLoaded -= LoadDialogue;
             InputManager.OnNextPressed -= ShowNextDialogue;
@@ -52,18 +49,15 @@ namespace Dialogue
 
         private void LoadDialogue(int levelIndex)
         {
-            // Reset dialogue index to start from the first dialogue
             _currentDialogueIndex = 0;
 
-            // Load the asset asynchronously
             dialogueList.Levels[levelIndex].LoadAssetAsync<Dialogue>().Completed += handle =>
             {
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                 {
-                    _currentDialogue = handle.Result; // Assign the loaded asset
-
-                    UpdateDialogueText();
-                    Addressables.Release(dialogueList.Levels[levelIndex].Asset); // Release the asset after loading
+                    _currentDialogue = handle.Result;
+                    ShowDialogue();
+                    Addressables.Release(dialogueList.Levels[levelIndex].Asset);
                 }
                 else
                 {
@@ -71,75 +65,62 @@ namespace Dialogue
                 }
             };
         }
-        
+
         private void ShowNextDialogue()
         {
             if (_currentDialogueIndex < _currentDialogue.dialogues.Length - 1)
             {
                 _currentDialogueIndex++;
-                _currentSpeaker = _currentDialogue.characterName[_currentDialogue.dialogues[_currentDialogueIndex].speakerID];
-                _currentDialogueText = _currentDialogue.dialogues[_currentDialogueIndex].dialogueText.GetLocalizedString();
-                
-                _characterName.text = _currentSpeaker;
-                _characterName.style.color = _currentDialogue.characterColor[_currentDialogue.dialogues[_currentDialogueIndex].speakerID];
-                
-                DisplayDialogueGradually(_currentDialogueText);
+                ShowDialogue();
             }
             else
             {
                 OnDialogueEnd?.Invoke();
             }
         }
-        
-        private void UpdateDialogueText()
+
+        private void ShowDialogue()
         {
-            // Ensure there are dialogues before trying to access them
-            if (_currentDialogue.dialogues.Length > 0)
+            var dialogueData = _currentDialogue.dialogues[_currentDialogueIndex];
+            int speakerID = dialogueData.speakerID;
+            string speakerName = _currentDialogue.characterName[speakerID];
+            Color speakerColor = _currentDialogue.characterColor[speakerID];
+            string dialogueText = dialogueData.dialogueText.GetLocalizedString();
+
+            // Toggle visibility based on speaker
+            bool isRightSpeaker = speakerID == 1;
+            _dialogueBoxLeft.style.display = isRightSpeaker ? DisplayStyle.None : DisplayStyle.Flex;
+            _dialogueBoxRight.style.display = isRightSpeaker ? DisplayStyle.Flex : DisplayStyle.None;
+
+            // Assign values to appropriate dialogue box
+            if (isRightSpeaker)
             {
-                _currentSpeaker = _currentDialogue.characterName[_currentDialogue.dialogues[0].speakerID];
-
-                // Asynchronous localization
-                _currentDialogue.dialogues[0].dialogueText.StringChanged += localizedText =>
-                {
-                    _currentDialogueText = localizedText;
-                    UpdateDialogueUI();
-                };
-
-                Debug.Log("Current Speaker: " + _currentSpeaker);
+                _characterNameRight.text = speakerName;
+                _characterNameRight.style.color = speakerColor;
+                DisplayDialogueGradually(_dialogueTextRight, dialogueText);
             }
             else
             {
-                Debug.LogWarning("No dialogues found in the loaded dialogue asset!");
+                _characterNameLeft.text = speakerName;
+                _characterNameLeft.style.color = speakerColor;
+                DisplayDialogueGradually(_dialogueTextLeft, dialogueText);
             }
         }
-        
-        // Separate method to update the UI
-        private void UpdateDialogueUI()
-        {
-            _characterName.text = _currentSpeaker;
-            _characterName.style.color = _currentDialogue.characterColor[_currentDialogue.dialogues[_currentDialogueIndex].speakerID];
 
-            // Start displaying dialogue word by word
-            DisplayDialogueGradually(_currentDialogueText);
-        }
-        
-        private void DisplayDialogueGradually(string fullText)
+        private void DisplayDialogueGradually(Label dialogueLabel, string fullText)
         {
-            _dialogueText.text = ""; // Clear text before starting
-
-            string[] words = fullText.Split(' '); // Split dialogue into words
+            dialogueLabel.text = "";
+            string[] words = fullText.Split(' ');
             int wordIndex = 0;
 
-            // Schedule a repeating task to add words one by one
             dialogueDocument.rootVisualElement.schedule.Execute(() =>
             {
                 if (wordIndex < words.Length)
                 {
-                    _dialogueText.text += (wordIndex == 0 ? "" : " ") + words[wordIndex];
+                    dialogueLabel.text += (wordIndex == 0 ? "" : " ") + words[wordIndex];
                     wordIndex++;
                 }
-            }).Every(250); // Adjust delay (in milliseconds) for word appearance speed
+            }).Every(250); // Adjust delay for effect speed
         }
     }
-    
 }
