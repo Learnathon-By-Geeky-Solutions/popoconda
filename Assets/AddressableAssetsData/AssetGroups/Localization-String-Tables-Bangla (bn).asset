@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-Bangla (bn)
   m_GUID: a2b1df36dca5949438e50a4f61ce046a
   m_SerializeEntries:
+  - m_GUID: a3e6cf1baa21a2e4ba3c8a01191f3185
+    m_Address: DialogueLevel3_bn
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-bn
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: aac74eb7db5a1a34682eebfb38d5ed59
     m_Address: DialogueLevel1_bn
     m_ReadOnly: 1
@@ -26,6 +32,13 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-bn
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4dc068e40bbb4f428b94b9ab78d19ba
+    m_Address: DialogueLevel2_bn
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-bn
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 34695397e22c47f43beffa09ef6fb516, type: 2}

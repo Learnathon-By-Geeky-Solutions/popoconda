@@ -15,8 +15,18 @@ MonoBehaviour:
   m_GroupName: Dialogues
   m_GUID: 755db94d34ea83c4795a4bc5b96f03d0
   m_SerializeEntries:
+  - m_GUID: bbd870e4c7cfb6741a19b3790ae9fb07
+    m_Address: Assets/ObjectData/Dialogue/Level2Dialogue.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cfb98db3f0b024f48ab59f6f913ee67f
     m_Address: Assets/Scripts/Dialogue/Level1Dialogue.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: effb18e970ebcee49ba678e7673ead35
+    m_Address: Assets/ObjectData/Dialogue/Level3Dialogue.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
