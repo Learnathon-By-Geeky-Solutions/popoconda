@@ -12,9 +12,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d308ba5590d384a98fd8642726b4d0, type: 3}
   m_Name: Level3Dialogue
   m_EditorClassIdentifier: 
-  characterName: []
-  characterColor: []
-  dialogues: []
+  characterName:
+  - Player
+  - Boss3
+  characterColor:
+  - {r: 0, g: 1, b: 0.018394232, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  dialogues:
+  - speakerID: 1
+    dialogueText:
+      m_TableReference:
+        m_TableCollectionName: GUID:fd063d3d25b8c424ab0a091409c87cff
+      m_TableEntryReference:
+        m_KeyId: 7248871424
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - speakerID: 0
+    dialogueText:
+      m_TableReference:
+        m_TableCollectionName: GUID:fd063d3d25b8c424ab0a091409c87cff
+      m_TableEntryReference:
+        m_KeyId: 10814029824
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - speakerID: 0
+    dialogueText:
+      m_TableReference:
+        m_TableCollectionName: GUID:fd063d3d25b8c424ab0a091409c87cff
+      m_TableEntryReference:
+        m_KeyId: 13313835008
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - speakerID: 1
+    dialogueText:
+      m_TableReference:
+        m_TableCollectionName: GUID:fd063d3d25b8c424ab0a091409c87cff
+      m_TableEntryReference:
+        m_KeyId: 15901720576
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - speakerID: 0
+    dialogueText:
+      m_TableReference:
+        m_TableCollectionName: GUID:fd063d3d25b8c424ab0a091409c87cff
+      m_TableEntryReference:
+        m_KeyId: 2142367711232
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
   references:
     version: 2
     RefIds: []
