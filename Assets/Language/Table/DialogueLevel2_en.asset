@@ -19,19 +19,22 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 13062176768
-    m_Localized: Who are you? What do you want?
+    m_Localized: "I heard you tore down Verdammnis . Impressive. But he was just
+      a hammer\u2014you\u2019re about to fight the storm."
     m_Metadata:
       m_Items: []
   - m_Id: 16098852864
-    m_Localized: I am your death. I will stop you.
+    m_Localized: "You sound like a little baby. Oh you are not even a human. Let\u2019s
+      cut the speech and start the bloodshed."
     m_Metadata:
       m_Items: []
   - m_Id: 19433324544
-    m_Localized: You can't little boy.
+    m_Localized: "Hah! Eager to die, are we? Fine, let\u2019s see how fast I can
+      turn you into a bullet-riddled corpse."
     m_Metadata:
       m_Items: []
   - m_Id: 22860070912
-    m_Localized: Lets see.
+    m_Localized: Let's see.
     m_Metadata:
       m_Items: []
   references:
