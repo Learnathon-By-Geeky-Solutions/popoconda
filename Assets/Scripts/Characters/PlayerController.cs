@@ -38,6 +38,11 @@ namespace Characters
             playerHealth.Initialize(true);
             OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
         }
+        
+        private void Start()
+        {
+            PlayerSpawner.OnCutsceneEnd += () => GameManager.SetPlayerTransform(transform);
+        }
 
         private void OnEnable()
         {
@@ -51,9 +56,6 @@ namespace Characters
             Bullet.OnBulletHit += ApplyDamage;
             FireLaser.OnLaserHit += ApplyDamage;
             StunController.OnStun +=  Stunned;
-            
-            GameManager.SetPlayerTransform(transform);
-
         }
 
         private void OnDestroy()

@@ -22,6 +22,12 @@ namespace Game
             SpawnPlayer();
             RunPlayerCutscene();
         }
+        
+        private void OnDestroy()
+        {
+            OnPlayerMove = null;
+            OnCutsceneEnd = null;
+        }
 
         private void SpawnPlayer()
         {
@@ -55,9 +61,9 @@ namespace Game
                 }
                 
                 OnCutsceneEnd?.Invoke();
+                
                 // Destroy the timeline director
-                //Destroy(timelineDirector.gameObject);
-                Destroy(gameObject);
+                Destroy(timelineDirector.gameObject);
             }
         }
 
@@ -68,7 +74,6 @@ namespace Game
             {
                 OnPlayerMove?.Invoke(1);
                 await UniTask.Delay(50);
-                Debug.Log("Timeline playing");
             }
         }
     }
