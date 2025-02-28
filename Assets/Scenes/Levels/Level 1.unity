@@ -2119,7 +2119,7 @@ GameObject:
   - component: {fileID: 1717700022}
   - component: {fileID: 1717700023}
   m_Layer: 0
-  m_Name: Cutscene
+  m_Name: Cutscene1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2149,7 +2149,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1717700021}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 53c73976ca8360b4cb096149b80fb073, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 61c1a7652efb807459d16edd7acfbff8, type: 2}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -2162,6 +2162,14 @@ PlayableDirector:
   - key: {fileID: 6691809873686696401, guid: 53c73976ca8360b4cb096149b80fb073, type: 2}
     value: {fileID: 19499774}
   - key: {fileID: 6947546289940607721, guid: 53c73976ca8360b4cb096149b80fb073, type: 2}
+    value: {fileID: 640137285}
+  - key: {fileID: 6691809873686696401, guid: 61c1a7652efb807459d16edd7acfbff8, type: 2}
+    value: {fileID: 19499774}
+  - key: {fileID: 4559370287150373390, guid: 61c1a7652efb807459d16edd7acfbff8, type: 2}
+    value: {fileID: 1652325084}
+  - key: {fileID: 5131001231836194533, guid: 61c1a7652efb807459d16edd7acfbff8, type: 2}
+    value: {fileID: 1044887796}
+  - key: {fileID: 6947546289940607721, guid: 61c1a7652efb807459d16edd7acfbff8, type: 2}
     value: {fileID: 640137285}
   m_ExposedReferences:
     m_References:

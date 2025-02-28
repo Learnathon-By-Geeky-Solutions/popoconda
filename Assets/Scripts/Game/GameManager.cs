@@ -56,6 +56,7 @@ namespace Game
         {
             if (_playerTransform == null)
             {
+                Debug.Log("Player Transform Set");
                 _playerTransform = playerTransform;
             }
         }
