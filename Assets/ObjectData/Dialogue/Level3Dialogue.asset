@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName:
   - Player
-  - Boss3
+  - Bludritter
   characterColor:
   - {r: 0, g: 1, b: 0.018394232, a: 1}
   - {r: 1, g: 0, b: 0, a: 1}
@@ -39,7 +39,7 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - speakerID: 0
+  - speakerID: 1
     dialogueText:
       m_TableReference:
         m_TableCollectionName: GUID:fd063d3d25b8c424ab0a091409c87cff
@@ -49,22 +49,12 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - speakerID: 1
-    dialogueText:
-      m_TableReference:
-        m_TableCollectionName: GUID:fd063d3d25b8c424ab0a091409c87cff
-      m_TableEntryReference:
-        m_KeyId: 15901720576
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
   - speakerID: 0
     dialogueText:
       m_TableReference:
         m_TableCollectionName: GUID:fd063d3d25b8c424ab0a091409c87cff
       m_TableEntryReference:
-        m_KeyId: 2142367711232
+        m_KeyId: 15901720576
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0

@@ -19,19 +19,31 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 889705267200
-    m_Localized: How are you?
+    m_Localized: Oh.It's a human. What You want? I hate humans.
     m_Metadata:
       m_Items: []
   - m_Id: 1154839805952
-    m_Localized: I am fine.
+    m_Localized: "I\u2019m not your enemy. I\u2019m just the guy making sure you
+      meet your doom"
     m_Metadata:
       m_Items: []
   - m_Id: 1342128062464
-    m_Localized: Lets fight.
+    m_Localized: They send one soldier to stop us? Pathetic. Do they not value your
+      life? Or are you just too stupid to know you're already dead
     m_Metadata:
       m_Items: []
   - m_Id: 1579215290368
-    m_Localized: Ok. Lets fight.
+    m_Localized: Funny. I was about to ask if your master forgot to install a brain
+      in that metal skull of yours
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1544060882714624
+    m_Localized: "Oh, I\u2019ve got enough brains to know you won\u2019t last five
+      seconds against me. Now, try not to die too fast\u2014I like a good warm-up."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1544234623369216
+    m_Localized: "Try it, tin can. Just don\u2019t cry when I last longer than you."
     m_Metadata:
       m_Items: []
   references:
