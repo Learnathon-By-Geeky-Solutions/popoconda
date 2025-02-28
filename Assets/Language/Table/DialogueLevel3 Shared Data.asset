@@ -16,23 +16,19 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: fd063d3d25b8c424ab0a091409c87cff
   m_Entries:
   - m_Id: 7248871424
-    m_Key: c1-d0
+    m_Key: L3-D1-V
     m_Metadata:
       m_Items: []
   - m_Id: 10814029824
-    m_Key: c0-d0
+    m_Key: L3-D2-P
     m_Metadata:
       m_Items: []
   - m_Id: 13313835008
-    m_Key: c0-d1
+    m_Key: L3-D3-V
     m_Metadata:
       m_Items: []
   - m_Id: 15901720576
-    m_Key: c1-d1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2142367711232
-    m_Key: c0-d2
+    m_Key: L3-D4-P
     m_Metadata:
       m_Items: []
   m_Metadata:

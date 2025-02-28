@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName:
   - Player
-  - Boss2
+  - Sturmjager
   characterColor:
   - {r: 0.10239332, g: 0.96981126, b: 0.042086042, a: 1}
   - {r: 0.9245283, g: 0.075008824, b: 0.075008824, a: 1}

@@ -19,23 +19,23 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 7248871424
-    m_Localized: Join me.We can rule the world together.
+    m_Localized: "Two of my brothers have fallen to you. I should be angry... but
+      honestly, I\u2019m just entertained."
     m_Metadata:
       m_Items: []
   - m_Id: 10814029824
-    m_Localized: You have to stop.
+    m_Localized: "Robot hunting is the most entertaining sport\u2014especially when
+      it's a tin box like you."
     m_Metadata:
       m_Items: []
   - m_Id: 13313835008
-    m_Localized: Or i will stop you.
+    m_Localized: "Hah! I like your spirit. Shame I have to crush it. Let\u2019s see
+      if you bleed as much as you boast."
     m_Metadata:
       m_Items: []
   - m_Id: 15901720576
-    m_Localized: So I have to kill you now.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2142367711232
-    m_Localized: Lets see.
+    m_Localized: "Haha. Let\u2019s crack you open and see what color your engine
+      leaks."
     m_Metadata:
       m_Items: []
   references:
