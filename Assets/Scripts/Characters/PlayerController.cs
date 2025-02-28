@@ -11,7 +11,7 @@ namespace Characters
     {
         private Rigidbody _playerRigidbody;
 
-        private Camera _playerCamera;
+        private UnityEngine.Camera _playerCamera;
         [SerializeField] private Health playerHealth;
         [SerializeField] private Player player;
 
@@ -30,7 +30,7 @@ namespace Characters
 
         private void Awake()
         { 
-            _playerCamera = Camera.main;
+            _playerCamera = UnityEngine.Camera.main;
             _playerRigidbody = GetComponent<Rigidbody>();
             Cursor.visible = false;
             _shootingController = GetComponent<ShootingController>();
