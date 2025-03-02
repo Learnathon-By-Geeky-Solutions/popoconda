@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName:
   - Player
-  - Mr. Boss1
+  - Verdammnis
   characterColor:
   - {r: 0.16582236, g: 0.8773585, b: 0.037246335, a: 1}
   - {r: 0.9811321, g: 0, b: 0, a: 1}
   dialogues:
-  - speakerID: 0
+  - speakerID: 1
     dialogueText:
       m_TableReference:
         m_TableCollectionName: GUID:5e175e4ee7fe4a647a53ce080f657061
@@ -29,7 +29,7 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - speakerID: 1
+  - speakerID: 0
     dialogueText:
       m_TableReference:
         m_TableCollectionName: GUID:5e175e4ee7fe4a647a53ce080f657061
@@ -39,7 +39,7 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - speakerID: 0
+  - speakerID: 1
     dialogueText:
       m_TableReference:
         m_TableCollectionName: GUID:5e175e4ee7fe4a647a53ce080f657061
@@ -49,12 +49,32 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - speakerID: 1
+  - speakerID: 0
     dialogueText:
       m_TableReference:
         m_TableCollectionName: GUID:5e175e4ee7fe4a647a53ce080f657061
       m_TableEntryReference:
         m_KeyId: 1579215290368
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - speakerID: 1
+    dialogueText:
+      m_TableReference:
+        m_TableCollectionName: GUID:5e175e4ee7fe4a647a53ce080f657061
+      m_TableEntryReference:
+        m_KeyId: 1544060882714624
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - speakerID: 0
+    dialogueText:
+      m_TableReference:
+        m_TableCollectionName: GUID:5e175e4ee7fe4a647a53ce080f657061
+      m_TableEntryReference:
+        m_KeyId: 1544234623369216
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0

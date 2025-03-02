@@ -1,1 +1,69 @@
-VisualElement {}
+#VisualElement > #DialogueBox-1 {
+    flex-grow: 1; 
+    background-color: rgba(110, 138, 123, 0.68); 
+    position: absolute; 
+    bottom: auto; 
+    left: 5px; 
+    right: auto; 
+    width: 50%; 
+    height: auto; 
+    align-items: flex-start; 
+    justify-content: flex-start; 
+    align-self: center; 
+    padding-left: 10px; 
+    top: 15px;
+}
+
+#VisualElement > #DialogueBox-1 > #Character-Name-1 {
+    font-size: 32px; 
+    -unity-font-style: bold-and-italic;
+}
+
+#VisualElement > #DialogueBox-1 > #Dialogue-body-1 {
+    align-self: stretch; 
+    width: 95%; 
+    height: auto; 
+    font-size: 24px; 
+    white-space: normal; 
+    color: rgb(255, 255, 255);
+}
+
+
+
+#VisualElement > #DialogueBox-2 {
+    flex-grow: 1; 
+    background-color: rgba(138, 120, 110, 0.68); 
+    position: absolute; 
+    bottom: auto; 
+    left: auto; 
+    right: 5px; 
+    width: 50%; 
+    height: auto; 
+    align-items: flex-start; 
+    justify-content: flex-start; 
+    align-self: center; 
+    padding-left: 10px; 
+    top: 15px;
+}
+
+#VisualElement > #DialogueBox-2 > #Character-Name-2 {
+    font-size: 32px; 
+    -unity-font-style: bold-and-italic; 
+    align-items: auto; 
+    align-self: flex-end;
+}
+
+#VisualElement > #DialogueBox-2 > #Dialogue-body-2 {
+    align-self: stretch; 
+    width: 100%; 
+    height: auto; 
+    font-size: 24px; 
+    -unity-text-align: upper-right; 
+    margin-right: 4px; 
+    padding-right: 8px; 
+    white-space: normal; 
+    color: rgb(255, 255, 255);
+}
+
+/*#VisualElement > #DialogueBox2 > #Next-text {*/
+/*}*/

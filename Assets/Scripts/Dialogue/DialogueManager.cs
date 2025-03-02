@@ -27,11 +27,11 @@ namespace Dialogue
             OnDialogueStart?.Invoke();
             var root = dialogueDocument.rootVisualElement;
 
-            _dialogueBoxLeft = root.Q<VisualElement>("DialogueBox");
-            _dialogueBoxRight = root.Q<VisualElement>("DialogueBox2");
-            _characterNameLeft = root.Q<Label>("Caracter-Name");
-            _characterNameRight = root.Q<Label>("Caracter-Name-2");
-            _dialogueTextLeft = root.Q<Label>("Dialogue-body");
+            _dialogueBoxLeft = root.Q<VisualElement>("DialogueBox-1");
+            _dialogueBoxRight = root.Q<VisualElement>("DialogueBox-2");
+            _characterNameLeft = root.Q<Label>("Character-Name-1");
+            _characterNameRight = root.Q<Label>("Character-Name-2");
+            _dialogueTextLeft = root.Q<Label>("Dialogue-body-1");
             _dialogueTextRight = root.Q<Label>("Dialogue-body-2");
         }
 

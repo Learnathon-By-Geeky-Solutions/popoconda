@@ -48,6 +48,7 @@ namespace Scene
             OptionMenu.BackButtonClicked += LoadMainMenu;
             LevelSelectMenu.levelEvent += LoadLevel;
             LevelSelectMenu.backEvent += LoadMainMenu;
+            PlayerSpawner.OnCutsceneEnd += LoadDialogue;
             GameOver.RetryEvent += LoadCurrentLevel;
             GameOver.MenuEvent += LoadMainMenu;
             GameWin.MenuEvent += LoadMainMenu;
@@ -65,6 +66,7 @@ namespace Scene
             OptionMenu.BackButtonClicked -= LoadMainMenu;
             LevelSelectMenu.levelEvent -= LoadLevel;
             LevelSelectMenu.backEvent -= LoadMainMenu;
+            PlayerSpawner.OnCutsceneEnd -= LoadDialogue;
             GameOver.RetryEvent -= LoadCurrentLevel;
             GameOver.MenuEvent -= LoadMainMenu;
             GameWin.MenuEvent -= LoadMainMenu;
@@ -126,7 +128,6 @@ namespace Scene
             }
             
             LoadLevel(sceneData.Levels[_currentLevelIndex]);
-            LoadDialogue();
         }
 
         private async void LoadCurrentLevel()
@@ -147,7 +148,6 @@ namespace Scene
 
             // Load the level again
             LoadLevel(sceneData.Levels[_currentLevelIndex]);
-            LoadDialogue();
         }
 
         private void LoadLevel(int level)
@@ -160,7 +160,6 @@ namespace Scene
             
             _currentLevelIndex = level;
             LoadLevel(sceneData.Levels[_currentLevelIndex]);
-            LoadDialogue();
         }
 
         private void LoadLevel(AssetReference levelReference)
@@ -170,7 +169,14 @@ namespace Scene
             levelReference.LoadSceneAsync().Completed += handle =>
             {
                 _levelInstance = handle.Result;
+                ReSubscribeToCutsceneEvent();
             };
+        }
+        
+        private void ReSubscribeToCutsceneEvent()
+        {
+            PlayerSpawner.OnCutsceneEnd -= LoadDialogue;
+            PlayerSpawner.OnCutsceneEnd += LoadDialogue;
         }
         
         private void LoadGameUI()

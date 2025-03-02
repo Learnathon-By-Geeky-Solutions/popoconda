@@ -16,19 +16,19 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: 3dc915ed7b83aad44b535b155972d9ec
   m_Entries:
   - m_Id: 13062176768
-    m_Key: c1-d0
+    m_Key: L2-D1-V
     m_Metadata:
       m_Items: []
   - m_Id: 16098852864
-    m_Key: c0-d0
+    m_Key: L2-D2-P
     m_Metadata:
       m_Items: []
   - m_Id: 19433324544
-    m_Key: c1-d1
+    m_Key: L2-D3-V
     m_Metadata:
       m_Items: []
   - m_Id: 22860070912
-    m_Key: c0-d1
+    m_Key: L2-D4-P
     m_Metadata:
       m_Items: []
   m_Metadata:

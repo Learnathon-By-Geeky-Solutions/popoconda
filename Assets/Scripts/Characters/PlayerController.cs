@@ -11,7 +11,7 @@ namespace Characters
     {
         private Rigidbody _playerRigidbody;
 
-        private Camera _playerCamera;
+        private UnityEngine.Camera _playerCamera;
         [SerializeField] private Health playerHealth;
         [SerializeField] private Player player;
 
@@ -30,13 +30,18 @@ namespace Characters
 
         private void Awake()
         { 
-            _playerCamera = Camera.main;
+            _playerCamera = UnityEngine.Camera.main;
             _playerRigidbody = GetComponent<Rigidbody>();
             Cursor.visible = false;
             _shootingController = GetComponent<ShootingController>();
             player.Initialize();
             playerHealth.Initialize(true);
             OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
+        }
+        
+        private void Start()
+        {
+            PlayerSpawner.OnCutsceneEnd += () => GameManager.SetPlayerTransform(transform);
         }
 
         private void OnEnable()
@@ -51,9 +56,6 @@ namespace Characters
             Bullet.OnBulletHit += ApplyDamage;
             FireLaser.OnLaserHit += ApplyDamage;
             StunController.OnStun +=  Stunned;
-            
-            GameManager.SetPlayerTransform(transform);
-
         }
 
         private void OnDestroy()
