@@ -19,7 +19,6 @@ namespace Scene
         private SceneInstance _optionMenuInstance;
         private SceneInstance _levelSelectMenuInstance;
         private SceneInstance _levelInstance;
-        private SceneInstance _gameUiInstance;
         private SceneInstance _dialogueInstance;
         
         private int _currentLevelIndex = -1;
@@ -116,7 +115,8 @@ namespace Scene
                 return;
             }
             
-            UnlockLevel();
+            OnLevelUnlock?.Invoke(_currentLevelIndex+1);
+
             Debug.Log("Unlocked levels: " + LevelManager.UnlockedLevels);
 
             _currentLevelIndex++;
@@ -181,10 +181,7 @@ namespace Scene
         
         private void LoadGameUI()
         {
-            sceneData.GameUIScene.LoadSceneAsync(USM.LoadSceneMode.Additive).Completed += uiHandle =>
-            {
-                _gameUiInstance = uiHandle.Result;
-            };
+            sceneData.GameUIScene.LoadSceneAsync(USM.LoadSceneMode.Additive);
         }
 
         private void LoadDialogue()
@@ -202,14 +199,6 @@ namespace Scene
             {
                 Addressables.UnloadSceneAsync(_dialogueInstance);
                 LoadGameUI();
-            }
-        }
-
-        private void UnlockLevel()
-        {
-            if(LevelManager.UnlockedLevels  <= _currentLevelIndex)
-            {
-                OnLevelUnlock?.Invoke(LevelManager.UnlockedLevels + 1);
             }
         }
 
