@@ -8,9 +8,8 @@ namespace UI
     public class OptionMenu : MonoBehaviour
     {
         [SerializeField] private UIDocument optionMenuDocument;
-        private ToggleButtonGroup _languageToggle;
-        private Button _englishButton;
-        private Button _banglaButton;
+        private DropdownField _languageToggle;
+        
         private Button _backButton;
         
         public delegate void StatEvent();
@@ -19,43 +18,51 @@ namespace UI
         private void OnEnable()
         {
             VisualElement root = optionMenuDocument.rootVisualElement;
-            
-            _languageToggle = root.Q<ToggleButtonGroup>("language-toggle");
-            _englishButton = root.Q<Button>("english-text-button");
-            _banglaButton = root.Q<Button>("bangla-text-button");
+            _languageToggle = root.Q<DropdownField>("language-toggle");
             _backButton = root.Q<Button>("back-button");
+
+            var choices = _languageToggle.choices;
 
             if (LocalizationSettings.SelectedLocale.LocaleName == "Bangla (bn)")
             {
-                var state = _languageToggle.value;
-                state[1] = true;
-                state[0] = false; 
-                _languageToggle.value = state;
+                _languageToggle.value = choices[0];
             }
-            
-            _englishButton.clicked += HandleEnglishButtonClicked;
-            _banglaButton.clicked += HandleBanglaButtonClicked;
+            else
+            {
+                _languageToggle.value = choices[1];
+            }
+
+            _languageToggle.RegisterValueChangedCallback(v=>
+            {
+                Debug.Log("Language changed to: " + v.newValue);
+                if (v.newValue == choices[0])
+                {
+                   SetLocale("bn");
+                }
+                else
+                {
+                    SetLocale("en");
+                }
+            });
             _backButton.clicked += HandleBackButtonClicked;
         }
         
         private void OnDisable()
         {
-            _englishButton.clicked -= HandleEnglishButtonClicked;
-            _banglaButton.clicked -= HandleBanglaButtonClicked;
             _backButton.clicked -= HandleBackButtonClicked;
         }
         
-        private static void HandleEnglishButtonClicked()
-        {
-            Debug.Log("English button clicked");
-            SetLocale("en");  // Change locale to English
-        }
-        
-        private static void HandleBanglaButtonClicked()
-        {
-            Debug.Log("Bangla button clicked");
-            SetLocale("bn");  // Change locale to Bangla
-        }
+        // private static void HandleEnglishButtonClicked()
+        // {
+        //     Debug.Log("English button clicked");
+        //     SetLocale("en");  // Change locale to English
+        // }
+        //
+        // private static void HandleBanglaButtonClicked()
+        // {
+        //     Debug.Log("Bangla button clicked");
+        //     SetLocale("bn");  // Change locale to Bangla
+        // }
 
         private static void HandleBackButtonClicked()
         {
