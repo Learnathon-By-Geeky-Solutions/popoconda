@@ -51,8 +51,11 @@ namespace Game
         
         private static void UnlockLevel(int levelIndex)
         {
-            _unlockedLevels = levelIndex;
-            SaveSystem.Instance.Save(); // Save after unlocking a level
+            if(levelIndex >= _unlockedLevels)
+            {
+                _unlockedLevels = levelIndex;
+                SaveSystem.Instance.Save(); // Save after unlocking a level
+            }
         }
         
         public string GetUniqueID()

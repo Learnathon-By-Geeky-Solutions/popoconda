@@ -34,6 +34,7 @@
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 0;
     border-top-right-radius: 25px;
+    justify-content: center;
 }
 
 .toggle-button {
@@ -44,9 +45,7 @@
     font-size: 15px;
 }
 
-.toggle-button > Label {
-    color: rgb(184, 114, 0);
-}
+
 
 .label-text {
     -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
@@ -56,6 +55,12 @@
 
 .text-button {
     background-color: rgba(9, 105, 68, 0.65);
+}
+.language-drop-down{
+    
+}
+.language-drop-down > Label {
+    color: rgb(184, 114, 0);
 }
 
 .text-button:checked {

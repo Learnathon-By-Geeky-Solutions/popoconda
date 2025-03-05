@@ -14,7 +14,7 @@ namespace Dialogue
         private VisualElement _dialogueBoxLeft, _dialogueBoxRight;
         private Label _characterNameLeft, _characterNameRight, _dialogueTextLeft, _dialogueTextRight;
 
-        public DialogueList dialogueList;
+        [SerializeField] private DialogueList dialogueList;
         private Dialogue _currentDialogue;
         private int _currentDialogueIndex;
 
@@ -68,7 +68,7 @@ namespace Dialogue
 
         private void ShowNextDialogue()
         {
-            if (_currentDialogueIndex < _currentDialogue.dialogues.Length - 1)
+            if (_currentDialogueIndex < _currentDialogue.Dialogues.Length - 1)
             {
                 _currentDialogueIndex++;
                 ShowDialogue();
@@ -81,10 +81,10 @@ namespace Dialogue
 
         private void ShowDialogue()
         {
-            var dialogueData = _currentDialogue.dialogues[_currentDialogueIndex];
+            var dialogueData = _currentDialogue.Dialogues[_currentDialogueIndex];
             int speakerID = dialogueData.speakerID;
-            string speakerName = _currentDialogue.characterName[speakerID];
-            Color speakerColor = _currentDialogue.characterColor[speakerID];
+            string speakerName = _currentDialogue.CharacterName[speakerID];
+            Color speakerColor = _currentDialogue.CharacterColor[speakerID];
             string dialogueText = dialogueData.dialogueText.GetLocalizedString();
 
             // Toggle visibility based on speaker

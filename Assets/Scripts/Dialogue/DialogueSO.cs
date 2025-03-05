@@ -14,10 +14,14 @@ namespace Dialogue
             public LocalizedString dialogueText; // Localized dialogue text
         }
 
-        public string[] characterName;
-        public Color[] characterColor;
+        [SerializeField] private string[] characterName;
+        [SerializeField] private Color[] characterColor;
 
-        public DialogueEntry[] dialogues; // Sequence of dialogues
+        [SerializeField] private DialogueEntry[] dialogues; // Sequence of dialogues
+        
+        public string[] CharacterName => characterName;
+        public Color[] CharacterColor => characterColor;
+        public DialogueEntry[] Dialogues => dialogues;
     }
 }
 
