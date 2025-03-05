@@ -15,6 +15,9 @@
         </engine:Label>
         <engine:VisualElement class="option-box">
             <engine:DropdownField name="language-toggle" label="Language" choices="বাংলা,English" index="1" class="language-drop-down">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="label" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(4268852464820224)" />
+                </Bindings>
             </engine:DropdownField>
         </engine:VisualElement>
     </engine:VisualElement>

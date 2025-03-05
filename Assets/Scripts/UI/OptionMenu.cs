@@ -34,12 +34,12 @@ namespace UI
 
             _languageToggle.RegisterValueChangedCallback(v=>
             {
-                Debug.Log("Language changed to: " + v.newValue);
+                
                 if (v.newValue == choices[0])
                 {
                    SetLocale("bn");
                 }
-                else
+                else if (v.newValue == choices[1])
                 {
                     SetLocale("en");
                 }
@@ -51,18 +51,6 @@ namespace UI
         {
             _backButton.clicked -= HandleBackButtonClicked;
         }
-        
-        // private static void HandleEnglishButtonClicked()
-        // {
-        //     Debug.Log("English button clicked");
-        //     SetLocale("en");  // Change locale to English
-        // }
-        //
-        // private static void HandleBanglaButtonClicked()
-        // {
-        //     Debug.Log("Bangla button clicked");
-        //     SetLocale("bn");  // Change locale to Bangla
-        // }
 
         private static void HandleBackButtonClicked()
         {
