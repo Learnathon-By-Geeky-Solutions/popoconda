@@ -1,6 +1,6 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/OptionMenu/OptionMenu.uss?fileID=7433441132597879392&amp;guid=c229136ab6ddae94f83c42444a609f0e&amp;type=3#OptionMenu" />
-    <engine:VisualElement class="container">
+    <engine:VisualElement name="VisualElement" class="container">
         <engine:Button text="Back" name="back-button" class="back-button">
             <Bindings>
                 <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(6432574472519680)" />
@@ -14,14 +14,8 @@
             </Bindings>
         </engine:Label>
         <engine:VisualElement class="option-box">
-            <engine:ToggleButtonGroup name="language-toggle" label="Language" class="toggle-button  ">
-                <engine:Button text="English" name="english-text-button" class="text-button english-font " />
-                <engine:Button text="বাংলা" name="bangla-text-button" class="text-button  bangla-font" />
-                <Bindings>
-                    <UnityEngine.Localization.LocalizedString property="label" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(4268852464820224)" />
-                    <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
-                </Bindings>
-            </engine:ToggleButtonGroup>
+            <engine:DropdownField name="language-toggle" label="Language" choices="বাংলা,English" index="1" class="language-drop-down">
+            </engine:DropdownField>
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>
