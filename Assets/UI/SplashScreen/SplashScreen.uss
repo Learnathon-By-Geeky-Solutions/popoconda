@@ -25,6 +25,7 @@
     align-items: auto;
     flex-direction: column;
     position: relative;
+    -unity-font-definition: url("project://database/Assets/Font/Galada-Regular.ttf?fileID=12800000&guid=9c110ec80de6d1040a77f1a98c2bd4e7&type=3#Galada-Regular");
 }
 
 #GameName {

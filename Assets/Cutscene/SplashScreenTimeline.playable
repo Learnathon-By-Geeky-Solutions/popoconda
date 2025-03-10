@@ -831,7 +831,7 @@ MonoBehaviour:
   m_Name: UITOpacityClip
   m_EditorClassIdentifier: 
   _template:
-    Opacity: 0
+    Opacity: -1
 --- !u!114 &2020020667299601783
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -845,7 +845,7 @@ MonoBehaviour:
   m_Name: UITOpacityClip
   m_EditorClassIdentifier: 
   _template:
-    Opacity: 0
+    Opacity: -0.16973267
 --- !u!114 &2418771325865570454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -859,7 +859,7 @@ MonoBehaviour:
   m_Name: UITOpacityClip
   m_EditorClassIdentifier: 
   _template:
-    Opacity: -1
+    Opacity: 0
 --- !u!74 &5483333716650644430
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -1020,7 +1020,7 @@ MonoBehaviour:
   m_Name: UITOpacityClip
   m_EditorClassIdentifier: 
   _template:
-    Opacity: -1
+    Opacity: 0
 --- !u!114 &7974453665572024859
 MonoBehaviour:
   m_ObjectHideFlags: 1

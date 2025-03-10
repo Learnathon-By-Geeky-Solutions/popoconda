@@ -1,9 +1,9 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/SplashScreen/SplashScreen.uss?fileID=7433441132597879392&amp;guid=c32001e3a7484c845af154b733ad185c&amp;type=3#SplashScreen" />
     <engine:VisualElement name="Screen">
-        <engine:VisualElement name="DarkScreen" style="justify-content: center; background-color: rgb(0, 0, 0);">
+        <engine:Label name="GameName" style="background-image: url(&quot;project://database/Assets/Sprite/Game%20Logo.png?fileID=2800000&amp;guid=779f4d55a60d93f4a999c75df28a418d&amp;type=3#Game Logo&quot;); background-size: 100% 100%; width: 100%; height: 100%;" />
+        <engine:VisualElement name="DarkScreen" enabled="true" style="justify-content: center; background-color: rgb(42, 42, 47); opacity: 1; display: flex;">
             <engine:Label text="Team PopoConda Presents" name="IntroTeam" />
-            <engine:Label text="SteelAscendant" name="GameName" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>
