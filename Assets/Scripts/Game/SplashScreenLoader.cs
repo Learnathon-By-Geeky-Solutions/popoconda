@@ -1,5 +1,5 @@
 using UnityEngine;
-using SM =  UnityEngine.SceneManagement.SceneManager;
+using USM =  UnityEngine.SceneManagement;
 using Studio23.SS2.AuthSystem.Core;
 
 namespace Game
@@ -29,7 +29,8 @@ namespace Game
 
         private static void LoadSplashScreen(int result)
         {
-            SM.LoadScene(result + 1);
+            USM.SceneManager.LoadScene(result + 1);
+            USM.SceneManager.LoadScene(result + 2, USM.LoadSceneMode.Additive);
             Debug.Log("Splash Screen Loaded");
         }
     }
