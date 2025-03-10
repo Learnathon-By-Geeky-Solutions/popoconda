@@ -6,7 +6,8 @@ namespace Game
     {
         public delegate void StatEvent();
         public static event StatEvent MainMenuEvent;
-        private void Start()
+        
+        public static void LoadMainMenu()
         {
             MainMenuEvent?.Invoke();
         }
