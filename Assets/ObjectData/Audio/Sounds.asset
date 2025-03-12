@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05831a3c0be573c4da0a8f01f91a8b64, type: 3}
   m_Name: Sounds
   m_EditorClassIdentifier: 
-  winSound: {fileID: 0}
-  loseSound: {fileID: 0}
+  winSound: {fileID: 8300000, guid: 06049e9054f785d408bb1aa4a3c960fd, type: 3}
+  loseSound: {fileID: 8300000, guid: d03fdeb85c32eb04984a5a7983d89ea7, type: 3}
   levelBackgroundMusic: []
