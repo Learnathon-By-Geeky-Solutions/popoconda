@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Persistant.unity
     guid: 82dffc8b29ed8184c8dfd995d635ce1b
+  - enabled: 1
+    path: Assets/Scenes/SplashScreen.unity
+    guid: 670245a4a19c6644f8385e860bdcf35c
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 9403e8fe91816454582d3eacb6f5f2a8, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 671f44c9f7becf8479e8215d342d2705, type: 3}
