@@ -172,7 +172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 70187184d7d26fc488b2f622b563e87d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -25.62
+      value: -25.88
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 70187184d7d26fc488b2f622b563e87d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1975,7 +1975,7 @@ MonoBehaviour:
   m_IsGlobal: 1
   priority: 0
   blendDistance: 0
-  weight: 1
+  weight: 0.7
   sharedProfile: {fileID: 11400000, guid: 7ce88309bf1cd8a4984ab14de5b8d646, type: 2}
 --- !u!1 &1140605245
 GameObject:
