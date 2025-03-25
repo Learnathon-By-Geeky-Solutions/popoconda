@@ -46,14 +46,17 @@
 
 .jetpack-fuel-bar-container {
     position: absolute;
-    justify-content: flex-end;
-    bottom: 60px;
-    right: 20px;
-    width: 20px;
-    height: 30%;
+    justify-content: flex-start;
+    bottom: 160px;
+    right: -70px;
     border-color: black;
     border-width: 2px;
     border-radius: 10px;
+    height: 20px;
+    width: 30%;
+    rotate: 270deg;
+    align-self: auto;
+    align-content: auto;
 }
 
 .jetpack-fuel-bar {
@@ -67,7 +70,6 @@
 
 #jetpack-fuel {
     margin: 0;
-    background-color: yellow;
     height: 100%;
     width: 100%;
 }
@@ -75,13 +77,15 @@
 .jetpack-icon {
     background-image: url("project://database/Assets/UI/HUD/jetpack-svgrepo-com1.png?fileID=2800000&guid=a353ff150bea6ca4abb1d48512ba9d51&type=3#jetpack-svgrepo-com1");
     position: absolute;
-    left: -35px;
+    left: 0;
     width: 30px;
     height: 30px;
     top: auto;
     background-color: rgba(55, 55, 55, 0);
     -unity-background-image-tint-color: rgb(55, 55, 55);
-    bottom: 0;
+    bottom: 18px;
+    rotate: 0;
+    right: auto;
 }
 
 .player-health-bar-container {

@@ -3,13 +3,13 @@
     <ui:VisualElement class="hud-container">
         <ui:VisualElement class="enemy-health-bar-container">
             <ui:VisualElement class="enemy-health-bar">
-                <ui:ProgressBar value="22" name="enemy-health" high-value="100" style="background-color: rgb(255, 66, 0);" />
+                <ui:ProgressBar value="50" name="enemy-health" high-value="100" style="background-color: rgb(255, 66, 0);" />
             </ui:VisualElement>
             <ui:Label class="enemy-icon" />
         </ui:VisualElement>
         <ui:VisualElement class="jetpack-fuel-bar-container">
             <ui:VisualElement class="jetpack-fuel-bar">
-                <ui:Label name="jetpack-fuel" />
+                <ui:ProgressBar value="70" name="jetpack-fuel" />
             </ui:VisualElement>
             <ui:Label class="jetpack-icon" />
         </ui:VisualElement>
