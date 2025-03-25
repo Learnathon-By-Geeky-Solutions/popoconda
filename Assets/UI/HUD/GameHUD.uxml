@@ -15,7 +15,7 @@
         </ui:VisualElement>
         <ui:VisualElement class="player-health-bar-container">
             <ui:VisualElement class="player-health-bar">
-                <ui:Label name="player-health" />
+                <ui:ProgressBar value="50" name="player-health" />
             </ui:VisualElement>
             <ui:Label class="player-health-icon" />
         </ui:VisualElement>
