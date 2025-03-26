@@ -3,7 +3,7 @@
     <ui:VisualElement class="hud-container">
         <ui:VisualElement class="enemy-health-bar-container">
             <ui:VisualElement class="enemy-health-bar">
-                <ui:ProgressBar value="100" name="enemy-health"  />
+                <ui:ProgressBar value="100" name="enemy-health" />
             </ui:VisualElement>
             <ui:Label class="enemy-icon" />
         </ui:VisualElement>
