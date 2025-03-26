@@ -10,9 +10,9 @@ namespace UI
     {
         [SerializeField] private UIDocument hudDocument;
         
-        private Label _playerHealthLabel;
-        private Label _enemyHealthLabel;
-        private Label _jetpackFuelLabel;
+        private ProgressBar _playerHealthBar;
+        private ProgressBar _enemyHealthBar;
+        private ProgressBar _jetpackFuelBar;
         private Label _ammoLabel;
         
         void Start()
@@ -20,9 +20,9 @@ namespace UI
             VisualElement root = hudDocument.rootVisualElement;
             
             // get label elements
-            _playerHealthLabel = root.Q<Label>("player-health");
-            _enemyHealthLabel = root.Q<Label>("enemy-health");
-            _jetpackFuelLabel = root.Q<Label>("jetpack-fuel");
+            _playerHealthBar = root.Q<ProgressBar>("player-health");
+            _enemyHealthBar = root.Q<ProgressBar>("enemy-health");
+            _jetpackFuelBar = root.Q<ProgressBar>("jetpack-fuel");
             _ammoLabel = root.Q<Label>("ammo-label");
             
             PlayerController.OnPlayerHealthChange += UpdatePlayerHealth;
@@ -43,25 +43,25 @@ namespace UI
 
         private void UpdatePlayerHealth(float currentHealthPercentage)
         {
-            if (_playerHealthLabel != null)
+            if (_playerHealthBar != null)
             {
-                _playerHealthLabel.style.width = new Length(currentHealthPercentage * 100, LengthUnit.Percent);
+                _playerHealthBar.value = currentHealthPercentage * 100;
             }
         }
 
         private void UpdateEnemyHealth(float currentHealthPercentage)
         {
-            if (_enemyHealthLabel != null)
+            if (_enemyHealthBar != null)
             {
-                _enemyHealthLabel.style.width = new Length(currentHealthPercentage * 100, LengthUnit.Percent);
+                _enemyHealthBar.value = currentHealthPercentage * 100;
             }
         }
         
         private void UpdateJetpackFuel(float currentFuelPercentage)
         {
-            if (_jetpackFuelLabel != null)
+            if (_jetpackFuelBar != null)
             {
-                _jetpackFuelLabel.style.height = new Length(currentFuelPercentage * 100, LengthUnit.Percent);
+                _jetpackFuelBar.value = currentFuelPercentage * 100;
             }
         }
 
