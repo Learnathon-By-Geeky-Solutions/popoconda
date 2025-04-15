@@ -32,5 +32,9 @@
 }
 
 .menu-button:hover {
-    color: rgb(255, 251, 0);
+    color: rgb(94, 182, 19);
+}
+
+.menu-button:focus {
+    color: rgb(94, 182, 19);
 }

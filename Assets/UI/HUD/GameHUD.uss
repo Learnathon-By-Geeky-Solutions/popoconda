@@ -62,15 +62,15 @@
 .jetpack-fuel-bar-container {
     position: absolute;
     justify-content: flex-start;
-    bottom: 160px;
-    right: -70px;
+    bottom: 35%;
+    right: -12%;
     border-color: black;
     border-width: 2px;
     border-radius: 10px;
     height: 20px;
     width: 30%;
     rotate: 270deg;
-    align-self: auto;
+    align-self: flex-end;
     align-content: auto;
 }
 
