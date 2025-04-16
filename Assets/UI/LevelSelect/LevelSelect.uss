@@ -77,3 +77,13 @@
 .bangla-font {
     -unity-font-definition: url("project://database/Assets/Font/LiSirajeeSylhetiANSIV1-Regular.ttf?fileID=12800000&guid=b555dec6fc9f9d4419109d33f25a9c4b&type=3#LiSirajeeSylhetiANSIV1-Regular");
 }
+
+.buttons:hover {
+    background-color: rgb(234, 188, 14);
+    color: rgb(0, 34, 68);
+}
+
+.buttons:focus {
+    background-color: rgb(234, 188, 14);
+    color: rgb(0, 34, 68);
+}

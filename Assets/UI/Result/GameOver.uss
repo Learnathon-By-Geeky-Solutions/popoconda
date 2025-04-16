@@ -26,6 +26,7 @@
     font-size: 20px;
     border-width: 0;
 }
+
 .english-font {
     -unity-font-definition: url("project://database/Assets/Font/Kamikaze.ttf?fileID=12800000&guid=d9d80d18a8596094a9c885c0b857dcfd&type=3#Kamikaze");
 }
@@ -35,5 +36,9 @@
 }
 
 .button:hover {
-    color: rgb(255, 251, 0);
+    color: rgb(94, 182, 19);
+}
+
+.button:focus {
+    color: rgb(94, 182, 19);
 }
