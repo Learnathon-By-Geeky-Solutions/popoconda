@@ -23,6 +23,8 @@ namespace Characters
         private CancellationTokenSource _cancellationTokenSource;
         
         public delegate void StateEventWithFloat(float value);
+        public delegate void StateEvent();
+        public static event StateEvent onPlayerHit;
         public static event StateEventWithFloat OnPlayerMove;
 
         public static event Health.StatEventWithFloat OnPlayerHealthChange;
@@ -191,11 +193,14 @@ namespace Characters
             if (hitObject == gameObject)
             {
                 playerHealth.TakeDamage(damage);
+                onPlayerHit?.Invoke();
             }
+            
         }
         private void ApplyBlastDamage(int damage)
         {
             playerHealth.TakeDamage(damage);
+            onPlayerHit?.Invoke();
         }
         
         private void Stunned(bool isStunned)

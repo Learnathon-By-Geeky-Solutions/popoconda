@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using Game;
 
 namespace Combat
 {
@@ -13,27 +14,21 @@ namespace Combat
         
         public static event StunEvent OnStun;
 
-        private Transform _playerTransform;
+        private Vector3 _playerPosition;
 
         private void Awake()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
-                _playerTransform = player.transform;
+                _playerPosition = GameManager.GetPlayerPosition();
             }
         }
 
         public async UniTask Stun()
         {
-            if (_playerTransform == null)
-            {
-                Debug.LogWarning("Player not found, cannot stun.");
-                return;
-            }
-
             // Check if the player is within the stun radius
-            float distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.position);
+            float distanceToPlayer = Vector3.Distance(transform.position, _playerPosition);
             if (distanceToPlayer <= stunRadius)
             {
                 Debug.Log("Player in range, applying stun!");

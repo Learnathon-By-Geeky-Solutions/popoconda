@@ -13,6 +13,7 @@ namespace Combat
         private int _bulletsLeft;
         private bool _isReloading;
         private bool _canShoot = true;
+        private AudioSource gunShootSound;
 
         public delegate void StatEventWithInt(int value);
         public static event StatEventWithInt OnBulletCountChange;
@@ -20,6 +21,7 @@ namespace Combat
         private void Awake()
         {
             _bulletsLeft = gunData.MagazineSize;
+            gunShootSound = GetComponent<AudioSource>(); 
         }
 
         public void FireBullet(Vector3 direction)
@@ -48,6 +50,7 @@ namespace Combat
             {
                 Vector3 adjustedDirection = ApplyBulletSpread(direction);
                 SpawnBullet(adjustedDirection);
+                gunShootSound.Play();
                 _bulletsLeft--;
                 UpdateBulletCount();
             }
