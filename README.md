@@ -1,146 +1,89 @@
+# Steel Ascendant 🚀
 
+> An intense 2.5D boss fight game with cyberpunk aesthetics and jetpack-fueled combat.
 
-# Steel Ascendant (2.5D Boss Fight)  
-**Team PopoConda**  
+![Game Banner](https://media.discordapp.net/attachments/1320751643876261973/1361393219128000643/Game_Logo.png?ex=67fe97bc&is=67fd463c&hm=a7b4e01fcd2329ca2f66c4093791d4a1879172cff6d5ae4bb6f13605cac70693&=&format=webp&quality=lossless&width=1872&height=502)
 
-| **Category**       | **Details**                        |
-|---------------------|------------------------------------|
-| **Team Members**    | - NahiyanSamit (Team Leader)       |
-|                     | - itissaeed                       |
-|                     | - Biswa76                         |
-| **Mentor**          | - Warhammer4000                   |
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## 🎮 Quick Start
 
-## Game Introduction  
+- **Controls:**
+  - Movement: `A/D` or `⬅️/➡️`
+  - Shoot: `Left Mouse Button`
+  - Jetpack: `Space`
 
-### Story  
-In a dystopian near-future, the brilliant but deranged scientist Dr. Jarexal Umbravik sought ultimate power. His experiments on human enhancement led to the creation of mechanically modified super soldiers, engineered for brute strength, agility, and resilience. To achieve his ultimate goal of world domination, Dr. Umbravik used his body as an experiment, turning himself into an unstoppable Superhuman.  
+- **Requirements:**
+  - Unity 6000.0.32f1
+  - Git
 
-You, a highly trained special operative equipped with advanced weaponry and a jetpack, are tasked with infiltrating his fortified laboratory, defeating his creations, and stopping him before it’s too late.  
+- **Clone:**
+  ```bash
+  git clone https://github.com/NahiyanSamit/Steel-Ascendant.git
+  ```
 
----
+- **Running in Unity:**
+  1. Open the project in Unity.
+  2. Navigate to `Assets/Scenes/InitialScene.unity` and load the scene.
+  3. Click the Play button in the Unity Editor to start the game
 
-## How to Play  
-- Use a combination of firearms, equipment, and jetpack maneuvers to defeat enemies and bosses.  
-- Learn boss patterns, exploit their weaknesses, and adapt your strategy to progress.  
+## 🎯 Game Overview
 
----
+In a dystopian future, you play as a special operative tasked with stopping the deranged scientist Dr. Jarexal Umbravik and his army of mechanically enhanced super soldiers. Armed with advanced weapon and a jetpack, you must infiltrate his laboratory and put an end to his plans for world domination.
 
-## Artwork (Design)  
+### Core Features
 
-### Technical Requirements  
-- **Resolution:** 1920x1080 (HD) minimum, scalable to higher resolutions.  
-- **Art Style:** Cyberpunk-inspired, with a mix of 2D and 3D assets for a 2.5D effect.  
+- 🚀 Vertical combat with jetpack mechanics
+- 🎯 Three unique boss encounters
+- 🎨 Cyberpunk-inspired 2.5D visuals
 
-### Heads-Up Display (HUD)  
-- Health bar and jetpack fuel indicator.  
-- Ammo counter for the weapon reload.  
-- Enemy health bar.  
+## 👥 Development Team
 
----
+| Role | Member | GitHub |
+|------|--------|--------|
+| Team Leader | NahiyanSamit | [@NahiyanSamit](https://github.com/NahiyanSamit) |
+| Game Developer | itissaeed | [@itissaeed](https://github.com/itissaeed) |
+| Game Developer | Biswa76 | [@Biswa76](https://github.com/Biswa76) |
+| Mentor | Warhammer4000 | [@Warhammer4000](https://github.com/Warhammer4000) |
 
-## Characters  
+## 🎨 Technical Details
 
-### Character 1 (Protagonist)  
-- **Description:** A skilled operative wearing a combat suit with a jetpack.  
-- **Abilities:**  
-  - Jetpack flight  
-  - Advanced firearms proficiency  
-  - Equipment like grenade types  
+### Game Design
+- **Resolution:** 1920x1080 (HD)
+- **Style:** Cyberpunk 2.5D
+- **Environments:** Laboratory, Industrial, Urban
 
-### Bosses  
-1. **Boss 1:**  
-   - **Abilities:** Heavy weaponry and laser-type ability.  
-   - **Weakness:** Slow movement speed makes it vulnerable to hit-and-run tactics and aerial assaults using the jetpack.  
-2. **Boss 2:**  
-   - **Abilities:** Sharp shooting and the ability to slow the protagonist's movement for a limited time.  
-   - **Weakness:** Can’t shoot continuously for a long period.  
-3. **Boss 3:**  
-   - **Abilities:** Fires powerful energy blasts and can perform quick dashes to avoid attacks.  
-   - **Weakness:** Weak fusion core exposed during its energy recharge phase, making it vulnerable to attacks.  
+### UI Elements
+- Health Bar
+- Jetpack Fuel Indicator
+- Ammo Counter
+- Boss Health Display
 
----
+### Audio Features
+- Weapon sound
+- Jetpack thrust effects
+- background music
+- Combat impact sounds
 
-## Level Design  
-- **Big Arenas:** Vertical exploration using the jetpack.  
-- **Environments:** Laboratories, industrial facilities, and urban ruins.  
-- **Unique Settings:** Each boss encounter takes place in a distinct area.  
+## ↗️ Game Flow Diagram
+![Game Flow Diagram](https://media.discordapp.net/attachments/1320751643876261973/1361402062008746005/SteelAscendantFlowChart.png?ex=68009a39&is=67ff48b9&hm=673f019e44b71d7dad89a045780a5323fab81209f957277dde6e4c77cb0e4f23&=&format=webp&quality=lossless)
 
-### Global Elements  
-- Neon-lit environments with cyberpunk aesthetics.  
-- Powerful bosses with mechanical features.  
+## 🔗 Resources
 
----
+- [Project Management](https://sharing.clickup.com/9018894642/l/h/8ct2u9j-278/0fe70fbebe022bd)
+- [Game Page](https://nahiyansamit.itch.io/steel-ascendant)
+- [Devlog](https://nahiyansamit.itch.io/steel-ascendant/devlog/900184/devlog-1-steel-ascendant-first-steps)
+- [Development Wiki](https://github.com/NahiyanSamit/Steel-Ascendant/wiki)
+- [GDD](https://docs.google.com/document/d/13Mdw4Bq89dcxUxyYRou4636Uv8_hyzNATp_Rl8R5IWk/edit?tab=t.0#heading=h.8nogem2xw2dd)
 
-## Player View  
-- Side-scrolling 2.5D view with depth-enhancing 3D backgrounds.  
+## 🐛 Support
 
----
-
-## Game Flow Chart  
-- Menu → Boss Fight (Random).  
-
----
-
-## Audio & Sound Effects  
-
-### Player Elements  
-- **Weapon Sounds:** Dynamic audio for firing and reloading.  
-- **Jetpack Sounds:** Sound for jetpack when using it.  
-
-### Global Elements  
-- **Atmospheric Effects:** Laboratory alarms and background ambiance.  
-- **Explosion Effects:** For dramatic encounters.  
+Found a bug? Please open an issue with a detailed description of the problem.
 
 ---
 
-## Splash Screens  
-- Logo animations with ominous, futuristic audio cues.  
+*Made with ❤️ by Team PopoConda*
 
----
-
-## Menu Effects  
-- Sci-fi-inspired sound effects for navigation and button interactions.  
-
----
-
-## Technical  
-
-### System Requirements  
-- *(Update Later)*  
-
-### Game Architecture  
-- Developed in Unity engine for Windows.  
-- Modular level design for scalability and easy updates.  
-
-### User Interface (Controls)  
-- **Keyboard + Mouse**  
-  - **Key Mapping:**  
-    - **Movement:** W/A/S/D  
-    - **Shoot:** Left mouse  
-
----
-
-## Marketing  
-
-### Key Features  
-- Intense boss fights with unique mechanics and challenges.  
-- Jetpack-fueled vertical combat and exploration.  
-- Dynamic 2.5D visuals with cyberpunk aesthetics.  
-
----
-
-## Development  
-
-### Abstract Classes/Components  
-- **CharacterController:** Handles movement, combat, and jetpack functionality.  
-- **BossAI:** Governs unique attack patterns and behavior for each boss.  
-- **EnvironmentManager:** Manages background elements and interactive props.  
-
-### Derived Classes/Component Compositions  
-- **ProtagonistController:** Inherits from `CharacterController`, with additional jetpack logic.  
-- **Bosses:** Inherits from `BossAI`, with unique mutant-specific abilities.  
-- **LabEnvironment:** Inherits from `EnvironmentManager`, with destructible elements.  
-
+License: [MIT](LICENSE)
 
 
