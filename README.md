@@ -85,5 +85,3 @@ Found a bug? Please open an issue with a detailed description of the problem.
 *Made with ❤️ by Team PopoConda*
 
 License: [MIT](LICENSE)
-
-
