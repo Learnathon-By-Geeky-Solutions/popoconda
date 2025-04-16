@@ -73,7 +73,7 @@ In a dystopian future, you play as a special operative tasked with stopping the 
 - [Project Management](https://sharing.clickup.com/9018894642/l/h/8ct2u9j-278/0fe70fbebe022bd)
 - [Game Page](https://nahiyansamit.itch.io/steel-ascendant)
 - [Devlog](https://nahiyansamit.itch.io/steel-ascendant/devlog/900184/devlog-1-steel-ascendant-first-steps)
-- [Development Wiki](https://github.com/NahiyanSamit/Steel-Ascendant/wiki)
+- [Development Wiki](https://github.com/Learnathon-By-Geeky-Solutions/popoconda/wiki)
 - [GDD](https://docs.google.com/document/d/13Mdw4Bq89dcxUxyYRou4636Uv8_hyzNATp_Rl8R5IWk/edit?tab=t.0#heading=h.8nogem2xw2dd)
 
 ## 🐛 Support
