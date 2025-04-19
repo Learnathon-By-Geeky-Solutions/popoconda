@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ad9b3b4d4b72648a1dd7ef5bab8b8e, type: 3}
   m_Name: Boss3Gun
   m_EditorClassIdentifier: 
-  spread: 0.15
-  timeBetweenShooting: 0.05
-  magazineSize: 100
+  spread: 0
+  timeBetweenShooting: 0.5
+  magazineSize: 10
   bulletsPerTap: 1
-  reloadTime: 0.5
-  bulletSpeed: 50
+  reloadTime: 2
+  bulletSpeed: 25
   damage: 10
