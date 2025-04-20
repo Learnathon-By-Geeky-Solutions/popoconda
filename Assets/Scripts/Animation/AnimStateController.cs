@@ -1,6 +1,5 @@
 using UnityEngine;
 using Characters;
-using Game;
 
 namespace Animation
 {
@@ -21,7 +20,6 @@ namespace Animation
         private void OnEnable()
         {
             PlayerController.OnPlayerMove += MoveAnimation;
-            PlayerSpawner.OnPlayerMove += MoveAnimation;
             Enemy.OnEnemyMove += MoveEnemyAnimation;
             Enemy.OnEnemyStop += StopEnemyAnimation;
         }
@@ -29,7 +27,6 @@ namespace Animation
         private void OnDisable()
         {
             PlayerController.OnPlayerMove -= MoveAnimation;
-            PlayerSpawner.OnPlayerMove -= MoveAnimation;
             Enemy.OnEnemyMove -= MoveEnemyAnimation;
             Enemy.OnEnemyStop -= StopEnemyAnimation;
         }

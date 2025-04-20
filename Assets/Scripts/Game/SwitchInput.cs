@@ -1,3 +1,4 @@
+using Cutscene;
 using Dialogue;
 using UI;
 using UnityEngine;
@@ -21,6 +22,8 @@ namespace Game
             GameWin.UIDisableEvent += EnableGamplayMap;
             PauseMenu.UIEnableEvent += EnableUIMap;
             PauseMenu.UIDisableEvent += EnableGamplayMap;
+            CutsceneManager.OnCutsceneStart += EnableCutsceneMap;
+            CutsceneManager.OnCutsceneEnd += EnableGamplayMap;
             DialogueManager.OnDialogueStart += EnableCutsceneMap;
             DialogueManager.OnDialogueEnd += EnableGamplayMap;
         }
@@ -33,6 +36,8 @@ namespace Game
             GameWin.UIDisableEvent -= EnableGamplayMap;
             PauseMenu.UIEnableEvent -= EnableUIMap;
             PauseMenu.UIDisableEvent -= EnableGamplayMap;
+            CutsceneManager.OnCutsceneStart -= EnableCutsceneMap;
+            CutsceneManager.OnCutsceneEnd -= EnableGamplayMap;
             DialogueManager.OnDialogueStart -= EnableCutsceneMap;
             DialogueManager.OnDialogueEnd -= EnableGamplayMap;
         }

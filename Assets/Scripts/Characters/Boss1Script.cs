@@ -1,6 +1,7 @@
 using System.Threading;
 using UnityEngine;
 using Combat;
+using Cutscene;
 using Cysharp.Threading.Tasks;
 using Dialogue;
 using Random = UnityEngine.Random;
@@ -15,7 +16,8 @@ namespace Characters
 
         protected override void Awake()
         {
-            DialogueManager.OnDialogueEnd += HandleGameStart;
+            CutsceneManager.OnCutsceneEnd += HandleGameStart;
+            
             base.Awake();
             _fireLaser = GetComponent<FireLaser>();
             _cancellationTokenSource = new CancellationTokenSource();
@@ -23,7 +25,7 @@ namespace Characters
         
         protected override void OnDestroy()
         {
-            DialogueManager.OnDialogueEnd -= HandleGameStart;
+            CutsceneManager.OnCutsceneEnd -= HandleGameStart;
             
             // Cancel and dispose the token source
             _cancellationTokenSource?.Cancel();

@@ -1,8 +1,7 @@
-using System.Threading.Tasks;
+using Characters;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
-using Cysharp.Threading.Tasks;  // Import UniTask
 
 namespace Game
 {
@@ -12,26 +11,25 @@ namespace Game
         private GameObject _playerInstance;
         public PlayableDirector timelineDirector;
         
-        public delegate void StatEventWithFloat(float direction);
         public delegate void StatEvent();
-        public static event StatEventWithFloat OnPlayerMove;
-        public static event StatEvent OnCutsceneEnd;
+        public static event StatEvent OnPlayerSpawn;
+
 
         private void Awake()
         {
             SpawnPlayer();
-            RunPlayerCutscene();
+            Enemy.OnBossDeath += SpawnPlayer;
         }
         
         private void OnDestroy()
         {
-            OnPlayerMove = null;
-            OnCutsceneEnd = null;
+            Enemy.OnBossDeath -= SpawnPlayer;
         }
 
         private void SpawnPlayer()
         {
             _playerInstance = Instantiate(playerPrefab, transform.position, transform.rotation);
+            OnPlayerSpawn?.Invoke();
             BindTimelineAnimation();
         }
 
@@ -43,37 +41,6 @@ namespace Game
             {
                 var track = timeline.GetOutputTrack(0);
                 timelineDirector.SetGenericBinding(track, _playerInstance);
-            }
-        }
-
-        private async Task RunPlayerCutscene()
-        {
-            if (timelineDirector != null)
-            {
-                timelineDirector.Play();
-                await MovePlayerDuringTimeline();
-                
-                // After timeline stops, invoke OnPlayerMove(0) 50 times
-                for (int i = 0; i < 50; i++)
-                {
-                    OnPlayerMove?.Invoke(0);
-                    await UniTask.Yield();
-                }
-                
-                OnCutsceneEnd?.Invoke();
-                
-                // Destroy the timeline director
-                Destroy(timelineDirector.gameObject);
-            }
-        }
-
-        private async UniTask MovePlayerDuringTimeline()
-        {
-            // Continuously invoke OnPlayerMove(1) while the timeline is playing
-            while (timelineDirector.state == PlayState.Playing)
-            {
-                OnPlayerMove?.Invoke(1);
-                await UniTask.Delay(50);
             }
         }
     }

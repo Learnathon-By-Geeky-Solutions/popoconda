@@ -40,14 +40,10 @@ namespace Characters
             playerHealth.Initialize(true);
             OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
         }
-        
-        private void Start()
-        {
-            PlayerSpawner.OnCutsceneEnd += () => GameManager.SetPlayerTransform(transform);
-        }
 
         private void OnEnable()
         {
+            GameManager.SetPlayerTransform(transform);
             InputManager.OnMousePositionChanged += HandleMousePosition;
             InputManager.OnMoveAxisChanged += HandleMoveAxis;
             InputManager.OnJumpPressed += HandleJump;

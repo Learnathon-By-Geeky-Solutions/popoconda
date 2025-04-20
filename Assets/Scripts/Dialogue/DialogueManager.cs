@@ -19,7 +19,6 @@ namespace Dialogue
         private int _currentDialogueIndex;
 
         public delegate void StatEvent();
-        
         public static event StatEvent OnDialogueStart, OnDialogueEnd;
 
         private void Awake()
