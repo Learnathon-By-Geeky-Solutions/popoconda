@@ -12,7 +12,7 @@ namespace Weapon
         [SerializeField] private float reloadTime;
         [SerializeField] private float bulletSpeed;
         [SerializeField] private int damage;
-
+        
         public float Spread => spread;
         public float TimeBetweenShooting => timeBetweenShooting;
         public int MagazineSize => magazineSize;

@@ -64,7 +64,7 @@ namespace Characters
                 }
                 else
                 {
-                    _fireLaser.FireLaserProjectile(PlayerDirection);
+                    //_fireLaser.FireLaserProjectile(PlayerDirection);
                 }
 
                 await UniTask.Delay(100, cancellationToken: token);

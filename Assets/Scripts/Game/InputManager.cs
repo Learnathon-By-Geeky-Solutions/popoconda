@@ -14,6 +14,7 @@ namespace Game
         [SerializeField] private InputActionReference fireAction;
         [SerializeField] private InputActionReference moveAction;
         [SerializeField] private InputActionReference jumpAction;
+        [SerializeField] private InputActionReference interactAction;
         [SerializeField] private InputActionReference menuAction;
         [SerializeField] private InputActionReference cancelAction;
         [SerializeField] private InputActionReference submitAction;
@@ -31,6 +32,7 @@ namespace Game
         public static event AxisDelegate OnMoveAxisChanged;
         public static event SimpleActionDelegate OnJumpPressed;
         public static event SimpleActionDelegate OnFirePressed;
+        public static event SimpleActionDelegate OnInteractPressed;
         public static event SimpleActionDelegate OnMenuPressed;
         
         
@@ -54,6 +56,7 @@ namespace Game
         private Action<InputAction.CallbackContext> _jumpCanceled;
         private Action<InputAction.CallbackContext> _firePerformed;
         private Action<InputAction.CallbackContext> _fireCanceled;
+        private Action<InputAction.CallbackContext> _interactPerformed;
         private Action<InputAction.CallbackContext> _menuPerformed;
         
         private Action<InputAction.CallbackContext> _submitPerformed;
@@ -81,6 +84,7 @@ namespace Game
             jumpAction.action.Enable();
             fireAction.action.Enable();
             menuAction.action.Enable();
+            interactAction.action.Enable();
             
             navigateAction.action.Enable();
             submitAction.action.Enable();
@@ -97,6 +101,7 @@ namespace Game
             _firePerformed = _ => HandleFirePressed();
             _fireCanceled = _ => HandleFireReleased();
             _menuPerformed = _ => HandleMenuPressed();
+            _interactPerformed = _ => HandleInteractPressed();
             
             _navigatePerformed = _ => HandleNavigatePressed();
             _submitPerformed = _ => HandleSubmitPressed();
@@ -111,6 +116,7 @@ namespace Game
             fireAction.action.performed += _firePerformed;
             fireAction.action.canceled += _fireCanceled;
             menuAction.action.performed += _menuPerformed;
+            interactAction.action.performed += _interactPerformed;
             
             navigateAction.action.performed += _navigatePerformed;
             submitAction.action.performed += _submitPerformed;
@@ -130,6 +136,7 @@ namespace Game
             fireAction.action.performed -= _firePerformed;
             fireAction.action.canceled -= _fireCanceled;
             menuAction.action.performed -= _menuPerformed;
+            interactAction.action.performed -= _interactPerformed;
             
             navigateAction.action.performed -= _navigatePerformed;
             submitAction.action.performed -= _submitPerformed;
@@ -142,6 +149,7 @@ namespace Game
             jumpAction.action.Disable();
             fireAction.action.Disable();
             menuAction.action.Disable();
+            interactAction.action.Disable();
             
             navigateAction.action.Disable();
             submitAction.action.Disable();
@@ -155,6 +163,7 @@ namespace Game
             OnJumpPressed = null;
             OnFirePressed = null;
             OnMenuPressed = null;
+            OnInteractPressed = null;
             OnNavigateAxisChanged = null;
             OnSubmitPressed = null;
             OnCancelPressed = null;
@@ -217,6 +226,12 @@ namespace Game
         {
             Debug.Log("Menu pressed");
             OnMenuPressed?.Invoke();
+        }
+        
+        private static void HandleInteractPressed()
+        {
+            Debug.Log("Interact pressed");
+            OnInteractPressed?.Invoke();
         }
         
         private void HandleNavigatePressed()

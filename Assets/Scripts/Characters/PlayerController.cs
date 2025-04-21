@@ -14,6 +14,10 @@ namespace Characters
         private UnityEngine.Camera _playerCamera;
         [SerializeField] private Health playerHealth;
         [SerializeField] private Player player;
+        
+        private static bool _below75Triggered;
+        private static bool _below50Triggered;
+        private static bool _below25Triggered;
 
         private ShootingController _shootingController;
         private Vector3 _direction;
@@ -22,11 +26,13 @@ namespace Characters
 
         private CancellationTokenSource _cancellationTokenSource;
         
-        public delegate void StateEventWithFloat(float value);
-        public delegate void StateEvent();
-        public static event StateEvent onPlayerHit;
-        public static event StateEventWithFloat OnPlayerMove;
-
+        public delegate void StatEventWithFloat(float value);
+        public delegate void StatEventWithInt(int value);
+        public delegate void StatEvent();
+        public static event StatEvent onPlayerHit;
+        
+        public static event StatEventWithInt OnBossStateChange;
+        public static event StatEventWithFloat OnPlayerMove;
         public static event Health.StatEventWithFloat OnPlayerHealthChange;
         public static event Health.StatEventWithFloat OnJetpackFuelChange;
 
@@ -37,7 +43,7 @@ namespace Characters
             Cursor.visible = false;
             _shootingController = GetComponent<ShootingController>();
             player.Initialize();
-            playerHealth.Initialize(true);
+            playerHealth.Initialize();
             OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
         }
 
@@ -49,7 +55,9 @@ namespace Characters
             InputManager.OnJumpPressed += HandleJump;
             InputManager.OnFirePressed += HandleFire;
             playerHealth.OnHealthChange += UpdateHealthUI;
+            playerHealth.OnHealthChange += ChangeBossState;
             playerHealth.OnDeath += OnPlayerDeath;
+            Enemy.OnBossDeath += playerHealth.ResetHealth;
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit += ApplyDamage;
             FireLaser.OnLaserHit += ApplyDamage;
@@ -63,7 +71,9 @@ namespace Characters
             InputManager.OnJumpPressed -= HandleJump;
             InputManager.OnFirePressed -= HandleFire;
             playerHealth.OnHealthChange -= UpdateHealthUI;
+            playerHealth.OnHealthChange -= ChangeBossState;
             playerHealth.OnDeath -= OnPlayerDeath;
+            Enemy.OnBossDeath -= playerHealth.ResetHealth;
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit -= ApplyDamage;
             FireLaser.OnLaserHit -= ApplyDamage;
@@ -109,6 +119,27 @@ namespace Characters
         private static void UpdateHealthUI(float currentHealth)
         {
             OnPlayerHealthChange?.Invoke(currentHealth);
+        }
+
+        private static void ChangeBossState(float currentHealth)
+        {
+            if (!_below75Triggered && currentHealth <= 0.75f)
+            {
+                _below75Triggered = true;
+                OnBossStateChange?.Invoke(1);
+            }
+
+            if (!_below50Triggered && currentHealth <= 0.50f)
+            {
+                _below50Triggered = true;
+                OnBossStateChange?.Invoke(2);
+            }
+
+            if (!_below25Triggered && currentHealth <= 0.25f)
+            {
+                _below25Triggered = true;
+                OnBossStateChange?.Invoke(3);
+            }
         }
 
         private void OnPlayerDeath()

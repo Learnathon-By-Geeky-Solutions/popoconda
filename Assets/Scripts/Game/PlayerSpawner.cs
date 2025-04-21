@@ -28,7 +28,8 @@ namespace Game
 
         private void SpawnPlayer()
         {
-            _playerInstance = Instantiate(playerPrefab, transform.position, transform.rotation);
+            _playerInstance = Instantiate(playerPrefab);
+
             OnPlayerSpawn?.Invoke();
             BindTimelineAnimation();
         }

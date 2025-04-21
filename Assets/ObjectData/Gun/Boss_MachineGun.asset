@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96ad9b3b4d4b72648a1dd7ef5bab8b8e, type: 3}
-  m_Name: Boss2Gun
+  m_Name: Boss_MachineGun
   m_EditorClassIdentifier: 
-  spread: 0
-  timeBetweenShooting: 0
-  magazineSize: 10
+  spread: 0.05
+  timeBetweenShooting: 0.025
+  magazineSize: 500
   bulletsPerTap: 1
-  reloadTime: 1
-  bulletSpeed: 100
-  damage: 50
+  reloadTime: 3
+  bulletSpeed: 25
+  damage: 10
