@@ -12,6 +12,7 @@ namespace Characters
         protected ShootingController ShootingController;
         protected Vector3 PlayerDirection;
         [SerializeField] protected Health enemyHealth;
+        private Vector3 _initialScale;
 
         private bool _isAlive;
         
@@ -26,8 +27,9 @@ namespace Characters
         protected virtual void Awake()
         {
             ShootingController = GetComponent<ShootingController>();
+            _initialScale = transform.localScale;
             _isAlive = true;
-            enemyHealth.Initialize(false);
+            enemyHealth.Initialize();
             _cancellationTokenSource = new CancellationTokenSource(); // Initialize CancellationTokenSource
             UpdatePositionAsync(_cancellationTokenSource.Token).Forget(); // Perform async operation
         }
@@ -86,8 +88,14 @@ namespace Characters
                 {
                     float rotationZ = Mathf.Atan2(PlayerDirection.y, PlayerDirection.x) * Mathf.Rad2Deg;
                     bool isFacingRight = PlayerDirection.x > 0;
-                    transform.localScale = new Vector3(isFacingRight ? 1 : -1, 1, 1);
-                    gunRotatePoint.transform.rotation = Quaternion.Euler(0, 0, isFacingRight ? rotationZ : rotationZ + 180f);
+
+                    // Flip while keeping original scale
+                    float direction = isFacingRight ? 1f : -1f;
+                    transform.localScale = new Vector3(_initialScale.x * direction, _initialScale.y, _initialScale.z);
+
+                    // Rotate gun
+                    float finalRotation = isFacingRight ? rotationZ : rotationZ + 180f;
+                    gunRotatePoint.transform.rotation = Quaternion.Euler(0, 0, finalRotation);
                 }
 
                 // Await next delay with cancellation support

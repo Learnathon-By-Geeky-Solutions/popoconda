@@ -1,3 +1,4 @@
+using Cutscene;
 using Cysharp.Threading.Tasks;
 using Dialogue;
 using UnityEngine;
@@ -47,7 +48,7 @@ namespace Scene
             OptionMenu.BackButtonClicked += LoadMainMenu;
             LevelSelectMenu.levelEvent += LoadLevel;
             LevelSelectMenu.backEvent += LoadMainMenu;
-            PlayerSpawner.OnCutsceneEnd += LoadDialogue;
+            CutsceneManager.OnCutsceneEnd += LoadDialogue;
             GameOver.RetryEvent += LoadCurrentLevel;
             GameOver.MenuEvent += LoadMainMenu;
             GameWin.MenuEvent += LoadMainMenu;
@@ -65,7 +66,7 @@ namespace Scene
             OptionMenu.BackButtonClicked -= LoadMainMenu;
             LevelSelectMenu.levelEvent -= LoadLevel;
             LevelSelectMenu.backEvent -= LoadMainMenu;
-            PlayerSpawner.OnCutsceneEnd -= LoadDialogue;
+            CutsceneManager.OnCutsceneEnd -= LoadDialogue;
             GameOver.RetryEvent -= LoadCurrentLevel;
             GameOver.MenuEvent -= LoadMainMenu;
             GameWin.MenuEvent -= LoadMainMenu;
@@ -175,8 +176,8 @@ namespace Scene
         
         private void ReSubscribeToCutsceneEvent()
         {
-            PlayerSpawner.OnCutsceneEnd -= LoadDialogue;
-            PlayerSpawner.OnCutsceneEnd += LoadDialogue;
+            CutsceneManager.OnCutsceneEnd -= LoadDialogue;
+            CutsceneManager.OnCutsceneEnd += LoadDialogue;
         }
         
         private void LoadGameUI()

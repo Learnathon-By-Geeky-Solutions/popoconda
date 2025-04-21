@@ -15,23 +15,10 @@ MonoBehaviour:
   m_GroupName: Levels
   m_GUID: 95f229b83fc18da4d943302dd40edba1
   m_SerializeEntries:
-  - m_GUID: 99c9720ab356a0642a771bea13969a05
-    m_Address: Assets/Scenes/Levels/Level 1.unity
+  - m_GUID: 437b616b083ccb14b8de0220e52ae8e8
+    m_Address: Assets/Scenes/Levels/Main.unity
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - Level
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ab5eb356467cc82408f7c939ee07efb7
-    m_Address: Assets/Scenes/Levels/Level 3.unity
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Level
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b1b8e176df9bd40419c375beef0cfda8
-    m_Address: Assets/Scenes/Levels/Level 2.unity
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Level
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 34695397e22c47f43beffa09ef6fb516, type: 2}

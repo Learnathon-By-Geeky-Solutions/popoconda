@@ -11,7 +11,7 @@ namespace Camera
         {
             _camera= GetComponent<CinemachineCamera>();
             
-            _camera.enabled = false;
+            //_camera.enabled = false;
             
             DialogueManager.OnDialogueEnd += EnableTarget;
         }

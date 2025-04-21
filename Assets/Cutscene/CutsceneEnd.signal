@@ -9,13 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96ad9b3b4d4b72648a1dd7ef5bab8b8e, type: 3}
-  m_Name: Boss2Gun
+  m_Script: {fileID: 11500000, guid: d6fa2d92fc1b3f34da284357edf89c3b, type: 3}
+  m_Name: CutsceneEnd
   m_EditorClassIdentifier: 
-  spread: 0
-  timeBetweenShooting: 0
-  magazineSize: 10
-  bulletsPerTap: 1
-  reloadTime: 1
-  bulletSpeed: 100
-  damage: 50
