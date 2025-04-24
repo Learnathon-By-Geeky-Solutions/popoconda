@@ -438,9 +438,9 @@ GameObject:
   - component: {fileID: 4160200537781952382}
   - component: {fileID: -9029451887195325166}
   - component: {fileID: 4132832749931128583}
+  - component: {fileID: -1096535819475759464}
   - component: {fileID: 209428990352192931}
   - component: {fileID: -8912639220396250700}
-  - component: {fileID: 6969671474552227318}
   m_Layer: 0
   m_Name: Player
   m_TagString: Enemy
@@ -528,10 +528,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunRotatePoint: {fileID: 8949294833620629514}
-  enemyHealth:
+  heroHealth:
     maxHealth: 10
-    regenRate: 0
-    regenDelay: 0
+  moveSpeed: 0.3
 --- !u!114 &4132832749931128583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +546,23 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 2030984588199437105}
   bulletPrefab: {fileID: 4736814324575834385, guid: a140e82a50b536b468a07417065870d6, type: 3}
   gunData: {fileID: 11400000, guid: d881bf4d579c58040a9b2a26f26582d9, type: 2}
+--- !u!114 &-1096535819475759464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6083340892966803384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96284ab8f008be044b84f59ece6a8754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashDistance: 3
+  dashSpeed: 10
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!95 &209428990352192931
 Animator:
   serializedVersion: 7
@@ -666,22 +682,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6969671474552227318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6083340892966803384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fefa1a000daf8049af18cb5cf3a485b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  laserSpawnPoint: {fileID: 7228529387741674184}
-  laserPrefab: {fileID: 4510343266994366541, guid: 0b174d44a5b2792499f54679f53a80a7, type: 3}
-  damageAmount: 10
-  maxLaserDistance: 20
 --- !u!1 &6598581336759761549
 GameObject:
   m_ObjectHideFlags: 0

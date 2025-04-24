@@ -6,39 +6,47 @@ using Cysharp.Threading.Tasks;
 
 namespace Characters
 {
-    public class Enemy : MonoBehaviour
+    public class Hero : MonoBehaviour
     {
         [SerializeField] private GameObject gunRotatePoint;
         protected ShootingController ShootingController;
+        protected Dash Dash;
         protected Vector3 PlayerDirection;
-        [SerializeField] protected Health enemyHealth;
+        [SerializeField] protected Health heroHealth;
         private Vector3 _initialScale;
+        
+        [Header("Hero Data")]
+        [SerializeField] protected float moveSpeed;
+        protected bool CanMove = true;
+        
 
         private bool _isAlive;
         
         public delegate void StatEvent();
-        public static event StatEvent OnEnemyMove;
-        public static event StatEvent OnEnemyStop;
-        public static event Health.StatEventWithFloat OnEnemyHealthChange;
-        public static event StatEvent OnBossDeath;
+        public static event StatEvent OnHeroMove;
+        public static event StatEvent OnHeroStop;
+        public static event Health.StatEventWithFloat OnHeroHealthChange;
+        public static event StatEvent OnHeroDeath;
 
         private CancellationTokenSource _cancellationTokenSource;
 
         protected virtual void Awake()
         {
-            ShootingController = GetComponent<ShootingController>();
+            Dash = GetComponent<Dash>();
             _initialScale = transform.localScale;
-            _isAlive = true;
-            enemyHealth.Initialize();
-            _cancellationTokenSource = new CancellationTokenSource(); // Initialize CancellationTokenSource
-            UpdatePositionAsync(_cancellationTokenSource.Token).Forget(); // Perform async operation
         }
 
         protected virtual void OnEnable()
         {
-            enemyHealth.OnDeath += OnEnemyDeath;
-            enemyHealth.OnHealthChange += UpdateHealthUI;
+            ShootingController = GetComponent<ShootingController>();
+            _isAlive = true;
+            heroHealth.Initialize();
+            
+            heroHealth.OnDeath += ApplyHeroDeath;
+            heroHealth.OnHealthChange += UpdateHealthUI;
             Bullet.OnBulletHit += ApplyDamage;
+            _cancellationTokenSource = new CancellationTokenSource(); // Initialize CancellationTokenSource
+            UpdatePositionAsync(_cancellationTokenSource.Token).Forget(); // Perform async operation
         }
         
         protected virtual void Update()
@@ -48,10 +56,10 @@ namespace Characters
             Move(playerPosition);
         }
 
-        protected virtual void OnDestroy()
+        protected virtual void OnDisable()
         {
-            enemyHealth.OnDeath -= OnEnemyDeath;
-            enemyHealth.OnHealthChange -= UpdateHealthUI;
+            heroHealth.OnDeath -= ApplyHeroDeath;
+            heroHealth.OnHealthChange -= UpdateHealthUI;
             Bullet.OnBulletHit -= ApplyDamage;
 
             // Cancel the async tasks and dispose of the token source
@@ -61,15 +69,18 @@ namespace Characters
 
         private void Move(Vector3 playerPosition)
         {
+            if(!CanMove) return;
+            
             float distanceToPlayer = playerPosition.x - transform.position.x;
+            
             if (Mathf.Abs(distanceToPlayer) >= 16)
             {
-                transform.position += new Vector3(PlayerDirection.x * (0.3f * Time.deltaTime), 0, 0);
-                OnEnemyMove?.Invoke();
+                transform.position += new Vector3(PlayerDirection.x * (moveSpeed * Time.deltaTime), 0, 0);
+                OnHeroMove?.Invoke();
             }
             else
             {
-                OnEnemyStop?.Invoke();
+                OnHeroStop?.Invoke();
             }
         }
 
@@ -107,22 +118,22 @@ namespace Characters
         {
             if (hitObject == gameObject)
             {
-                enemyHealth.TakeDamage(damage);
+                heroHealth.TakeDamage(damage);
             }
         }
 
         private static void UpdateHealthUI(float currentHealth)
         {
-            OnEnemyHealthChange?.Invoke(currentHealth);
+            OnHeroHealthChange?.Invoke(currentHealth);
         }
 
-        private void OnEnemyDeath()
+        private void ApplyHeroDeath()
         {
             _isAlive = false; // Stop movement and other actions
             _cancellationTokenSource?.Cancel(); // Stop async operations when dead
-            OnBossDeath?.Invoke(); // Trigger death event
-            ShootingController = null; // Clear the shooting controller
-            gameObject.SetActive(false); // Deactivate the object
+            ShootingController = null;
+            heroHealth.HealthBuff(5);
+            OnHeroDeath?.Invoke(); // Trigger death event
         }
     }
 }

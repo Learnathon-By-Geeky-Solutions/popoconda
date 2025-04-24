@@ -32,6 +32,7 @@ namespace Characters
         public delegate void StatEventWithInt(int value);
         public delegate void StatEvent();
         public static event StatEvent OnPlayerHit;
+        public static event StatEvent OnBulletShoot;
         
         public static event StatEventWithInt OnBossStateChange;
         public static event StatEventWithFloat OnPlayerMove;
@@ -59,7 +60,7 @@ namespace Characters
             playerHealth.OnHealthChange += UpdateHealthUI;
             playerHealth.OnHealthChange += ChangeBossState;
             playerHealth.OnDeath += OnPlayerDeath;
-            Enemy.OnBossDeath += playerHealth.ResetHealth;
+            Hero.OnHeroDeath += playerHealth.ResetHealth;
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit += ApplyDamage;
             FireLaser.OnLaserHit += ApplyDamage;
@@ -75,7 +76,7 @@ namespace Characters
             playerHealth.OnHealthChange -= UpdateHealthUI;
             playerHealth.OnHealthChange -= ChangeBossState;
             playerHealth.OnDeath -= OnPlayerDeath;
-            Enemy.OnBossDeath -= playerHealth.ResetHealth;
+            Hero.OnHeroDeath -= playerHealth.ResetHealth;
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit -= ApplyDamage;
             FireLaser.OnLaserHit -= ApplyDamage;
@@ -215,6 +216,7 @@ namespace Characters
         {
             if (_isStunned) return;
             _shootingController.FireBullet(_direction);
+            OnBulletShoot?.Invoke();
         }
 
         private void ApplyDamage(int damage, GameObject hitObject)

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Characters
 {
-    public class Boss3Script : Enemy
+    public class Boss3Script : Hero
     {
         private EnergyBlast _energyBlast;
         private Dash _dash;
@@ -29,10 +29,10 @@ namespace Characters
             _dash = GetComponent<Dash>();
         }
         
-        protected override void OnDestroy()
+        protected override void OnDisable()
         {
             DialogueManager.OnDialogueEnd -= HandleGameStart;
-            base.OnDestroy();
+            base.OnDisable();
         }
         
         private void HandleGameStart()

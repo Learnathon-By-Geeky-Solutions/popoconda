@@ -30,7 +30,7 @@ namespace Audio
         private void OnEnable()
         {
             audioSource = GetComponent<AudioSource>();
-            Enemy.OnBossDeath += PlayWinSound;
+            Hero.OnHeroDeath += PlayWinSound;
             Player.OnPlayerDeath += PlayLoseSound;
             SceneManager.OnLevelLoaded += PlayBackgroundMusic;
             PauseMenu.UIEnableEvent += PauseMusic;
@@ -40,7 +40,7 @@ namespace Audio
         private void OnDisable()
         {
             audioSource = null;
-            Enemy.OnBossDeath -= PlayWinSound;
+            Hero.OnHeroDeath -= PlayWinSound;
             Player.OnPlayerDeath -= PlayLoseSound;
             SceneManager.OnLevelLoaded -= PlayBackgroundMusic;
             PauseMenu.UIEnableEvent -= PauseMusic;

@@ -27,7 +27,7 @@ namespace UI
             
             PlayerController.OnPlayerHealthChange += UpdatePlayerHealth;
             PlayerController.OnJetpackFuelChange += UpdateJetpackFuel;
-            Enemy.OnEnemyHealthChange += UpdateEnemyHealth;
+            Hero.OnHeroHealthChange += UpdateEnemyHealth;
             ShootingController.OnBulletCountChange += UpdateAmmo;
             GameManager.DisableHudEvent += DisableHud;
         }
@@ -36,7 +36,7 @@ namespace UI
         {
             PlayerController.OnPlayerHealthChange -= UpdatePlayerHealth;
             PlayerController.OnJetpackFuelChange -= UpdateJetpackFuel;
-            Enemy.OnEnemyHealthChange -= UpdateEnemyHealth;
+            Hero.OnHeroHealthChange -= UpdateEnemyHealth;
             ShootingController.OnBulletCountChange -= UpdateAmmo;
             GameManager.DisableHudEvent -= DisableHud;
         }

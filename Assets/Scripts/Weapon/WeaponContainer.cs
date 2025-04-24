@@ -32,13 +32,13 @@ namespace Weapon
         private void OnEnable()
         {
             PlayerController.OnBossStateChange += ChangeContainedWeapon;
-            Enemy.OnBossDeath += EquipPistol;
+            Hero.OnHeroDeath += EquipPistol;
         }
         
         private void OnDisable()
         {
             PlayerController.OnBossStateChange -= ChangeContainedWeapon;
-            Enemy.OnBossDeath -= EquipPistol;
+            Hero.OnHeroDeath -= EquipPistol;
         }
 
         private void ChangeContainedWeapon(int state)
