@@ -20,15 +20,15 @@ namespace Animation
         private void OnEnable()
         {
             PlayerController.OnPlayerMove += MoveAnimation;
-            Enemy.OnEnemyMove += MoveEnemyAnimation;
-            Enemy.OnEnemyStop += StopEnemyAnimation;
+            Hero.OnHeroMove += MoveEnemyAnimation;
+            Hero.OnHeroStop += StopEnemyAnimation;
         }
 
         private void OnDisable()
         {
             PlayerController.OnPlayerMove -= MoveAnimation;
-            Enemy.OnEnemyMove -= MoveEnemyAnimation;
-            Enemy.OnEnemyStop -= StopEnemyAnimation;
+            Hero.OnHeroMove -= MoveEnemyAnimation;
+            Hero.OnHeroStop -= StopEnemyAnimation;
         }
 
         private void MoveAnimation(float targetDirection)

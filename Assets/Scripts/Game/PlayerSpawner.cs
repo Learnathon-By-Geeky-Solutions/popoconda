@@ -1,4 +1,5 @@
 using Characters;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -18,12 +19,12 @@ namespace Game
         private void Awake()
         {
             SpawnPlayer();
-            Enemy.OnBossDeath += SpawnPlayer;
+            Hero.OnHeroDeath += RespawnPlayer;
         }
         
         private void OnDestroy()
         {
-            Enemy.OnBossDeath -= SpawnPlayer;
+            Hero.OnHeroDeath -= RespawnPlayer;
         }
 
         private void SpawnPlayer()
@@ -31,6 +32,15 @@ namespace Game
             _playerInstance = Instantiate(playerPrefab);
 
             OnPlayerSpawn?.Invoke();
+            BindTimelineAnimation();
+        }
+        
+        private void RespawnPlayer()
+        {
+            _playerInstance.SetActive(false);
+            _playerInstance.transform.position = new Vector3(0, 0, 0); // Set to spawn position
+            _playerInstance.SetActive(true);
+            timelineDirector.Play();
             BindTimelineAnimation();
         }
 

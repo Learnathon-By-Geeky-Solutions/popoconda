@@ -40,5 +40,10 @@ namespace Combat
             OnHealthChange?.Invoke(healthPercentage);
         }
         
+        public void HealthBuff(int value)
+        {
+            maxHealth += value;
+        }
+        
     }
 }

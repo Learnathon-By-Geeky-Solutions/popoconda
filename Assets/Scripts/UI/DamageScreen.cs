@@ -21,12 +21,12 @@ namespace UI
             SetOverlayAlpha(0); // Hide on enable
     
             // Subscribe to player hit event (adjust depending on your event system)
-            PlayerController.onPlayerHit += HandlePlayerHit;
+            PlayerController.OnPlayerHit += HandlePlayerHit;
         }
     
         private void OnDisable()
         {
-            PlayerController.onPlayerHit -= HandlePlayerHit;
+            PlayerController.OnPlayerHit -= HandlePlayerHit;
         }
     
         private void HandlePlayerHit()

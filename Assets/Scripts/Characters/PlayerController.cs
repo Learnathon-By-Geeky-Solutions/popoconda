@@ -4,6 +4,7 @@ using Game;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine.InputSystem;
+using Weapon;
 
 namespace Characters
 {
@@ -14,6 +15,7 @@ namespace Characters
         private UnityEngine.Camera _playerCamera;
         [SerializeField] private Health playerHealth;
         [SerializeField] private Player player;
+        private GunData newGunData;
         
         private static bool _below75Triggered;
         private static bool _below50Triggered;
@@ -29,7 +31,8 @@ namespace Characters
         public delegate void StatEventWithFloat(float value);
         public delegate void StatEventWithInt(int value);
         public delegate void StatEvent();
-        public static event StatEvent onPlayerHit;
+        public static event StatEvent OnPlayerHit;
+        public static event StatEvent OnBulletShoot;
         
         public static event StatEventWithInt OnBossStateChange;
         public static event StatEventWithFloat OnPlayerMove;
@@ -57,7 +60,7 @@ namespace Characters
             playerHealth.OnHealthChange += UpdateHealthUI;
             playerHealth.OnHealthChange += ChangeBossState;
             playerHealth.OnDeath += OnPlayerDeath;
-            Enemy.OnBossDeath += playerHealth.ResetHealth;
+            Hero.OnHeroDeath += playerHealth.ResetHealth;
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit += ApplyDamage;
             FireLaser.OnLaserHit += ApplyDamage;
@@ -73,7 +76,7 @@ namespace Characters
             playerHealth.OnHealthChange -= UpdateHealthUI;
             playerHealth.OnHealthChange -= ChangeBossState;
             playerHealth.OnDeath -= OnPlayerDeath;
-            Enemy.OnBossDeath -= playerHealth.ResetHealth;
+            Hero.OnHeroDeath -= playerHealth.ResetHealth;
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit -= ApplyDamage;
             FireLaser.OnLaserHit -= ApplyDamage;
@@ -114,7 +117,7 @@ namespace Characters
             player.PlayerGfx.transform.localScale = _direction.x < 0 ? new Vector3(-1, 1, 1) : Vector3.one;
             player.GunRotatePoint.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
         }
-      
+        
         
         private static void UpdateHealthUI(float currentHealth)
         {
@@ -213,6 +216,7 @@ namespace Characters
         {
             if (_isStunned) return;
             _shootingController.FireBullet(_direction);
+            OnBulletShoot?.Invoke();
         }
 
         private void ApplyDamage(int damage, GameObject hitObject)
@@ -220,14 +224,14 @@ namespace Characters
             if (hitObject == gameObject)
             {
                 playerHealth.TakeDamage(damage);
-                onPlayerHit?.Invoke();
+                OnPlayerHit?.Invoke();
             }
             
         }
         private void ApplyBlastDamage(int damage)
         {
             playerHealth.TakeDamage(damage);
-            onPlayerHit?.Invoke();
+            OnPlayerHit?.Invoke();
         }
         
         private void Stunned(bool isStunned)

@@ -42,13 +42,13 @@ namespace Game
 
         private void OnEnable()
         {
-            Enemy.OnBossDeath += Win;
+            Hero.OnHeroDeath += Win;
             Player.OnPlayerDeath += Lose;
         }
 
         private void OnDisable()
         {
-            Enemy.OnBossDeath -= Win;
+            Hero.OnHeroDeath -= Win;
             Player.OnPlayerDeath -= Lose;
         }
         
