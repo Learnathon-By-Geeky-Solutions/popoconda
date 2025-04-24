@@ -4,7 +4,7 @@
     height: 100%;
 }
 
-.enemy-health-bar-container {
+.hero-health-bar-container {
     position: absolute;
     top: 10px;
     left: 50%;
@@ -16,7 +16,7 @@
     flex-direction: row;
 }
 
-.enemy-health-bar {
+.hero-health-bar {
     margin: 0;
     justify-content: flex-start;
     height: 100%;
@@ -29,14 +29,14 @@
     margin-left: 0;
 }
 
-#enemy-health {
+#hero-health {
     margin: 0;
     justify-content: flex-start;
     height: 100%;
     width: 100%;
 }
 
-.enemy-icon {
+.hero-icon {
     background-image: url("project://database/Assets/UI/HUD/enemy-health.png?fileID=2800000&guid=20897dcd851188747ad8da5cc223c2f4&type=3#enemy-health");
     position: absolute;
     left: -10px;
@@ -47,13 +47,13 @@
     -unity-background-image-tint-color: rgb(55, 55, 55);
 }
 
-.enemy-health-bar .unity-progress-bar__background {
+.hero-health-bar .unity-progress-bar__background {
     background-color: rgba(190, 121, 111, 0.69);
     padding: 0;
     margin: 0;
 }
 
-.enemy-health-bar .unity-progress-bar__progress {
+.hero-health-bar .unity-progress-bar__progress {
     background-color: rgba(199, 33, 67, 0.98);
     padding: 0;
     margin: 0;
@@ -161,7 +161,7 @@
     margin: 0;
 }
 
-.player-health-bar .unity-progress-bar__progress {
+#player-health-bar .unity-progress-bar__progress {
     background-color: rgba(61, 182, 30, 0.98);
     padding: 0;
     margin: 0;
