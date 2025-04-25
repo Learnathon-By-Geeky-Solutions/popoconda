@@ -1,6 +1,7 @@
 using System.Threading;
 using UnityEngine;
 using Combat;
+using Cutscene;
 using Game;
 using Cysharp.Threading.Tasks;
 
@@ -9,11 +10,13 @@ namespace Characters
     public class Hero : MonoBehaviour
     {
         [SerializeField] private GameObject gunRotatePoint;
-        protected ShootingController ShootingController;
-        protected Dash Dash;
         protected Vector3 PlayerDirection;
         [SerializeField] protected Health heroHealth;
         private Vector3 _initialScale;
+        
+        protected ShootingController ShootingController;
+        protected Dash Dash;
+        protected Shield Shield;
         
         [Header("Hero Data")]
         [SerializeField] protected float moveSpeed;
@@ -33,6 +36,7 @@ namespace Characters
         protected virtual void Awake()
         {
             Dash = GetComponent<Dash>();
+            Shield = GetComponent<Shield>();
             _initialScale = transform.localScale;
         }
 
@@ -127,7 +131,7 @@ namespace Characters
             OnHeroHealthChange?.Invoke(currentHealth);
         }
 
-        private void ApplyHeroDeath()
+        protected virtual void ApplyHeroDeath()
         {
             _isAlive = false; // Stop movement and other actions
             _cancellationTokenSource?.Cancel(); // Stop async operations when dead

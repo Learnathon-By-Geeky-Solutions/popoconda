@@ -1,0 +1,16 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement name="Phase-background" style="flex-grow: 1; background-color: rgb(17, 8, 14); justify-content: center; align-items: center;">
+        <engine:Label text="Enough!" name="Enough" style="font-size: 65px; color: rgb(255, 16, 16);">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(30821119233859584)" />
+                <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(15812763648)" />
+            </Bindings>
+        </engine:Label>
+        <engine:Label name="Destroy-label" style="font-size: 24px; color: rgb(132, 99, 28);">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:3daeb134ec1ebbf45b9655de581714c2" entry="Id(30821520276430848)" />
+                <UnityEngine.Localization.LocalizedFont property="style.unityFontDefinition" table="GUID:10ae05b1eba3bfc4f88066af37f43d8b" entry="Id(4677784585699328)" />
+            </Bindings>
+        </engine:Label>
+    </engine:VisualElement>
+</engine:UXML>
