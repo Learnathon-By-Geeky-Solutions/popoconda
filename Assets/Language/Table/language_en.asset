@@ -74,6 +74,14 @@ MonoBehaviour:
     m_Localized: Back
     m_Metadata:
       m_Items: []
+  - m_Id: 30408121623838720
+    m_Localized: Next Day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30409669171019776
+    m_Localized: press E to take weapon
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
