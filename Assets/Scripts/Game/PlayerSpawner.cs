@@ -1,5 +1,4 @@
 using Characters;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;

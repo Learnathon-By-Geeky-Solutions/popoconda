@@ -1,6 +1,7 @@
 using Characters;
 using Interface;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Weapon
 {
@@ -11,6 +12,8 @@ namespace Weapon
         private GameObject _currentWeaponPrefab;
         
         [SerializeField] private GameObject[] weaponPrefab;
+        
+        [SerializeField] private UIDocument _messageDocument;
         
         private int _currentWeaponIndex;
         
@@ -27,6 +30,16 @@ namespace Weapon
             }
             
             EquipWeapon();
+        }
+        
+        public void ShowInteractMessage()
+        {
+            _messageDocument.gameObject.SetActive(true);
+        }
+        
+        public void HideInteractMessage()
+        {
+            _messageDocument.gameObject.SetActive(false);
         }
 
         private void OnEnable()

@@ -209,7 +209,6 @@ namespace Characters
                 OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
                 await UniTask.Yield(token);
             }
-            
         }
 
         private void HandleFire()

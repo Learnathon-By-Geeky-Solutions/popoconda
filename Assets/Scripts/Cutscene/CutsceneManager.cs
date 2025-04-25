@@ -7,6 +7,7 @@ namespace Cutscene
         public delegate void StatEvent();
         public static event StatEvent OnCutsceneStart;
         public static event StatEvent OnCutsceneEnd;
+        public static event StatEvent OnBlastEvent;
         
         public static void StartCutscene()
         {
@@ -20,6 +21,11 @@ namespace Cutscene
             Debug.Log("Cutscene ended");
         }
         
+        public static void TriggerBlast()
+        {
+            OnBlastEvent?.Invoke();
+            Debug.Log("Blast triggered");
+        }
         
     }
     
