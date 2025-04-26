@@ -3,6 +3,7 @@ using Combat;
 using Game;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using Cutscene;
 using UnityEngine.InputSystem;
 using Weapon;
 
@@ -60,7 +61,9 @@ namespace Characters
             playerHealth.OnHealthChange += UpdateHealthUI;
             playerHealth.OnHealthChange += ChangeBossState;
             playerHealth.OnDeath += OnPlayerDeath;
+            CutsceneManager.OnVerticalPlatformEvent += DisableGravity;
             Hero.OnHeroDeath += playerHealth.ResetHealth;
+            Hero.OnHeroDeath += () => _below25Triggered = false;
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit += ApplyDamage;
             FireLaser.OnLaserHit += ApplyDamage;
@@ -76,6 +79,7 @@ namespace Characters
             playerHealth.OnHealthChange -= UpdateHealthUI;
             playerHealth.OnHealthChange -= ChangeBossState;
             playerHealth.OnDeath -= OnPlayerDeath;
+            CutsceneManager.OnVerticalPlatformEvent -= DisableGravity;
             Hero.OnHeroDeath -= playerHealth.ResetHealth;
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit -= ApplyDamage;
@@ -246,6 +250,12 @@ namespace Characters
             float distance = 1.5f;
             Vector3 direction = Vector3.down;
             return Physics.Raycast(transform.position, direction, distance);
+        }
+        
+        private void DisableGravity()
+        {
+            if(_playerRigidbody == null) return;
+            _playerRigidbody.useGravity = false;
         }
 
     }

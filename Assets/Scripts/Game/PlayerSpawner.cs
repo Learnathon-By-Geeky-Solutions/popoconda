@@ -9,7 +9,8 @@ namespace Game
     {
         [SerializeField] private GameObject playerPrefab;
         private GameObject _playerInstance;
-        public PlayableDirector timelineDirector;
+        [SerializeField] private PlayableDirector timelineDirector;
+        [SerializeField] private PlayableDirector nextLevelDirector;
         
         public delegate void StatEvent();
         public static event StatEvent OnPlayerSpawn;
@@ -46,11 +47,18 @@ namespace Game
         private void BindTimelineAnimation()
         {
             var timeline = timelineDirector.playableAsset as TimelineAsset;
+            var nextLevelTimeline = nextLevelDirector.playableAsset as TimelineAsset;
 
             if (timeline != null)
             {
                 var track = timeline.GetOutputTrack(0);
                 timelineDirector.SetGenericBinding(track, _playerInstance);
+            }
+            
+            if (nextLevelTimeline != null)
+            {
+                var nextLevelTrack = nextLevelTimeline.GetOutputTrack(0);
+                nextLevelDirector.SetGenericBinding(nextLevelTrack, _playerInstance);
             }
         }
     }

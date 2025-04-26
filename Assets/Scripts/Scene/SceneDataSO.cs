@@ -12,6 +12,7 @@ namespace Scene
         [SerializeField] private AssetReference levelSelectScene;
         [SerializeField] private AssetReference gameUIScene;
         [SerializeField] private AssetReference dialogueScene;
+        [SerializeField] private AssetReference verticalPlatformScene;
         [SerializeField] private List<AssetReference> levels; // Stores all level scenes
         
         public AssetReference MainMenuScene => mainMenuScene;
@@ -19,6 +20,7 @@ namespace Scene
         public AssetReference LevelSelectScene => levelSelectScene;
         public AssetReference GameUIScene => gameUIScene;
         public AssetReference DialogueScene => dialogueScene;
+        public AssetReference VerticalPlatformScene => verticalPlatformScene;
         public List<AssetReference> Levels => levels;
     }
 }

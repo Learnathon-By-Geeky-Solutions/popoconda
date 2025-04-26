@@ -7,7 +7,6 @@ namespace Combat
         private float _speed;
         private Vector3 _direction;
         private Rigidbody _rigidbody;
-        private Vector3 _spawnPosition;
         private int _damageAmount;
         
         public delegate void HitHandler(int damage, GameObject hitObject);
@@ -16,7 +15,6 @@ namespace Combat
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            _spawnPosition = transform.position;
             Destroy(gameObject, 3f);
         }
         
@@ -42,15 +40,7 @@ namespace Combat
 
         private void OnTriggerEnter(Collider other)
         {
-            float distance = Vector3.Distance(_spawnPosition, transform.position);
-            if (distance <= 12f)
-            {
-                OnBulletHit?.Invoke(_damageAmount * 2, other.gameObject);
-            }
-            else
-            {
-                OnBulletHit?.Invoke(_damageAmount, other.gameObject);
-            }
+            OnBulletHit?.Invoke(_damageAmount, other.gameObject);
             Destroy(gameObject);
         }
     }

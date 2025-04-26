@@ -14,6 +14,7 @@ namespace Characters
         [SerializeField] protected Health heroHealth;
         private Vector3 _initialScale;
         
+        protected Rigidbody HeroRigidbody;
         protected ShootingController ShootingController;
         protected Dash Dash;
         protected Shield Shield;
@@ -35,6 +36,7 @@ namespace Characters
 
         protected virtual void Awake()
         {
+            HeroRigidbody = GetComponent<Rigidbody>();
             Dash = GetComponent<Dash>();
             Shield = GetComponent<Shield>();
             _initialScale = transform.localScale;

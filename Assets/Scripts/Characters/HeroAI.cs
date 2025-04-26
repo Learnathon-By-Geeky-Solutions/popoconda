@@ -16,11 +16,15 @@ namespace Characters
         
         private CancellationTokenSource _cancellationTokenSource;
         
+        public new delegate void StatEvent();
+        public static event StatEvent OnHeroSurvive;
+        
         
         protected override void OnEnable()
         {
             CutsceneManager.OnCutsceneStart += HandleGamePause;
             CutsceneManager.OnCutsceneEnd += HandleGameStart;
+            CutsceneManager.OnVerticalPlatformEvent += DisableGravity;
             PlayerController.OnBulletShoot += HandleReaction;
             WeaponContainer.OnWeaponEquip += UpdateBossState;
             CutsceneManager.OnBlastEvent += ApplyDeath;
@@ -36,6 +40,7 @@ namespace Characters
         {
             CutsceneManager.OnCutsceneStart -= HandleGamePause;
             CutsceneManager.OnCutsceneEnd -= HandleGameStart;
+            CutsceneManager.OnVerticalPlatformEvent -= DisableGravity;
             PlayerController.OnBulletShoot -= HandleReaction;
             WeaponContainer.OnWeaponEquip -= UpdateBossState;
             CutsceneManager.OnBlastEvent -= ApplyDeath;
@@ -56,6 +61,14 @@ namespace Characters
         private void HandleGamePause()
         {
             _pauseState = true;
+        }
+        
+        private void DisableGravity()
+        {
+            if (HeroRigidbody != null)
+            {
+                HeroRigidbody.useGravity = false;
+            }
         }
 
         private async UniTask PerformActionsAsync(CancellationToken token)
@@ -104,12 +117,14 @@ namespace Characters
             if(_bossState < 3)
             {
                 await UniTask.Delay(1000, cancellationToken: _cancellationTokenSource.Token);
+                _bossState = 3;
                 _pauseState = true;
                 ApplyHeroDeath();
             }
             else
             {
                 Shield.ShieldAsync(_cancellationTokenSource.Token).Forget();
+                OnHeroSurvive?.Invoke();
             }
         }
         
