@@ -26,6 +26,7 @@ namespace Characters
         private Vector3 _direction;
         
         private bool _isStunned;
+        private bool _onVerticalPlatform;
 
         private CancellationTokenSource _cancellationTokenSource;
         
@@ -184,7 +185,7 @@ namespace Characters
 
         private void HandleJump()
         {
-            if (_isStunned || player.JetpackFuel <= 0) return;
+            if (_isStunned || player.JetpackFuel <= 0 || _onVerticalPlatform) return;
 
             _playerRigidbody.AddForce(Vector3.up * (player.FlySpeed * Time.deltaTime), ForceMode.VelocityChange);
             player.JetpackFuel -= Time.deltaTime * player.FuelConsumeRate;
@@ -256,6 +257,8 @@ namespace Characters
         {
             if(_playerRigidbody == null) return;
             _playerRigidbody.useGravity = false;
+            _playerRigidbody.linearVelocity = Vector3.zero;
+            _onVerticalPlatform = true;
         }
 
     }
