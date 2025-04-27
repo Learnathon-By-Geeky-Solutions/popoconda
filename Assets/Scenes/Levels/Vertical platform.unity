@@ -150,8 +150,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 932560256}
-  - {fileID: 697481430}
   - {fileID: 1298403013}
+  - {fileID: 697481430}
   - {fileID: 1910470647}
   - {fileID: 1286713999}
   - {fileID: 1995369737}
@@ -170,11 +170,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformObject1: {fileID: 932560257}
-  platformObject2: {fileID: 697481431}
-  platformObject3: {fileID: 1910470645}
+  platformObject2: {fileID: 1298403014}
+  platformObject3: {fileID: 697481431}
   moveSpeed: 2
-  resetHeight: 20
-  bottomLimit: 10
 --- !u!1 &678910053
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +675,11 @@ PrefabInstance:
 --- !u!4 &1298403013 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ee6e75b11f3cd5b4d8b685cbf0986495, type: 3}
+  m_PrefabInstance: {fileID: 1298403012}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1298403014 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ee6e75b11f3cd5b4d8b685cbf0986495, type: 3}
   m_PrefabInstance: {fileID: 1298403012}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1502767047

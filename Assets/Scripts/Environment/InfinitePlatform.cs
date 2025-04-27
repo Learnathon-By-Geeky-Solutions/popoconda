@@ -9,51 +9,59 @@ namespace Environment
         [SerializeField] private GameObject platformObject2;
         [SerializeField] private GameObject platformObject3;
         [SerializeField] private float moveSpeed = 2f;
-        [SerializeField] private float resetHeight = 20f;  // Height where platform will reset to
-        [SerializeField] private float bottomLimit = 10f;  // Y position after which platform resets
 
         private GameObject[] platforms;
+        private float initialYPositionY;
+        private float teleportPositionY;
 
         private void Start()
         {
             platforms = new[] { platformObject1, platformObject2, platformObject3 };
+            initialYPositionY = platformObject1.transform.position.y;  // Store initial Y position of platform 1
+            teleportPositionY = platformObject3.transform.position.y; // Store teleport position of platform 3
+            
             InfinitePlatformAsync().Forget();
         }
-        
+
         private async UniTaskVoid InfinitePlatformAsync()
         {
             while (true)
             {
-                foreach (var platform in platforms)
+                for (int i = 0; i < platforms.Length - 1; i++) // Loop through platforms, except the last one
                 {
-                    platform.transform.position -= new Vector3(0f, moveSpeed * Time.deltaTime, 0f);
+                    GameObject currentPlatform = platforms[i];
+                    GameObject nextPlatform = platforms[i + 1];
 
-                    if (platform.transform.position.y <= bottomLimit)
+                    // Move the current platform down
+                    currentPlatform.transform.position -= new Vector3(0f, moveSpeed * Time.deltaTime, 0f);
+
+                    // Check if the next platform reaches the initial position of the current platform
+                    if (nextPlatform.transform.position.y <= initialYPositionY)
                     {
-                        float highestY = GetHighestPlatformY();
-                        platform.transform.position = new Vector3(
-                            platform.transform.position.x, 
-                            highestY + resetHeight, 
-                            platform.transform.position.z
-                        );
+                        TeleportPlatform(currentPlatform);  // Teleport current platform
+                        UpdatePositions();  // Update the variables
                     }
                 }
-                
-                await UniTask.Yield(); // wait for next frame
+
+                await UniTask.Yield(); // Yield control back to the main thread
             }
         }
 
-        private float GetHighestPlatformY()
+        private void TeleportPlatform(GameObject platformToTeleport)
         {
-            float highest = float.MinValue;
-            foreach (var platform in platforms)
-            {
-                if (platform.transform.position.y > highest)
-                {
-                    highest = platform.transform.position.y;
-                }
-            }
-            return highest;
+            // Teleport the platform to the teleport position
+            platformToTeleport.transform.position = new Vector3(
+                platformToTeleport.transform.position.x,
+                teleportPositionY,
+                platformToTeleport.transform.position.z
+            );
+        }
+
+        private void UpdatePositions()
+        {
+            // After teleporting, update the initial and teleport positions for the next platforms
+            initialYPositionY = platforms[0].transform.position.y;
+            teleportPositionY = platforms[2].transform.position.y;
         }
     }
 }
