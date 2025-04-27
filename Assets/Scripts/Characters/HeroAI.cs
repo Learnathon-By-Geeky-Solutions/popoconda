@@ -24,7 +24,6 @@ namespace Characters
         {
             CutsceneManager.OnCutsceneStart += HandleGamePause;
             CutsceneManager.OnCutsceneEnd += HandleGameStart;
-            CutsceneManager.OnVerticalPlatformEvent += DisableGravity;
             PlayerController.OnBulletShoot += HandleReaction;
             WeaponContainer.OnWeaponEquip += UpdateBossState;
             CutsceneManager.OnBlastEvent += ApplyDeath;
@@ -40,7 +39,6 @@ namespace Characters
         {
             CutsceneManager.OnCutsceneStart -= HandleGamePause;
             CutsceneManager.OnCutsceneEnd -= HandleGameStart;
-            CutsceneManager.OnVerticalPlatformEvent -= DisableGravity;
             PlayerController.OnBulletShoot -= HandleReaction;
             WeaponContainer.OnWeaponEquip -= UpdateBossState;
             CutsceneManager.OnBlastEvent -= ApplyDeath;
@@ -61,14 +59,6 @@ namespace Characters
         private void HandleGamePause()
         {
             _pauseState = true;
-        }
-        
-        private void DisableGravity()
-        {
-            if (HeroRigidbody != null)
-            {
-                HeroRigidbody.useGravity = false;
-            }
         }
 
         private async UniTask PerformActionsAsync(CancellationToken token)

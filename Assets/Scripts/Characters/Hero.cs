@@ -22,9 +22,8 @@ namespace Characters
         [Header("Hero Data")]
         [SerializeField] protected float moveSpeed;
         protected bool CanMove = true;
-        
-
         private bool _isAlive;
+        private bool _onVerticalPlatform;
         
         public delegate void StatEvent();
         public static event StatEvent OnHeroMove;
@@ -51,6 +50,7 @@ namespace Characters
             heroHealth.OnDeath += ApplyHeroDeath;
             heroHealth.OnHealthChange += UpdateHealthUI;
             Bullet.OnBulletHit += ApplyDamage;
+            CutsceneManager.OnVerticalPlatformEvent += DisableGravity;
             _cancellationTokenSource = new CancellationTokenSource(); // Initialize CancellationTokenSource
             UpdatePositionAsync(_cancellationTokenSource.Token).Forget(); // Perform async operation
         }
@@ -66,6 +66,7 @@ namespace Characters
         {
             heroHealth.OnDeath -= ApplyHeroDeath;
             heroHealth.OnHealthChange -= UpdateHealthUI;
+            CutsceneManager.OnVerticalPlatformEvent -= DisableGravity;
             Bullet.OnBulletHit -= ApplyDamage;
 
             // Cancel the async tasks and dispose of the token source
@@ -82,7 +83,11 @@ namespace Characters
             if (Mathf.Abs(distanceToPlayer) >= 16)
             {
                 transform.position += new Vector3(PlayerDirection.x * (moveSpeed * Time.deltaTime), 0, 0);
-                OnHeroMove?.Invoke();
+                if (!_onVerticalPlatform)
+                {
+                    OnHeroMove?.Invoke();
+                }
+                
             }
             else
             {
@@ -133,13 +138,21 @@ namespace Characters
             OnHeroHealthChange?.Invoke(currentHealth);
         }
 
-        protected virtual void ApplyHeroDeath()
+        protected void ApplyHeroDeath()
         {
             _isAlive = false; // Stop movement and other actions
             _cancellationTokenSource?.Cancel(); // Stop async operations when dead
             ShootingController = null;
             heroHealth.HealthBuff(5);
             OnHeroDeath?.Invoke(); // Trigger death event
+        }
+        
+        private void DisableGravity()
+        {
+            if (HeroRigidbody == null) return;
+            HeroRigidbody.useGravity = false;
+            HeroRigidbody.linearVelocity = Vector3.zero;
+            _onVerticalPlatform = true;
         }
     }
 }
