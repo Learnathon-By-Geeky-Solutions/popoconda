@@ -7,18 +7,23 @@ namespace Environment
     {
         [SerializeField] private GameObject platformObject1;
         [SerializeField] private GameObject platformObject2;
-        [SerializeField] private GameObject platformObject3;
         [SerializeField] private float moveSpeed = 2f;
 
         private GameObject[] platforms;
-        private float initialYPositionY;
-        private float teleportPositionY;
+        private float initialYPosition;
+        private float teleportYPosition;
+        private float platformHeight;
 
         private void Start()
         {
-            platforms = new[] { platformObject1, platformObject2, platformObject3 };
-            initialYPositionY = platformObject1.transform.position.y;  // Store initial Y position of platform 1
-            teleportPositionY = platformObject3.transform.position.y; // Store teleport position of platform 3
+            platforms = new[] { platformObject1, platformObject2 };
+            
+            // Store the initial positions
+            initialYPosition = platformObject1.transform.position.y; 
+            teleportYPosition = platformObject2.transform.position.y;
+            
+            // Calculate platform height (assuming both platforms have the same height)
+            platformHeight = teleportYPosition - initialYPosition;
             
             InfinitePlatformAsync().Forget();
         }
@@ -27,41 +32,40 @@ namespace Environment
         {
             while (true)
             {
-                for (int i = 0; i < platforms.Length - 1; i++) // Loop through platforms, except the last one
+                // Move both platforms downward
+                foreach (var platform in platforms)
                 {
-                    GameObject currentPlatform = platforms[i];
-                    GameObject nextPlatform = platforms[i + 1];
-
-                    // Move the current platform down
-                    currentPlatform.transform.position -= new Vector3(0f, moveSpeed * Time.deltaTime, 0f);
-
-                    // Check if the next platform reaches the initial position of the current platform
-                    if (nextPlatform.transform.position.y <= initialYPositionY)
+                    Vector3 position = platform.transform.position;
+                    position.y -= moveSpeed * Time.deltaTime;
+                    platform.transform.position = position;
+                    
+                    // If platform goes below the initial position, teleport it to the top
+                    if (position.y < initialYPosition)
                     {
-                        TeleportPlatform(currentPlatform);  // Teleport current platform
-                        UpdatePositions();  // Update the variables
+                        // Find the highest platform's Y position
+                        float highestY = FindHighestPlatformY();
+                        
+                        // Place this platform above the highest one with proper spacing
+                        position.y = highestY + platformHeight;
+                        platform.transform.position = position;
                     }
                 }
 
                 await UniTask.Yield(); // Yield control back to the main thread
             }
         }
-
-        private void TeleportPlatform(GameObject platformToTeleport)
+        
+        private float FindHighestPlatformY()
         {
-            // Teleport the platform to the teleport position
-            platformToTeleport.transform.position = new Vector3(
-                platformToTeleport.transform.position.x,
-                teleportPositionY,
-                platformToTeleport.transform.position.z
-            );
-        }
-
-        private void UpdatePositions()
-        {
-            // After teleporting, update the initial and teleport positions for the next platforms
-            initialYPositionY = platforms[0].transform.position.y;
-            teleportPositionY = platforms[2].transform.position.y;
+            float highestY = float.MinValue;
+            foreach (var platform in platforms)
+            {
+                if (platform.transform.position.y > highestY)
+                {
+                    highestY = platform.transform.position.y;
+                }
+            }
+            return highestY;
         }
     }
 }

@@ -928,7 +928,7 @@ MonoBehaviour:
       Enabled: 0
       Size: {x: 0.75, y: 1.79}
       Offset: {x: 0, y: 0}
-  CenterOnActivate: 1
+  CenterOnActivate: 0
   TargetOffset: {x: 0, y: 0, z: 0}
   Damping: {x: 1, y: 1, z: 1}
   Lookahead:
@@ -2366,8 +2366,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939493214}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.06104851, y: 0, z: 0, w: 0.99813485}
-  m_LocalPosition: {x: 11.945, y: 11.002431, z: -11.910554}
+  m_LocalRotation: {x: 2.0772581e-10, y: 0.0000000032872312, z: -6.8284277e-19, w: 1}
+  m_LocalPosition: {x: 11.945, y: 9.54, z: -10}
   m_LocalScale: {x: 0.6666667, y: 0.6666666, z: 0.6666666}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3666,15 +3666,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PositionMode: 1
-  RotationMode: 1
-  UpdateMethod: 0
+  RotationMode: 0
+  UpdateMethod: 1
   Targets:
   - Object: {fileID: 767312509}
     Weight: 1
-    Radius: 0.5
+    Radius: 1
   - Object: {fileID: 196660129}
     Weight: 1
-    Radius: 0.5
+    Radius: 1
   m_LegacyTargets: []
 --- !u!114 &1722704153
 MonoBehaviour:
