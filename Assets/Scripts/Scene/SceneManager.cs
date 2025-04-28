@@ -1,3 +1,4 @@
+using Characters;
 using Cutscene;
 using Cysharp.Threading.Tasks;
 using Dialogue;
@@ -17,10 +18,12 @@ namespace Scene
         private static SceneManager Instance { get; set; }
 
         private SceneInstance _mainMenuInstance;
+        private SceneInstance _gameUIInstance;
         private SceneInstance _optionMenuInstance;
         private SceneInstance _levelSelectMenuInstance;
         private SceneInstance _levelInstance;
         private SceneInstance _dialogueInstance;
+        private SceneInstance _verticalPlatformInstance;
         
         private int _currentLevelIndex = -1;
         
@@ -48,7 +51,8 @@ namespace Scene
             OptionMenu.BackButtonClicked += LoadMainMenu;
             LevelSelectMenu.levelEvent += LoadLevel;
             LevelSelectMenu.backEvent += LoadMainMenu;
-            CutsceneManager.OnCutsceneEnd += LoadDialogue;
+            CutsceneManager.OnCutsceneStart += UnloadGameUI;
+            CutsceneManager.OnCutsceneEnd += LoadGameUI;
             GameOver.RetryEvent += LoadCurrentLevel;
             GameOver.MenuEvent += LoadMainMenu;
             GameWin.MenuEvent += LoadMainMenu;
@@ -57,6 +61,7 @@ namespace Scene
             PauseMenu.MainMenuEvent += LoadMainMenu;
             MainMenuLoader.MainMenuEvent += LoadMainMenu;
             DialogueManager.OnDialogueEnd += UnloadDialogue;
+            HeroAI.OnHeroSurvive += LoadVerticalPlatform;
         }
         
         private void OnDisable()
@@ -66,7 +71,8 @@ namespace Scene
             OptionMenu.BackButtonClicked -= LoadMainMenu;
             LevelSelectMenu.levelEvent -= LoadLevel;
             LevelSelectMenu.backEvent -= LoadMainMenu;
-            CutsceneManager.OnCutsceneEnd -= LoadDialogue;
+            CutsceneManager.OnCutsceneStart -= UnloadGameUI;
+            CutsceneManager.OnCutsceneEnd -= LoadGameUI;
             GameOver.RetryEvent -= LoadCurrentLevel;
             GameOver.MenuEvent -= LoadMainMenu;
             GameWin.MenuEvent -= LoadMainMenu;
@@ -74,7 +80,8 @@ namespace Scene
             PauseMenu.RestartEvent -= LoadCurrentLevel;
             PauseMenu.MainMenuEvent -= LoadMainMenu;
             MainMenuLoader.MainMenuEvent -= LoadMainMenu;
-            DialogueManager.OnDialogueEnd -= UnloadDialogue;
+            //DialogueManager.OnDialogueEnd -= UnloadDialogue;
+            HeroAI.OnHeroSurvive -= LoadVerticalPlatform;
         }
         
         private void LoadMainMenu()
@@ -174,16 +181,53 @@ namespace Scene
             };
         }
         
+        private void LoadVerticalPlatform()
+        {
+            if (sceneData.VerticalPlatformScene == null)
+            {
+                Debug.LogError("Vertical Platform scene not assigned in SceneDataSO!");
+                return;
+            }
+
+            Addressables.LoadSceneAsync(sceneData.VerticalPlatformScene, USM.LoadSceneMode.Additive).Completed += handle =>
+            {
+                _verticalPlatformInstance = handle.Result;
+            };
+        }
+        
         private void ReSubscribeToCutsceneEvent()
         {
-            CutsceneManager.OnCutsceneEnd -= LoadDialogue;
-            CutsceneManager.OnCutsceneEnd += LoadDialogue;
+            //CutsceneManager.OnCutsceneEnd -= LoadDialogue;
+            //CutsceneManager.OnCutsceneEnd += LoadDialogue;
         }
         
         private void LoadGameUI()
         {
-            sceneData.GameUIScene.LoadSceneAsync(USM.LoadSceneMode.Additive);
+            if (sceneData.GameUIScene == null)
+            {
+                Debug.LogError("Game UI scene not assigned in SceneDataSO!");
+                return;
+            }
+            
+            if (_gameUIInstance.Scene.IsValid())
+            {
+                Addressables.UnloadSceneAsync(_gameUIInstance);
+            }
+
+            sceneData.GameUIScene.LoadSceneAsync(USM.LoadSceneMode.Additive).Completed += handle =>
+            {
+                _gameUIInstance = handle.Result;
+            };
         }
+        
+        private void UnloadGameUI()
+        {
+            if (_gameUIInstance.Scene.IsValid())
+            {
+                Addressables.UnloadSceneAsync(_gameUIInstance);
+            }
+        }
+        
 
         private void LoadDialogue()
         {

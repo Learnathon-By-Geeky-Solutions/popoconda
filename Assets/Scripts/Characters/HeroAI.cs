@@ -16,6 +16,9 @@ namespace Characters
         
         private CancellationTokenSource _cancellationTokenSource;
         
+        public new delegate void StatEvent();
+        public static event StatEvent OnHeroSurvive;
+        
         
         protected override void OnEnable()
         {
@@ -104,12 +107,14 @@ namespace Characters
             if(_bossState < 3)
             {
                 await UniTask.Delay(1000, cancellationToken: _cancellationTokenSource.Token);
+                _bossState = 3;
                 _pauseState = true;
                 ApplyHeroDeath();
             }
             else
             {
                 Shield.ShieldAsync(_cancellationTokenSource.Token).Forget();
+                OnHeroSurvive?.Invoke();
             }
         }
         

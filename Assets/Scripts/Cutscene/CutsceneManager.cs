@@ -8,6 +8,7 @@ namespace Cutscene
         public static event StatEvent OnCutsceneStart;
         public static event StatEvent OnCutsceneEnd;
         public static event StatEvent OnBlastEvent;
+        public static event StatEvent OnVerticalPlatformEvent;
         
         public static void StartCutscene()
         {
@@ -25,6 +26,12 @@ namespace Cutscene
         {
             OnBlastEvent?.Invoke();
             Debug.Log("Blast triggered");
+        }
+        
+        public static void TriggerVerticalPlatform()
+        {
+            OnVerticalPlatformEvent?.Invoke();
+            Debug.Log("Vertical Platform triggered");
         }
         
     }

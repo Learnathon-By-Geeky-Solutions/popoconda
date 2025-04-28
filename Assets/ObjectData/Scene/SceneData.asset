@@ -42,6 +42,12 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  verticalPlatformScene:
+    m_AssetGUID: 90acad743ec98cf48a56e9bde3706c00
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   levels:
   - m_AssetGUID: 437b616b083ccb14b8de0220e52ae8e8
     m_SubObjectName: 
