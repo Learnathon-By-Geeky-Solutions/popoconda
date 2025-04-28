@@ -1,4 +1,5 @@
 using Characters;
+using Cutscene;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -11,6 +12,7 @@ namespace Game
         private GameObject _playerInstance;
         [SerializeField] private PlayableDirector timelineDirector;
         [SerializeField] private PlayableDirector nextLevelDirector;
+        private bool _onVerticalPlatform;
         
         public delegate void StatEvent();
         public static event StatEvent OnPlayerSpawn;
@@ -20,6 +22,8 @@ namespace Game
         {
             SpawnPlayer();
             Hero.OnHeroDeath += RespawnPlayer;
+            _onVerticalPlatform = false;
+            CutsceneManager.OnVerticalPlatformEvent += () => _onVerticalPlatform = true;
         }
         
         private void OnDestroy()
@@ -37,6 +41,12 @@ namespace Game
         
         private void RespawnPlayer()
         {
+            if (_onVerticalPlatform)
+            {
+                _playerInstance.SetActive(false);
+                return;
+            }
+            
             _playerInstance.SetActive(false);
             _playerInstance.transform.position = new Vector3(0, 0, 0); // Set to spawn position
             _playerInstance.SetActive(true);

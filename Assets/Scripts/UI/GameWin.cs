@@ -41,8 +41,8 @@ namespace UI
         
         private void HandleGameWin()
         {
-            //gameWinDocument.rootVisualElement.style.display = DisplayStyle.Flex;
-            //UIEnableEvent?.Invoke();
+            gameWinDocument.rootVisualElement.style.display = DisplayStyle.Flex;
+            UIEnableEvent?.Invoke();
             
         }
         

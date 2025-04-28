@@ -78,6 +78,7 @@ namespace UI
             Time.timeScale = 1;
             pauseMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
             RestartEvent?.Invoke();
+            GameManager.ResetGameState();
         }
         
         private void HandleMainMenuButtonClicked()
@@ -85,6 +86,7 @@ namespace UI
             Time.timeScale = 1;
             pauseMenuDocument.rootVisualElement.style.display = DisplayStyle.None;
             MainMenuEvent?.Invoke();
+            GameManager.ResetGameState();
         }
     }
 }

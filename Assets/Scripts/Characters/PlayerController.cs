@@ -50,6 +50,10 @@ namespace Characters
             player.Initialize();
             playerHealth.Initialize();
             OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
+            _below75Triggered = false;
+            _below50Triggered = false;
+            _below25Triggered = false;
+            _onVerticalPlatform = false;
         }
 
         private void OnEnable()
