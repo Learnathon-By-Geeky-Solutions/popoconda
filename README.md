@@ -2,7 +2,7 @@
 
 > An intense 2.5D boss fight game with cyberpunk aesthetics and jetpack-fueled combat.
 
-![Game Banner](https://media.discordapp.net/attachments/1320751643876261973/1361393219128000643/Game_Logo.png?ex=67fe97bc&is=67fd463c&hm=a7b4e01fcd2329ca2f66c4093791d4a1879172cff6d5ae4bb6f13605cac70693&=&format=webp&quality=lossless&width=1872&height=502)
+![Game Banner](https://imgur.com/bwpgSl0.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -29,12 +29,12 @@
 
 ## 🎯 Game Overview
 
-In a dystopian future, you play as a special operative tasked with stopping the deranged scientist Dr. Jarexal Umbravik and his army of mechanically enhanced super soldiers. Armed with advanced weapon and a jetpack, you must infiltrate his laboratory and put an end to his plans for world domination.
+You play as the boss—a notorious weapon dealer at Steel Ascendant. Heroes from the BNS agency are sent to stop your operations. Each time you defeat a hero, a new, stronger hero arrives, escalating the challenge. Outsmart and overpower the relentless agents to maintain your dominance in the underworld.
 
 ### Core Features
 
 - 🚀 Vertical combat with jetpack mechanics
-- 🎯 Three unique boss encounters
+- 🎯 Play as the Boss
 - 🎨 Cyberpunk-inspired 2.5D visuals
 
 ## 👥 Development Team
@@ -51,30 +51,29 @@ In a dystopian future, you play as a special operative tasked with stopping the 
 ### Game Design
 - **Resolution:** 1920x1080 (HD)
 - **Style:** Cyberpunk 2.5D
-- **Environments:** Laboratory, Industrial, Urban
+- **Environments:** Underground Base
 
 ### UI Elements
 - Health Bar
 - Jetpack Fuel Indicator
 - Ammo Counter
-- Boss Health Display
+- Hero Health Display
 
 ### Audio Features
 - Weapon sound
 - Jetpack thrust effects
 - background music
-- Combat impact sounds
 
 ## ↗️ Game Flow Diagram
-![Game Flow Diagram](https://media.discordapp.net/attachments/1320751643876261973/1361402062008746005/SteelAscendantFlowChart.png?ex=68009a39&is=67ff48b9&hm=673f019e44b71d7dad89a045780a5323fab81209f957277dde6e4c77cb0e4f23&=&format=webp&quality=lossless)
+![Game Flow Diagram](https://imgur.com/P5cNs1t.jpg)
 
 ## 🔗 Resources
 
 - [Project Management](https://sharing.clickup.com/9018894642/l/h/8ct2u9j-278/0fe70fbebe022bd)
 - [Game Page](https://nahiyansamit.itch.io/steel-ascendant)
 - [Devlog](https://nahiyansamit.itch.io/steel-ascendant/devlog/900184/devlog-1-steel-ascendant-first-steps)
-- [Development Wiki](https://github.com/NahiyanSamit/Steel-Ascendant/wiki)
-- [GDD](https://docs.google.com/document/d/13Mdw4Bq89dcxUxyYRou4636Uv8_hyzNATp_Rl8R5IWk/edit?tab=t.0#heading=h.8nogem2xw2dd)
+- [Development Wiki](https://github.com/Learnathon-By-Geeky-Solutions/popoconda/wiki)
+- [GDD](https://www.dundoc.com/project/10653/e0xi8sy9ty)
 
 ## 🐛 Support
 
