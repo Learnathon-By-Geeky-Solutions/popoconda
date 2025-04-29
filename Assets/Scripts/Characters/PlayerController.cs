@@ -136,22 +136,17 @@ namespace Characters
 
         private void ChangeBossState(float currentHealth)
         {
-            if (!_below75Triggered && currentHealth <= 0.75f)
-            {
-                _below75Triggered = true;
-                OnBossStateChange?.Invoke(1);
-            }
+            CheckAndInvokeBossState(currentHealth, 0.75f, ref _below75Triggered, 1);
+            CheckAndInvokeBossState(currentHealth, 0.50f, ref _below50Triggered, 2);
+            CheckAndInvokeBossState(currentHealth, 0.25f, ref _below25Triggered, 3);
+        }
 
-            if (!_below50Triggered && currentHealth <= 0.50f)
+        private static void CheckAndInvokeBossState(float currentHealth, float threshold, ref bool triggered, int bossState)
+        {
+            if (!triggered && currentHealth <= threshold)
             {
-                _below50Triggered = true;
-                OnBossStateChange?.Invoke(2);
-            }
-
-            if (!_below25Triggered && currentHealth <= 0.25f)
-            {
-                _below25Triggered = true;
-                OnBossStateChange?.Invoke(3);
+                triggered = true;
+                OnBossStateChange?.Invoke(bossState);
             }
         }
 
