@@ -17,6 +17,8 @@ namespace Characters
         private UnityEngine.Camera _playerCamera;
         [SerializeField] private Health playerHealth;
         [SerializeField] private Player player;
+        [SerializeField] private ParticleSystem jetpackParticle1;
+        [SerializeField] private ParticleSystem jetpackParticle2;
         private GunData newGunData;
         
         private bool _below75Triggered;
@@ -186,12 +188,16 @@ namespace Characters
         private void HandleJump()
         {
             if (_isStunned || player.JetpackFuel <= 0 || _onVerticalPlatform) return;
+            
+            if (!jetpackParticle1.isPlaying) jetpackParticle1.Play();
+            if (!jetpackParticle2.isPlaying) jetpackParticle2.Play();
 
             _playerRigidbody.AddForce(Vector3.up * (player.FlySpeed * Time.deltaTime), ForceMode.VelocityChange);
+            
             player.JetpackFuel -= Time.deltaTime * player.FuelConsumeRate;
             OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
             OnPlayerMove?.Invoke(0);
-
+            
             ResetRefillTimer();
             HandleMousePosition(Mouse.current.position.ReadValue());
         }
