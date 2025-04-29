@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Scene;
 using Game;
+using Input;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -19,7 +20,6 @@ namespace Dialogue
         private int _currentDialogueIndex;
 
         public delegate void StatEvent();
-        
         public static event StatEvent OnDialogueStart, OnDialogueEnd;
 
         private void Awake()
@@ -37,13 +37,13 @@ namespace Dialogue
 
         private void OnEnable()
         {
-            SceneManager.OnLevelLoaded += LoadDialogue;
+            SceneManager.OnDialogueSceneLoaded += LoadDialogue;
             InputManager.OnNextPressed += ShowNextDialogue;
         }
 
         private void OnDisable()
         {
-            SceneManager.OnLevelLoaded -= LoadDialogue;
+            SceneManager.OnDialogueSceneLoaded -= LoadDialogue;
             InputManager.OnNextPressed -= ShowNextDialogue;
         }
 

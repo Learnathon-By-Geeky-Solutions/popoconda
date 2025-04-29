@@ -42,24 +42,14 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  verticalPlatformScene:
+    m_AssetGUID: 90acad743ec98cf48a56e9bde3706c00
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   levels:
-  - m_AssetGUID: 99c9720ab356a0642a771bea13969a05
-    m_SubObjectName: 
-    m_SubObjectGUID: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: b1b8e176df9bd40419c375beef0cfda8
-    m_SubObjectName: 
-    m_SubObjectGUID: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: ab5eb356467cc82408f7c939ee07efb7
-    m_SubObjectName: 
-    m_SubObjectGUID: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 1
-  dialogues:
-  - m_AssetGUID: cfb98db3f0b024f48ab59f6f913ee67f
+  - m_AssetGUID: 437b616b083ccb14b8de0220e52ae8e8
     m_SubObjectName: 
     m_SubObjectGUID: 
     m_SubObjectType: 

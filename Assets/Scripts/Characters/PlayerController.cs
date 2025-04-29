@@ -1,9 +1,12 @@
 using UnityEngine;
 using Combat;
 using Game;
+using Input;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using Cutscene;
 using UnityEngine.InputSystem;
+using Weapon;
 
 namespace Characters
 {
@@ -14,19 +17,28 @@ namespace Characters
         private UnityEngine.Camera _playerCamera;
         [SerializeField] private Health playerHealth;
         [SerializeField] private Player player;
+        private GunData newGunData;
+        
+        private bool _below75Triggered;
+        private bool _below50Triggered;
+        private bool _below25Triggered;
 
         private ShootingController _shootingController;
         private Vector3 _direction;
         
         private bool _isStunned;
+        private bool _onVerticalPlatform;
 
         private CancellationTokenSource _cancellationTokenSource;
         
-        public delegate void StateEventWithFloat(float value);
-        public delegate void StateEvent();
-        public static event StateEvent onPlayerHit;
-        public static event StateEventWithFloat OnPlayerMove;
-
+        public delegate void StatEventWithFloat(float value);
+        public delegate void StatEventWithInt(int value);
+        public delegate void StatEvent();
+        public static event StatEvent OnPlayerHit;
+        public static event StatEvent OnBulletShoot;
+        
+        public static event StatEventWithInt OnBossStateChange;
+        public static event StatEventWithFloat OnPlayerMove;
         public static event Health.StatEventWithFloat OnPlayerHealthChange;
         public static event Health.StatEventWithFloat OnJetpackFuelChange;
 
@@ -37,23 +49,27 @@ namespace Characters
             Cursor.visible = false;
             _shootingController = GetComponent<ShootingController>();
             player.Initialize();
-            playerHealth.Initialize(true);
+            playerHealth.Initialize();
             OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
-        }
-        
-        private void Start()
-        {
-            PlayerSpawner.OnCutsceneEnd += () => GameManager.SetPlayerTransform(transform);
+            _below75Triggered = false;
+            _below50Triggered = false;
+            _below25Triggered = false;
+            _onVerticalPlatform = false;
         }
 
         private void OnEnable()
         {
+            GameManager.SetPlayerTransform(transform);
             InputManager.OnMousePositionChanged += HandleMousePosition;
             InputManager.OnMoveAxisChanged += HandleMoveAxis;
             InputManager.OnJumpPressed += HandleJump;
             InputManager.OnFirePressed += HandleFire;
             playerHealth.OnHealthChange += UpdateHealthUI;
+            playerHealth.OnHealthChange += ChangeBossState;
             playerHealth.OnDeath += OnPlayerDeath;
+            CutsceneManager.OnVerticalPlatformEvent += DisableGravity;
+            Hero.OnHeroDeath += playerHealth.ResetHealth;
+            Hero.OnHeroDeath += () => _below25Triggered = false;
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit += ApplyDamage;
             FireLaser.OnLaserHit += ApplyDamage;
@@ -67,7 +83,10 @@ namespace Characters
             InputManager.OnJumpPressed -= HandleJump;
             InputManager.OnFirePressed -= HandleFire;
             playerHealth.OnHealthChange -= UpdateHealthUI;
+            playerHealth.OnHealthChange -= ChangeBossState;
             playerHealth.OnDeath -= OnPlayerDeath;
+            CutsceneManager.OnVerticalPlatformEvent -= DisableGravity;
+            Hero.OnHeroDeath -= playerHealth.ResetHealth;
             EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
             Bullet.OnBulletHit -= ApplyDamage;
             FireLaser.OnLaserHit -= ApplyDamage;
@@ -108,11 +127,32 @@ namespace Characters
             player.PlayerGfx.transform.localScale = _direction.x < 0 ? new Vector3(-1, 1, 1) : Vector3.one;
             player.GunRotatePoint.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
         }
-      
+        
         
         private static void UpdateHealthUI(float currentHealth)
         {
             OnPlayerHealthChange?.Invoke(currentHealth);
+        }
+
+        private void ChangeBossState(float currentHealth)
+        {
+            if (!_below75Triggered && currentHealth <= 0.75f)
+            {
+                _below75Triggered = true;
+                OnBossStateChange?.Invoke(1);
+            }
+
+            if (!_below50Triggered && currentHealth <= 0.50f)
+            {
+                _below50Triggered = true;
+                OnBossStateChange?.Invoke(2);
+            }
+
+            if (!_below25Triggered && currentHealth <= 0.25f)
+            {
+                _below25Triggered = true;
+                OnBossStateChange?.Invoke(3);
+            }
         }
 
         private void OnPlayerDeath()
@@ -150,7 +190,7 @@ namespace Characters
 
         private void HandleJump()
         {
-            if (_isStunned || player.JetpackFuel <= 0) return;
+            if (_isStunned || player.JetpackFuel <= 0 || _onVerticalPlatform) return;
 
             _playerRigidbody.AddForce(Vector3.up * (player.FlySpeed * Time.deltaTime), ForceMode.VelocityChange);
             player.JetpackFuel -= Time.deltaTime * player.FuelConsumeRate;
@@ -179,13 +219,13 @@ namespace Characters
                 OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
                 await UniTask.Yield(token);
             }
-            
         }
 
         private void HandleFire()
         {
             if (_isStunned) return;
             _shootingController.FireBullet(_direction);
+            OnBulletShoot?.Invoke();
         }
 
         private void ApplyDamage(int damage, GameObject hitObject)
@@ -193,14 +233,14 @@ namespace Characters
             if (hitObject == gameObject)
             {
                 playerHealth.TakeDamage(damage);
-                onPlayerHit?.Invoke();
+                OnPlayerHit?.Invoke();
             }
             
         }
         private void ApplyBlastDamage(int damage)
         {
             playerHealth.TakeDamage(damage);
-            onPlayerHit?.Invoke();
+            OnPlayerHit?.Invoke();
         }
         
         private void Stunned(bool isStunned)
@@ -216,6 +256,14 @@ namespace Characters
             float distance = 1.5f;
             Vector3 direction = Vector3.down;
             return Physics.Raycast(transform.position, direction, distance);
+        }
+        
+        private void DisableGravity()
+        {
+            if(_playerRigidbody == null) return;
+            _playerRigidbody.useGravity = false;
+            _playerRigidbody.linearVelocity = Vector3.zero;
+            _onVerticalPlatform = true;
         }
 
     }

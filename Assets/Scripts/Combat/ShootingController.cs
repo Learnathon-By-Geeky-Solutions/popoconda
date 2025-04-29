@@ -23,6 +23,13 @@ namespace Combat
             _bulletsLeft = gunData.MagazineSize;
             gunShootSound = GetComponent<AudioSource>(); 
         }
+        
+        public void ChangeGunData(GunData newGunData)
+        {
+            gunData = newGunData;
+            _bulletsLeft = gunData.MagazineSize;
+            UpdateBulletCount();
+        }
 
         public void FireBullet(Vector3 direction)
         {

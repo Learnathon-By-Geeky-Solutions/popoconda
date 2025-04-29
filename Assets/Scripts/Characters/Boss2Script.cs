@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Characters
 {
-    public class Boss2Script : Enemy
+    public class Boss2Script : Hero
     {
         private StunController _stunController;
 
@@ -26,10 +26,10 @@ namespace Characters
             _cancellationToken = this.GetCancellationTokenOnDestroy();
         }
         
-        protected override void OnDestroy()
+        protected override void OnDisable()
         {
             DialogueManager.OnDialogueEnd -= HandleGameStart;
-            base.OnDestroy();
+            base.OnDisable();
         }
         
         private void HandleGameStart()

@@ -11,9 +11,10 @@ namespace UI
         [SerializeField] private UIDocument hudDocument;
         
         private ProgressBar _playerHealthBar;
-        private ProgressBar _enemyHealthBar;
+        private ProgressBar _heroHealthBar;
         private ProgressBar _jetpackFuelBar;
         private Label _ammoLabel;
+        private VisualElement _playerHealthBarBackground;
         
         void Start()
         {
@@ -21,13 +22,14 @@ namespace UI
             
             // get label elements
             _playerHealthBar = root.Q<ProgressBar>("player-health");
-            _enemyHealthBar = root.Q<ProgressBar>("enemy-health");
+            _heroHealthBar = root.Q<ProgressBar>("hero-health");
             _jetpackFuelBar = root.Q<ProgressBar>("jetpack-fuel");
             _ammoLabel = root.Q<Label>("ammo-label");
+            _playerHealthBarBackground =_playerHealthBar.Q(className: "unity-progress-bar__progress");
             
             PlayerController.OnPlayerHealthChange += UpdatePlayerHealth;
             PlayerController.OnJetpackFuelChange += UpdateJetpackFuel;
-            Enemy.OnEnemyHealthChange += UpdateEnemyHealth;
+            Hero.OnHeroHealthChange += UpdateHeroHealth;
             ShootingController.OnBulletCountChange += UpdateAmmo;
             GameManager.DisableHudEvent += DisableHud;
         }
@@ -36,7 +38,7 @@ namespace UI
         {
             PlayerController.OnPlayerHealthChange -= UpdatePlayerHealth;
             PlayerController.OnJetpackFuelChange -= UpdateJetpackFuel;
-            Enemy.OnEnemyHealthChange -= UpdateEnemyHealth;
+            Hero.OnHeroHealthChange -= UpdateHeroHealth;
             ShootingController.OnBulletCountChange -= UpdateAmmo;
             GameManager.DisableHudEvent -= DisableHud;
         }
@@ -45,15 +47,32 @@ namespace UI
         {
             if (_playerHealthBar != null)
             {
+                
                 _playerHealthBar.value = currentHealthPercentage * 100;
+                if (_playerHealthBar.value >= 75)
+                {
+                    _playerHealthBarBackground.style.backgroundColor = new StyleColor(new Color(0.0f, 1.0f, 0.0f));
+                }
+                else if (_playerHealthBar.value >=50)
+                {
+                    _playerHealthBarBackground.style.backgroundColor = new StyleColor(new Color(1.0f, 1.0f, 0.0f));
+                }
+                else if (_playerHealthBar.value >= 25)
+                {
+                    _playerHealthBarBackground.style.backgroundColor = new StyleColor(new Color(1.0f, .5f, 0.0f));
+                }
+                else
+                {
+                    _playerHealthBarBackground.style.backgroundColor = new StyleColor(new Color(1.0f, 0.0f, 0.0f));
+                }
             }
         }
 
-        private void UpdateEnemyHealth(float currentHealthPercentage)
+        private void UpdateHeroHealth(float currentHealthPercentage)
         {
-            if (_enemyHealthBar != null)
+            if (_heroHealthBar != null)
             {
-                _enemyHealthBar.value = currentHealthPercentage * 100;
+                _heroHealthBar.value = currentHealthPercentage * 100;
             }
         }
         

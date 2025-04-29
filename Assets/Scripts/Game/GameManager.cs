@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using Characters;
+using Cutscene;
 using Studio23.SS2.SaveSystem.Core;
 
 
@@ -11,6 +12,7 @@ namespace Game
         private static GameManager Instance { get; set; }
         
         private static Transform _playerTransform;
+        private bool _onVerticalPlatform;
         
         public delegate void GameResult();
         public static event GameResult WinEvent;
@@ -42,13 +44,15 @@ namespace Game
 
         private void OnEnable()
         {
-            Enemy.OnBossDeath += Win;
+            _onVerticalPlatform = false;
+            Hero.OnHeroDeath += Win;
             Player.OnPlayerDeath += Lose;
+            CutsceneManager.OnVerticalPlatformEvent += () => _onVerticalPlatform = true;
         }
 
         private void OnDisable()
         {
-            Enemy.OnBossDeath -= Win;
+            Hero.OnHeroDeath -= Win;
             Player.OnPlayerDeath -= Lose;
         }
         
@@ -77,14 +81,27 @@ namespace Game
 
         private static void Win()
         {
+            if(!Instance._onVerticalPlatform) return;
+            
             WinEvent?.Invoke();
             DisableHudEvent?.Invoke();
+            ResetGameState();
         }
 
         private static void Lose()
         {
             LoseEvent?.Invoke();
             DisableHudEvent?.Invoke();
+            ResetGameState();
         }
+        
+        public static void ResetGameState()
+        {
+            if (Instance != null)
+            {
+                Instance._onVerticalPlatform = false;
+            }
+        }
+
     }
 }
