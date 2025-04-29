@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Hero_pistol
   m_EditorClassIdentifier: 
   spread: 0.05
-  timeBetweenShooting: 0.1
+  timeBetweenShooting: 0.05
   magazineSize: 100
   bulletsPerTap: 1
   reloadTime: 1
-  bulletSpeed: 20
+  bulletSpeed: 15
   damage: 10

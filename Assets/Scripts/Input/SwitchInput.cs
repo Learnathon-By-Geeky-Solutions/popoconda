@@ -4,7 +4,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Game
+namespace Input
 {
     public class SwitchInput : MonoBehaviour
     {
