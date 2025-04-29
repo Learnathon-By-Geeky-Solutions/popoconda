@@ -18,9 +18,9 @@ namespace Characters
         [SerializeField] private Player player;
         private GunData newGunData;
         
-        private static bool _below75Triggered;
-        private static bool _below50Triggered;
-        private static bool _below25Triggered;
+        private bool _below75Triggered;
+        private bool _below50Triggered;
+        private bool _below25Triggered;
 
         private ShootingController _shootingController;
         private Vector3 _direction;
@@ -133,7 +133,7 @@ namespace Characters
             OnPlayerHealthChange?.Invoke(currentHealth);
         }
 
-        private static void ChangeBossState(float currentHealth)
+        private void ChangeBossState(float currentHealth)
         {
             if (!_below75Triggered && currentHealth <= 0.75f)
             {

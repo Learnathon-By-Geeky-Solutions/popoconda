@@ -32,7 +32,7 @@ namespace Audio
             audioSource = GetComponent<AudioSource>();
             Hero.OnHeroDeath += PlayWinSound;
             Player.OnPlayerDeath += PlayLoseSound;
-            SceneManager.OnLevelLoaded += PlayBackgroundMusic;
+            SceneManager.OnDialogueSceneLoaded += PlayBackgroundMusic;
             PauseMenu.UIEnableEvent += PauseMusic;
             PauseMenu.UIDisableEvent += PlayMusic;
         }
@@ -42,7 +42,7 @@ namespace Audio
             audioSource = null;
             Hero.OnHeroDeath -= PlayWinSound;
             Player.OnPlayerDeath -= PlayLoseSound;
-            SceneManager.OnLevelLoaded -= PlayBackgroundMusic;
+            SceneManager.OnDialogueSceneLoaded -= PlayBackgroundMusic;
             PauseMenu.UIEnableEvent -= PauseMusic;
             PauseMenu.UIDisableEvent -= PlayMusic;
         }

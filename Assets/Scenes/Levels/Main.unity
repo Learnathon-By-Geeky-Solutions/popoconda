@@ -2204,8 +2204,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939493214}
   serializedVersion: 2
-  m_LocalRotation: {x: 2.0772581e-10, y: 0.0000000032872312, z: -6.8284277e-19, w: 1}
-  m_LocalPosition: {x: 11.945, y: 9.54, z: -10}
+  m_LocalRotation: {x: 0.06104851, y: 0, z: 0, w: 0.99813485}
+  m_LocalPosition: {x: 11.945, y: 11.002431, z: -11.910554}
   m_LocalScale: {x: 0.6666667, y: 0.6666666, z: 0.6666666}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2630,153 +2630,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ee6e75b11f3cd5b4d8b685cbf0986495, type: 3}
   m_PrefabInstance: {fileID: 1251373274}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1298100422
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1298100427}
-  - component: {fileID: 1298100426}
-  - component: {fileID: 1298100425}
-  - component: {fileID: 1298100424}
-  - component: {fileID: 1298100423}
-  m_Layer: 0
-  m_Name: CinemachineCamera
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1298100423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298100422}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eb4843bae7d24943842ea23130dcd55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FramingMode: 2
-  FramingSize: 0.8
-  CenterOffset: {x: 0, y: 0}
-  Damping: 2
-  SizeAdjustment: 2
-  LateralAdjustment: 0
-  FovRange: {x: 1, y: 100}
-  DollyRange: {x: -100, y: 100}
-  OrthoSizeRange: {x: 1, y: 1000}
---- !u!114 &1298100424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298100422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TrackerSettings:
-    BindingMode: 4
-    PositionDamping: {x: 1, y: 1, z: 1}
-    AngularDampingMode: 0
-    RotationDamping: {x: 1, y: 1, z: 1}
-    QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 0, z: -10}
---- !u!114 &1298100425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298100422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Composition:
-    ScreenPosition: {x: 0, y: 0}
-    DeadZone:
-      Enabled: 0
-      Size: {x: 0.2, y: 0.2}
-    HardLimits:
-      Enabled: 0
-      Size: {x: 0.8, y: 0.8}
-      Offset: {x: 0, y: 0}
-  CenterOnActivate: 1
-  TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 0.5, y: 0.5}
-  Lookahead:
-    Enabled: 0
-    Time: 0
-    Smoothing: 0
-    IgnoreY: 0
---- !u!114 &1298100426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298100422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Priority:
-    Enabled: 0
-    m_Value: 0
-  OutputChannel: 1
-  StandbyUpdate: 2
-  m_StreamingVersion: 20241001
-  m_LegacyPriority: 0
-  Target:
-    TrackingTarget: {fileID: 1722704151}
-    LookAtTarget: {fileID: 0}
-    CustomLookAtTarget: 0
-  Lens:
-    FieldOfView: 60
-    OrthographicSize: 10.15
-    NearClipPlane: 0.3
-    FarClipPlane: 1000
-    Dutch: 0
-    ModeOverride: 0
-    PhysicalProperties:
-      GateFit: 2
-      SensorSize: {x: 21.946, y: 16.002}
-      LensShift: {x: 0, y: 0}
-      FocusDistance: 10
-      Iso: 200
-      ShutterSpeed: 0.005
-      Aperture: 16
-      BladeCount: 5
-      Curvature: {x: 2, y: 11}
-      BarrelClipping: 0.25
-      Anamorphism: 0
-  BlendHint: 0
---- !u!4 &1298100427
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298100422}
-  serializedVersion: 2
-  m_LocalRotation: {x: 2.0772581e-10, y: 0.0000000032872312, z: 0.0000000016736503, w: 1}
-  m_LocalPosition: {x: 11.945, y: 9.54, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1303309166 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1532643918941451308, guid: 34cb473d3cab7c9409f944c481181df9, type: 3}
@@ -3188,6 +3041,8 @@ PlayableDirector:
   - key: {fileID: -8822942920370574348, guid: fb62c9154b246264593075ffd1e47120, type: 2}
     value: {fileID: 1830403315}
   - key: {fileID: 498463477721047870, guid: fb62c9154b246264593075ffd1e47120, type: 2}
+    value: {fileID: 1830403315}
+  - key: {fileID: -1013287878383225387, guid: fb62c9154b246264593075ffd1e47120, type: 2}
     value: {fileID: 1830403315}
   m_ExposedReferences:
     m_References: []
@@ -3666,6 +3521,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3b0f19848d44cd04b9a9553996cecf61, type: 2}
     - {fileID: 11400000, guid: 3cd541c44adb20a4e8f248f375a12a12, type: 2}
     - {fileID: 11400000, guid: 83dad986237ee69438107e161f0a68ff, type: 2}
+    - {fileID: 11400000, guid: 39f0bb29fa2e21943a2854a234adec0c, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -3714,6 +3570,20 @@ MonoBehaviour:
         - m_Target: {fileID: 1830403314}
           m_TargetAssemblyTypeName: Cutscene.CutsceneManager, Assembly-CSharp
           m_MethodName: TriggerVerticalPlatform
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1830403314}
+          m_TargetAssemblyTypeName: Cutscene.CutsceneManager, Assembly-CSharp
+          m_MethodName: LoadDialogueScene
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4224,15 +4094,14 @@ SceneRoots:
   - {fileID: 189442547}
   - {fileID: 196660129}
   - {fileID: 1722704151}
-  - {fileID: 1210983865}
+  - {fileID: 2022377496}
+  - {fileID: 812800884}
   - {fileID: 1358397024}
   - {fileID: 615223958}
-  - {fileID: 2022377496}
-  - {fileID: 1606829957}
+  - {fileID: 1210983865}
   - {fileID: 1681045557}
   - {fileID: 1830403313}
-  - {fileID: 812800884}
+  - {fileID: 1606829957}
   - {fileID: 248665283}
   - {fileID: 1731601853}
   - {fileID: 1537866575}
-  - {fileID: 1298100427}

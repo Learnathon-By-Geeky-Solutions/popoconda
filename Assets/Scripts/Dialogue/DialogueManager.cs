@@ -36,13 +36,13 @@ namespace Dialogue
 
         private void OnEnable()
         {
-            //SceneManager.OnLevelLoaded += LoadDialogue;
+            SceneManager.OnDialogueSceneLoaded += LoadDialogue;
             InputManager.OnNextPressed += ShowNextDialogue;
         }
 
         private void OnDisable()
         {
-            //SceneManager.OnLevelLoaded -= LoadDialogue;
+            SceneManager.OnDialogueSceneLoaded -= LoadDialogue;
             InputManager.OnNextPressed -= ShowNextDialogue;
         }
 
