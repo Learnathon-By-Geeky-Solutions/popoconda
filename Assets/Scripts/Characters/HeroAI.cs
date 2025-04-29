@@ -2,6 +2,8 @@ using System.Threading;
 using Cutscene;
 using Cysharp.Threading.Tasks;
 using Dialogue;
+using Game;
+using UI;
 using UnityEngine;
 using Weapon;
 using Random = UnityEngine.Random;
@@ -27,6 +29,8 @@ namespace Characters
             CutsceneManager.OnCutsceneEnd += HandleGameStart;
             DialogueManager.OnDialogueStart += HandleGamePause;
             DialogueManager.OnDialogueEnd += HandleGameStart;
+            GameManager.WinEvent += HandleGamePause;
+            GameManager.LoseEvent += HandleGamePause;
             PlayerController.OnBulletShoot += HandleReaction;
             WeaponContainer.OnWeaponEquip += UpdateBossState;
             CutsceneManager.OnBlastEvent += ApplyDeath;
@@ -44,6 +48,8 @@ namespace Characters
             CutsceneManager.OnCutsceneEnd -= HandleGameStart;
             DialogueManager.OnDialogueStart -= HandleGamePause;
             DialogueManager.OnDialogueEnd -= HandleGameStart;
+            GameManager.WinEvent -= HandleGamePause;
+            GameManager.LoseEvent -= HandleGamePause;
             PlayerController.OnBulletShoot -= HandleReaction;
             WeaponContainer.OnWeaponEquip -= UpdateBossState;
             CutsceneManager.OnBlastEvent -= ApplyDeath;

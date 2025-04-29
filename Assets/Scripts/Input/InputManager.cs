@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using System.Threading;
 using System;
 
-namespace Game
+namespace Input
 {
     public class InputManager : MonoBehaviour
     {

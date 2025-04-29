@@ -11,12 +11,12 @@ namespace Cutscene
         private void Awake()
         {
             _entryCutsceneDirector = GetComponent<PlayableDirector>();
-            PlayerSpawner.OnPlayerSpawn += StartEntryCutscene;
+            HeroSpawner.OnHeroSpawn += StartEntryCutscene;
         }
         
         private void OnDestroy()
         {
-            PlayerSpawner.OnPlayerSpawn -= StartEntryCutscene;
+            HeroSpawner.OnHeroSpawn -= StartEntryCutscene;
         }
         
         private void StartEntryCutscene()

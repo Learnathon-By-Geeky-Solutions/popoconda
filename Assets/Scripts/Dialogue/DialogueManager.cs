@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Scene;
 using Game;
+using Input;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 

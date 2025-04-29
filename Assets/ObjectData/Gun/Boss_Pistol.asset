@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Boss_Pistol
   m_EditorClassIdentifier: 
   spread: 0
-  timeBetweenShooting: 0.1
+  timeBetweenShooting: 0.2
   magazineSize: 12
   bulletsPerTap: 1
   reloadTime: 1
-  bulletSpeed: 20
+  bulletSpeed: 10
   damage: 5
