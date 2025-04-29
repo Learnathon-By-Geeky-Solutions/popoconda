@@ -29,7 +29,7 @@ namespace Scene
         
         public delegate void StateEventWithInt(int value);
         public static event StateEventWithInt OnLevelUnlock;
-        public static event StateEventWithInt OnLevelLoaded;
+        public static event StateEventWithInt OnDialogueSceneLoaded;
 
         private void Awake()
         {
@@ -53,6 +53,8 @@ namespace Scene
             LevelSelectMenu.backEvent += LoadMainMenu;
             CutsceneManager.OnCutsceneStart += UnloadGameUI;
             CutsceneManager.OnCutsceneEnd += LoadGameUI;
+            DialogueManager.OnDialogueStart += UnloadGameUI;
+            DialogueManager.OnDialogueEnd += LoadGameUI;
             GameOver.RetryEvent += LoadCurrentLevel;
             GameOver.MenuEvent += LoadMainMenu;
             GameWin.MenuEvent += LoadMainMenu;
@@ -60,6 +62,7 @@ namespace Scene
             PauseMenu.RestartEvent += LoadCurrentLevel;
             PauseMenu.MainMenuEvent += LoadMainMenu;
             MainMenuLoader.MainMenuEvent += LoadMainMenu;
+            CutsceneManager.OnDialogueStart += LoadDialogue;
             DialogueManager.OnDialogueEnd += UnloadDialogue;
             HeroAI.OnHeroSurvive += LoadVerticalPlatform;
         }
@@ -73,6 +76,8 @@ namespace Scene
             LevelSelectMenu.backEvent -= LoadMainMenu;
             CutsceneManager.OnCutsceneStart -= UnloadGameUI;
             CutsceneManager.OnCutsceneEnd -= LoadGameUI;
+            DialogueManager.OnDialogueStart -= UnloadGameUI;
+            DialogueManager.OnDialogueEnd -= LoadGameUI;
             GameOver.RetryEvent -= LoadCurrentLevel;
             GameOver.MenuEvent -= LoadMainMenu;
             GameWin.MenuEvent -= LoadMainMenu;
@@ -80,7 +85,8 @@ namespace Scene
             PauseMenu.RestartEvent -= LoadCurrentLevel;
             PauseMenu.MainMenuEvent -= LoadMainMenu;
             MainMenuLoader.MainMenuEvent -= LoadMainMenu;
-            //DialogueManager.OnDialogueEnd -= UnloadDialogue;
+            CutsceneManager.OnDialogueStart -= LoadDialogue;
+            DialogueManager.OnDialogueEnd -= UnloadDialogue;
             HeroAI.OnHeroSurvive -= LoadVerticalPlatform;
         }
         
@@ -177,7 +183,6 @@ namespace Scene
             levelReference.LoadSceneAsync().Completed += handle =>
             {
                 _levelInstance = handle.Result;
-                ReSubscribeToCutsceneEvent();
             };
         }
         
@@ -195,11 +200,6 @@ namespace Scene
             };
         }
         
-        private void ReSubscribeToCutsceneEvent()
-        {
-            //CutsceneManager.OnCutsceneEnd -= LoadDialogue;
-            //CutsceneManager.OnCutsceneEnd += LoadDialogue;
-        }
         
         private void LoadGameUI()
         {
@@ -228,13 +228,12 @@ namespace Scene
             }
         }
         
-
         private void LoadDialogue()
         {
             sceneData.DialogueScene.LoadSceneAsync(USM.LoadSceneMode.Additive).Completed += dialogueHandle =>
             {
                 _dialogueInstance = dialogueHandle.Result;
-                OnLevelLoaded?.Invoke(_currentLevelIndex);
+                OnDialogueSceneLoaded?.Invoke(_currentLevelIndex);
             };
         }
         
@@ -243,7 +242,6 @@ namespace Scene
             if (_dialogueInstance.Scene.IsValid())
             {
                 Addressables.UnloadSceneAsync(_dialogueInstance);
-                LoadGameUI();
             }
         }
 

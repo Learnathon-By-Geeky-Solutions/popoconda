@@ -1,6 +1,7 @@
 using System.Threading;
 using Cutscene;
 using Cysharp.Threading.Tasks;
+using Dialogue;
 using UnityEngine;
 using Weapon;
 using Random = UnityEngine.Random;
@@ -24,6 +25,8 @@ namespace Characters
         {
             CutsceneManager.OnCutsceneStart += HandleGamePause;
             CutsceneManager.OnCutsceneEnd += HandleGameStart;
+            DialogueManager.OnDialogueStart += HandleGamePause;
+            DialogueManager.OnDialogueEnd += HandleGameStart;
             PlayerController.OnBulletShoot += HandleReaction;
             WeaponContainer.OnWeaponEquip += UpdateBossState;
             CutsceneManager.OnBlastEvent += ApplyDeath;
@@ -39,6 +42,8 @@ namespace Characters
         {
             CutsceneManager.OnCutsceneStart -= HandleGamePause;
             CutsceneManager.OnCutsceneEnd -= HandleGameStart;
+            DialogueManager.OnDialogueStart -= HandleGamePause;
+            DialogueManager.OnDialogueEnd -= HandleGameStart;
             PlayerController.OnBulletShoot -= HandleReaction;
             WeaponContainer.OnWeaponEquip -= UpdateBossState;
             CutsceneManager.OnBlastEvent -= ApplyDeath;
@@ -63,7 +68,7 @@ namespace Characters
 
         private async UniTask PerformActionsAsync(CancellationToken token)
         {
-            await UniTask.Delay(1000, cancellationToken: token);
+            await UniTask.Delay(500, cancellationToken: token);
             await FireActionsAsync(token);
         }
 
