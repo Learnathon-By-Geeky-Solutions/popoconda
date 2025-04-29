@@ -1,4 +1,3 @@
-using Dialogue;
 using UnityEngine;
 
 namespace Cutscene
@@ -12,7 +11,7 @@ namespace Cutscene
         public static event StatEvent OnBlastEvent;
         public static event StatEvent OnVerticalPlatformEvent;
         
-        private static bool _isDialogueShown;
+        private bool _isDialogueShown;
         
         
         public static void StartCutscene()
@@ -27,7 +26,7 @@ namespace Cutscene
             Debug.Log("Cutscene ended");
         }
         
-        public static void LoadDialogueScene()
+        public void LoadDialogueScene()
         {
             if(_isDialogueShown) return;
             

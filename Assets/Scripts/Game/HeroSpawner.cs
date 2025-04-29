@@ -6,50 +6,50 @@ using UnityEngine.Timeline;
 
 namespace Game
 {
-    public class PlayerSpawner : MonoBehaviour
+    public class HeroSpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject playerPrefab;
-        private GameObject _playerInstance;
+        [SerializeField] private GameObject HeroPrefab;
+        private GameObject _HeroInstance;
         [SerializeField] private PlayableDirector timelineDirector;
         [SerializeField] private PlayableDirector nextLevelDirector;
         private bool _onVerticalPlatform;
         
         public delegate void StatEvent();
-        public static event StatEvent OnPlayerSpawn;
+        public static event StatEvent OnHeroSpawn;
 
 
         private void Awake()
         {
-            SpawnPlayer();
-            Hero.OnHeroDeath += RespawnPlayer;
+            SpawnHero();
+            Hero.OnHeroDeath += RespawnHero;
             _onVerticalPlatform = false;
             CutsceneManager.OnVerticalPlatformEvent += () => _onVerticalPlatform = true;
         }
         
         private void OnDestroy()
         {
-            Hero.OnHeroDeath -= RespawnPlayer;
+            Hero.OnHeroDeath -= RespawnHero;
         }
 
-        private void SpawnPlayer()
+        private void SpawnHero()
         {
-            _playerInstance = Instantiate(playerPrefab);
+            _HeroInstance = Instantiate(HeroPrefab);
 
-            OnPlayerSpawn?.Invoke();
+            OnHeroSpawn?.Invoke();
             BindTimelineAnimation();
         }
         
-        private void RespawnPlayer()
+        private void RespawnHero()
         {
             if (_onVerticalPlatform)
             {
-                _playerInstance.SetActive(false);
+                _HeroInstance.SetActive(false);
                 return;
             }
             
-            _playerInstance.SetActive(false);
-            _playerInstance.transform.position = new Vector3(0, 0, 0); // Set to spawn position
-            _playerInstance.SetActive(true);
+            _HeroInstance.SetActive(false);
+            _HeroInstance.transform.position = new Vector3(0, 0, 0); // Set to spawn position
+            _HeroInstance.SetActive(true);
             timelineDirector.Play();
             BindTimelineAnimation();
         }
@@ -62,13 +62,13 @@ namespace Game
             if (timeline != null)
             {
                 var track = timeline.GetOutputTrack(0);
-                timelineDirector.SetGenericBinding(track, _playerInstance);
+                timelineDirector.SetGenericBinding(track, _HeroInstance);
             }
             
             if (nextLevelTimeline != null)
             {
                 var nextLevelTrack = nextLevelTimeline.GetOutputTrack(0);
-                nextLevelDirector.SetGenericBinding(nextLevelTrack, _playerInstance);
+                nextLevelDirector.SetGenericBinding(nextLevelTrack, _HeroInstance);
             }
         }
     }

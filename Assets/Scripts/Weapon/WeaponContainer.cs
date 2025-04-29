@@ -13,7 +13,7 @@ namespace Weapon
         
         [SerializeField] private GameObject[] weaponPrefab;
         
-        [SerializeField] private UIDocument _messageDocument;
+        [SerializeField] private UIDocument messageDocument;
         
         private int _currentWeaponIndex;
         
@@ -34,12 +34,12 @@ namespace Weapon
         
         public void ShowInteractMessage()
         {
-            _messageDocument.gameObject.SetActive(true);
+            messageDocument.gameObject.SetActive(true);
         }
         
         public void HideInteractMessage()
         {
-            _messageDocument.gameObject.SetActive(false);
+            messageDocument.gameObject.SetActive(false);
         }
 
         private void OnEnable()

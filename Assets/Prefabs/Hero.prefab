@@ -593,7 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashDistance: 3
-  dashSpeed: 10
+  dashSpeed: 5
   dashCooldown: 0
   obstacleLayer:
     serializedVersion: 2

@@ -13,7 +13,7 @@ namespace Scene
 {
      public class SceneManager : MonoBehaviour
     {
-        public SceneData sceneData; // Reference to the Scriptable Object
+        [SerializeField] private SceneData sceneData; // Reference to the Scriptable Object
 
         private static SceneManager Instance { get; set; }
 
@@ -23,7 +23,6 @@ namespace Scene
         private SceneInstance _levelSelectMenuInstance;
         private SceneInstance _levelInstance;
         private SceneInstance _dialogueInstance;
-        private SceneInstance _verticalPlatformInstance;
         
         private int _currentLevelIndex = -1;
         
@@ -178,7 +177,7 @@ namespace Scene
 
         private void LoadLevel(AssetReference levelReference)
         {
-            Debug.Log("Corrent level index: " + _currentLevelIndex);
+            Debug.Log("Current level index: " + _currentLevelIndex);
             
             levelReference.LoadSceneAsync().Completed += handle =>
             {
@@ -194,10 +193,7 @@ namespace Scene
                 return;
             }
 
-            Addressables.LoadSceneAsync(sceneData.VerticalPlatformScene, USM.LoadSceneMode.Additive).Completed += handle =>
-            {
-                _verticalPlatformInstance = handle.Result;
-            };
+            Addressables.LoadSceneAsync(sceneData.VerticalPlatformScene, USM.LoadSceneMode.Additive);
         }
         
         
