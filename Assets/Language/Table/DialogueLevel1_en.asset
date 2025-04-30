@@ -19,31 +19,43 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 889705267200
-    m_Localized: Oh.It's a human. What You want? I hate humans.
+    m_Localized: 'BNS Agency, huh?
+
+      They sent you? One lone agent, no special
+      armor, no prototype toys, nothing.
+
+      Do they really think a tinny riffle
+      can stop me?'
     m_Metadata:
       m_Items: []
   - m_Id: 1154839805952
-    m_Localized: "I\u2019m not your enemy. I\u2019m just the guy making sure you
-      meet your doom"
+    m_Localized: "I\u2019m not here to impress you, Veydras Steelbane.\r\nI\u2019m
+      here to end this."
     m_Metadata:
       m_Items: []
   - m_Id: 1342128062464
-    m_Localized: They send one soldier to stop us? Pathetic. Do they not value your
-      life? Or are you just too stupid to know you're already dead
+    m_Localized: "End this?\r\nYou\u2019re standing in the heart of my empire(Steel
+      Ascendant) , surrounded by weapons that bend time and erase history.\r\nAnd
+      you bring a riffle and a badge? That\u2019s cute."
     m_Metadata:
       m_Items: []
   - m_Id: 1579215290368
-    m_Localized: Funny. I was about to ask if your master forgot to install a brain
-      in that metal skull of yours
+    m_Localized: "We\u2019ve shut down bigger syndicates with less.\r\nYou just happen
+      to be next on the list."
     m_Metadata:
       m_Items: []
   - m_Id: 1544060882714624
-    m_Localized: "Oh, I\u2019ve got enough brains to know you won\u2019t last five
-      seconds against me. Now, try not to die too fast\u2014I like a good warm-up."
+    m_Localized: "You know what\u2019s funny?\r\nI don\u2019t even need my temporal
+      arsenal to deal with you.\r\nNo chronoshifter, no entropy rifle\u2026 nothing.\r\nJust
+      a small, toy like pistol is enough."
     m_Metadata:
       m_Items: []
   - m_Id: 1544234623369216
-    m_Localized: "Try it, tin can. Just don\u2019t cry when I last longer than you."
+    m_Localized: Good. I was hoping you'd make this personal.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23626434554429440
+    m_Localized: "You\u2019re dead now,BNS's dog!\r\nHA! HA! HA!"
     m_Metadata:
       m_Items: []
   references:

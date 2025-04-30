@@ -39,6 +39,10 @@ MonoBehaviour:
     m_Key: L1-D6-P
     m_Metadata:
       m_Items: []
+  - m_Id: 23626434554429440
+    m_Key: L1-D7-V
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
