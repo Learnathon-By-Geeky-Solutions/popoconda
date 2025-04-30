@@ -1,6 +1,7 @@
 using UnityEngine;
 using Characters;
 using Combat;
+using Cutscene;
 using Game;
 using UnityEngine.UIElements;
 

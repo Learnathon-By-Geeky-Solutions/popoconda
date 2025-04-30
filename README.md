@@ -1,6 +1,6 @@
 # Steel Ascendant 🚀
 
-> An intense 2.5D boss fight game with cyberpunk aesthetics and jetpack-fueled combat.
+> Step into the underworld as a weapon dealer boss and face relentless BNS agents in escalating 2.5D cyberpunk battles.
 
 ![Game Banner](https://imgur.com/bwpgSl0.png)
 

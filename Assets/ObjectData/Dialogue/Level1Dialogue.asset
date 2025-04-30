@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level1Dialogue
   m_EditorClassIdentifier: 
   characterName:
-  - Player
-  - Verdammnis
+  - Agent
+  - Veydras Steelbane
   characterColor:
   - {r: 0.16582236, g: 0.8773585, b: 0.037246335, a: 1}
   - {r: 0.9811321, g: 0, b: 0, a: 1}
@@ -75,6 +75,16 @@ MonoBehaviour:
         m_TableCollectionName: GUID:5e175e4ee7fe4a647a53ce080f657061
       m_TableEntryReference:
         m_KeyId: 1544234623369216
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - speakerID: 1
+    dialogueText:
+      m_TableReference:
+        m_TableCollectionName: GUID:5e175e4ee7fe4a647a53ce080f657061
+      m_TableEntryReference:
+        m_KeyId: 23626434554429440
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0

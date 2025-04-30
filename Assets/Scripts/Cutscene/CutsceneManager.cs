@@ -1,4 +1,3 @@
-using Dialogue;
 using UnityEngine;
 
 namespace Cutscene
