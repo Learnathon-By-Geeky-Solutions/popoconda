@@ -826,7 +826,7 @@ Transform:
   m_GameObject: {fileID: 189442543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.06104851, y: 0, z: 0, w: 0.99813485}
-  m_LocalPosition: {x: 11.945, y: 11.002432, z: -11.255553}
+  m_LocalPosition: {x: 14.88, y: 36.23243, z: -11.910555}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2150,7 +2150,7 @@ Transform:
   m_GameObject: {fileID: 939493214}
   serializedVersion: 2
   m_LocalRotation: {x: 0.06104851, y: 0, z: 0, w: 0.99813485}
-  m_LocalPosition: {x: 11.945, y: 11.002432, z: -11.255553}
+  m_LocalPosition: {x: 14.88, y: 36.23243, z: -11.910553}
   m_LocalScale: {x: 0.6666667, y: 0.6666666, z: 0.6666666}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2851,6 +2851,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4156472771652219527, guid: 34cb473d3cab7c9409f944c481181df9, type: 3}
   m_PrefabInstance: {fileID: 1358397024}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1358397028 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1421803483297113516, guid: 34cb473d3cab7c9409f944c481181df9, type: 3}
+  m_PrefabInstance: {fileID: 1358397024}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1514399224
 GameObject:
   m_ObjectHideFlags: 0
@@ -2933,7 +2938,7 @@ PlayableDirector:
   - key: {fileID: 4708133453369912957, guid: 1612680dd1a03c44a919efe5c63b4b89, type: 2}
     value: {fileID: 1830403315}
   - key: {fileID: -8017318662315529501, guid: 1612680dd1a03c44a919efe5c63b4b89, type: 2}
-    value: {fileID: 0}
+    value: {fileID: 1358397028}
   - key: {fileID: 6697458698775840395, guid: 1612680dd1a03c44a919efe5c63b4b89, type: 2}
     value: {fileID: 597351815}
   - key: {fileID: 2892689582695389218, guid: 1612680dd1a03c44a919efe5c63b4b89, type: 2}
@@ -3295,7 +3300,7 @@ Transform:
   m_GameObject: {fileID: 1722704150}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.945, y: 9.54, z: 0.655}
+  m_LocalPosition: {x: 14.88, y: 34.769997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3396,7 +3401,7 @@ PlayableDirector:
   - key: {fileID: 2872601668173987105, guid: b98ae02705c1e524c9ffb5a75b0baf88, type: 2}
     value: {fileID: 1830403315}
   - key: {fileID: -6426632613475862597, guid: b98ae02705c1e524c9ffb5a75b0baf88, type: 2}
-    value: {fileID: 0}
+    value: {fileID: 1358397028}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &1731601856
@@ -3938,7 +3943,7 @@ PlayableDirector:
   m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: 6779072022523524284, guid: 8b3a6945b1d8f2345b1ffea1f9d78b7c, type: 2}
-    value: {fileID: 0}
+    value: {fileID: 1358397028}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &2123330860

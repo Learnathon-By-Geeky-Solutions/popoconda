@@ -28,7 +28,6 @@ namespace Characters
         private ShootingController _shootingController;
         private Vector3 _direction;
         
-        private bool _isStunned;
         private bool _onVerticalPlatform;
 
         private CancellationTokenSource _cancellationTokenSource;
@@ -72,10 +71,8 @@ namespace Characters
             CutsceneManager.OnVerticalPlatformEvent += DisableGravity;
             Hero.OnHeroDeath += playerHealth.ResetHealth;
             Hero.OnHeroDeath += () => _below25Triggered = false;
-            EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
+            Hero.OnHeroDeath += ResetJetpackFuel;
             Bullet.OnBulletHit += ApplyDamage;
-            FireLaser.OnLaserHit += ApplyDamage;
-            StunController.OnStun +=  Stunned;
         }
 
         private void OnDestroy()
@@ -89,10 +86,8 @@ namespace Characters
             playerHealth.OnDeath -= OnPlayerDeath;
             CutsceneManager.OnVerticalPlatformEvent -= DisableGravity;
             Hero.OnHeroDeath -= playerHealth.ResetHealth;
-            EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
+            Hero.OnHeroDeath -= ResetJetpackFuel;
             Bullet.OnBulletHit -= ApplyDamage;
-            FireLaser.OnLaserHit -= ApplyDamage;
-            StunController.OnStun -= Stunned;
             
             GameManager.ClearPlayerTransform();
             
@@ -104,7 +99,7 @@ namespace Characters
         
         private void HandleMousePosition(Vector2 screenPosition)
         {
-            if (_playerCamera == null || _isStunned) return;
+            if (_playerCamera == null) return;
 
             Ray ray = _playerCamera.ScreenPointToRay(screenPosition);
             Plane gunPlane = new Plane(Vector3.forward, player.GunRotatePoint.transform.position);
@@ -161,8 +156,6 @@ namespace Characters
         
         private void HandleMoveAxis(float value)
         {
-            if (_isStunned) return;
-            
             ApplyMovement(value);
             HandleMousePosition(Mouse.current.position.ReadValue());
         }
@@ -187,7 +180,7 @@ namespace Characters
 
         private void HandleJump()
         {
-            if (_isStunned || player.JetpackFuel <= 0 || _onVerticalPlatform) return;
+            if (player.JetpackFuel <= 0 || _onVerticalPlatform) return;
             
             if (!jetpackParticle1.isPlaying) jetpackParticle1.Play();
             if (!jetpackParticle2.isPlaying) jetpackParticle2.Play();
@@ -221,10 +214,15 @@ namespace Characters
                 await UniTask.Yield(token);
             }
         }
+        
+        private void ResetJetpackFuel()
+        {
+            player.JetpackFuel = player.JetpackFuelMax;
+            OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
+        }
 
         private void HandleFire()
         {
-            if (_isStunned) return;
             _shootingController.FireBullet(_direction);
             OnBulletShoot?.Invoke();
         }
@@ -237,16 +235,6 @@ namespace Characters
                 OnPlayerHit?.Invoke();
             }
             
-        }
-        private void ApplyBlastDamage(int damage)
-        {
-            playerHealth.TakeDamage(damage);
-            OnPlayerHit?.Invoke();
-        }
-        
-        private void Stunned(bool isStunned)
-        {
-            _isStunned = isStunned;
         }
         
         // <<summary>>
@@ -265,6 +253,10 @@ namespace Characters
             _playerRigidbody.useGravity = false;
             _playerRigidbody.linearVelocity = Vector3.zero;
             _onVerticalPlatform = true;
+            jetpackParticle1.loop = true;
+            jetpackParticle2.loop = true;
+            jetpackParticle1.Play();
+            jetpackParticle2.Play();
         }
 
     }
