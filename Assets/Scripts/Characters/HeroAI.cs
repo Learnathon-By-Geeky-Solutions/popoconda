@@ -3,7 +3,6 @@ using Cutscene;
 using Cysharp.Threading.Tasks;
 using Dialogue;
 using Game;
-using UI;
 using UnityEngine;
 using Weapon;
 using Random = UnityEngine.Random;
@@ -117,7 +116,7 @@ namespace Characters
         {
             if(_bossState < 3)
             {
-                await UniTask.Delay(1000, cancellationToken: _cancellationTokenSource.Token);
+                await UniTask.Delay(750, cancellationToken: _cancellationTokenSource.Token);
                 _bossState = 3;
                 _pauseState = true;
                 ApplyHeroDeath();

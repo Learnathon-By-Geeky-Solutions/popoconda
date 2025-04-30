@@ -17,13 +17,15 @@ namespace Combat
         
         public bool CanDash => _canDash;
 
-        public bool IsDashing => _isDashing; // Public property to check if the boss is dashing
-        
+        private void OnDisable()
+        {
+            _canDash = true;
+            _isDashing = false;
+        }
+
         public async UniTask DashAsync(float direction, CancellationToken cancellationToken)
         {
-            if (_isDashing) return; // Prevent overlapping dashes
-            
-            if (!_canDash) return; // Prevent dashing if not allowed
+            if (!_canDash || _isDashing) return;
 
             _isDashing = true;
             Debug.Log("Boss is dashing!");
