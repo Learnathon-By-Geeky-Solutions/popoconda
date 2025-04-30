@@ -1,4 +1,5 @@
 using System;
+using Cutscene;
 using UnityEngine;
 
 namespace Combat
@@ -19,6 +20,18 @@ namespace Combat
         public void Initialize()
         {
             _currentHealth = maxHealth;
+            CutsceneManager.OnCutsceneEnd += UpdateHealth;
+        }
+        
+        private void OnDestroy()
+        {
+            CutsceneManager.OnCutsceneEnd -= UpdateHealth;
+        }
+        
+        private void UpdateHealth()
+        {
+            float healthPercentage = (float)_currentHealth / maxHealth;
+            OnHealthChange?.Invoke(healthPercentage);
         }
 
         public void TakeDamage(int damage)

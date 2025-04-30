@@ -10,8 +10,10 @@ namespace Characters
     public class Hero : MonoBehaviour
     {
         [SerializeField] private GameObject gunRotatePoint;
-        protected Vector3 PlayerDirection;
         [SerializeField] protected Health heroHealth;
+        [SerializeField] private ParticleSystem jetpackParticle1;
+        [SerializeField] private ParticleSystem jetpackParticle2;
+        protected Vector3 PlayerDirection;
         private Vector3 _initialScale;
         
         protected Rigidbody HeroRigidbody;
@@ -153,6 +155,8 @@ namespace Characters
             HeroRigidbody.useGravity = false;
             HeroRigidbody.linearVelocity = Vector3.zero;
             _onVerticalPlatform = true;
+            jetpackParticle1.Play();
+            jetpackParticle2.Play();
         }
     }
 }
