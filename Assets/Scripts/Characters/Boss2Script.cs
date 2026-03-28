@@ -1,4 +1,4 @@
-using System.Threading;
+﻿using System.Threading;
 using Combat;
 using Cysharp.Threading.Tasks;
 using Dialogue;
@@ -11,27 +11,28 @@ namespace Characters
         private StunController _stunController;
 
         [Header("Stun Settings")]
-        [SerializeField] private float stunChance;
-        [SerializeField] private float coreHeatTime;
+        [SerializeField] private float stunChance = 0.35f;
+        [SerializeField] private float stunChargeTime = 1.2f; // ⚠️ warning
+        [SerializeField] private float stunCooldown = 2f;     // punish window
 
         private bool _isStunning;
-
-        private CancellationToken _cancellationToken;
+        private CancellationToken _token;
 
         protected override void Awake()
         {
             DialogueManager.OnDialogueEnd += HandleGameStart;
             base.Awake();
+
             _stunController = GetComponent<StunController>();
-            _cancellationToken = this.GetCancellationTokenOnDestroy();
+            _token = this.GetCancellationTokenOnDestroy();
         }
-        
+
         protected override void OnDestroy()
         {
             DialogueManager.OnDialogueEnd -= HandleGameStart;
             base.OnDestroy();
         }
-        
+
         private void HandleGameStart()
         {
             PerformActionsAsync().Forget();
@@ -41,44 +42,40 @@ namespace Characters
         {
             while (this && gameObject.activeInHierarchy)
             {
-                if (_isStunning)
-                {
-                    await StunAndSwitchBackAsync();
-                }
-                else
-                {
-                    await FireBulletsForDurationAsync();
+                await FireBulletsAsync();
 
-                    if (Random.value < stunChance)
-                    {
-                        _isStunning = true;
-                    }
+                if (Random.value < stunChance && !_isStunning)
+                {
+                    _isStunning = true;
+                    await ChargeAndStunAsync();
                 }
             }
         }
 
-        private async UniTask FireBulletsForDurationAsync()
+        private async UniTask FireBulletsAsync()
         {
-            float fireDuration = Random.Range(10, 12);
-            float startTime = Time.time;
+            float duration = Random.Range(6f, 9f);
+            float start = Time.time;
 
-            while (Time.time - startTime < fireDuration && this && gameObject.activeInHierarchy)
+            while (Time.time - start < duration && this && gameObject.activeInHierarchy)
             {
                 ShootingController.FireBullet(PlayerDirection);
-                await UniTask.Delay(500, cancellationToken: _cancellationToken);
+                await UniTask.Delay(600, cancellationToken: _token); // slower bullets
             }
         }
 
-        private async UniTask StunAndSwitchBackAsync()
+        private async UniTask ChargeAndStunAsync()
         {
-            await UniTask.Delay((int)(coreHeatTime * 1000), cancellationToken: _cancellationToken);
+            Debug.Log("Boss2: Charging stun!");
+            await UniTask.Delay((int)(stunChargeTime * 1000), cancellationToken: _token);
 
-            if (this && gameObject.activeInHierarchy)
-            {
-                _stunController.Stun();
-                Debug.Log("Stunned. Switching back to firing.");
-            }
+            if (!this || !gameObject.activeInHierarchy) return;
 
+            _stunController.Stun();
+            Debug.Log("Boss2: Player stunned!");
+
+            // 🔻 punish window
+            await UniTask.Delay((int)(stunCooldown * 1000), cancellationToken: _token);
             _isStunning = false;
         }
     }

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Combat;
 using Game;
 using Cysharp.Threading.Tasks;
@@ -10,18 +10,26 @@ namespace Characters
     public class PlayerController : MonoBehaviour
     {
         private Rigidbody _playerRigidbody;
-
         private UnityEngine.Camera _playerCamera;
+
         [SerializeField] private Health playerHealth;
         [SerializeField] private Player player;
 
         private ShootingController _shootingController;
         private Vector3 _direction;
-        
+
         private bool _isStunned;
 
+        // 🔫 Fire rate control
+        [SerializeField] private float fireCooldown = 0.35f;
+        private float _nextFireTime;
+
+        // 🚀 Jetpack smoothing
+        [SerializeField] private float jetpackForce = 8f;
+        [SerializeField] private float maxUpwardSpeed = 6f;
+
         private CancellationTokenSource _cancellationTokenSource;
-        
+
         public delegate void StateEventWithFloat(float value);
         public delegate void StateEvent();
         public static event StateEvent onPlayerHit;
@@ -31,88 +39,166 @@ namespace Characters
         public static event Health.StatEventWithFloat OnJetpackFuelChange;
 
         private void Awake()
-        { 
+        {
             _playerCamera = UnityEngine.Camera.main;
             _playerRigidbody = GetComponent<Rigidbody>();
-            Cursor.visible = false;
             _shootingController = GetComponent<ShootingController>();
+
+            Cursor.visible = false;
+
             player.Initialize();
-            playerHealth.Initialize(true);
+
+            // ❌ Auto-heal OFF
+            playerHealth.Initialize(false);
+
             OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
         }
-        
+
         private void Start()
         {
-            PlayerSpawner.OnCutsceneEnd += () => GameManager.SetPlayerTransform(transform);
+            PlayerSpawner.OnCutsceneEnd += () =>
+                GameManager.SetPlayerTransform(transform);
         }
 
         private void OnEnable()
         {
             InputManager.OnMousePositionChanged += HandleMousePosition;
             InputManager.OnMoveAxisChanged += HandleMoveAxis;
-            InputManager.OnJumpPressed += HandleJump;
+            InputManager.OnJumpPressed += HandleJetpack;
             InputManager.OnFirePressed += HandleFire;
+
             playerHealth.OnHealthChange += UpdateHealthUI;
             playerHealth.OnDeath += OnPlayerDeath;
-            EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
+
             Bullet.OnBulletHit += ApplyDamage;
             FireLaser.OnLaserHit += ApplyDamage;
-            StunController.OnStun +=  Stunned;
+            EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
+
+            StunController.OnStun += Stunned;
         }
 
         private void OnDestroy()
         {
             InputManager.OnMousePositionChanged -= HandleMousePosition;
             InputManager.OnMoveAxisChanged -= HandleMoveAxis;
-            InputManager.OnJumpPressed -= HandleJump;
+            InputManager.OnJumpPressed -= HandleJetpack;
             InputManager.OnFirePressed -= HandleFire;
+
             playerHealth.OnHealthChange -= UpdateHealthUI;
             playerHealth.OnDeath -= OnPlayerDeath;
-            EnergyBlast.OnEnergyBlastHit += ApplyBlastDamage;
+
             Bullet.OnBulletHit -= ApplyDamage;
             FireLaser.OnLaserHit -= ApplyDamage;
+            EnergyBlast.OnEnergyBlastHit -= ApplyBlastDamage;
+
             StunController.OnStun -= Stunned;
-            
+
             GameManager.ClearPlayerTransform();
-            
-            // Cancel the refill task
+
             _cancellationTokenSource?.Cancel();
             _cancellationTokenSource?.Dispose();
         }
-        
-        
+
+        // ===================== AIM =====================
         private void HandleMousePosition(Vector2 screenPosition)
         {
-            if (_playerCamera == null || _isStunned) return;
+            if (_isStunned || _playerCamera == null) return;
 
             Ray ray = _playerCamera.ScreenPointToRay(screenPosition);
-            Plane gunPlane = new Plane(Vector3.forward, player.GunRotatePoint.transform.position);
+            Plane plane = new Plane(Vector3.forward, player.GunRotatePoint.transform.position);
 
-            if (gunPlane.Raycast(ray, out float distance))
-            {
+            if (plane.Raycast(ray, out float distance))
                 UpdateGunRotation(ray.GetPoint(distance));
+        }
+
+        private void UpdateGunRotation(Vector3 target)
+        {
+            _direction = target - player.GunRotatePoint.transform.position;
+            float rotZ = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+
+            bool facingLeft = _direction.x < 0;
+            player.PlayerGfx.transform.localScale = facingLeft ? new Vector3(-1, 1, 1) : Vector3.one;
+            player.GunRotatePoint.transform.rotation =
+                Quaternion.Euler(0, 0, facingLeft ? rotZ + 180f : rotZ);
+        }
+
+        // ===================== MOVE =====================
+        private void HandleMoveAxis(float value)
+        {
+            if (_isStunned) return;
+
+            Vector3 v = _playerRigidbody.linearVelocity;
+            v.x = value * player.MoveSpeed;
+            _playerRigidbody.linearVelocity = v;
+
+            if (IsGrounded())
+                OnPlayerMove?.Invoke(value);
+        }
+
+        // ===================== JETPACK (SMOOTH) =====================
+        private void HandleJetpack()
+        {
+            if (_isStunned || player.JetpackFuel <= 0f) return;
+
+            Vector3 v = _playerRigidbody.linearVelocity;
+
+            if (v.y < maxUpwardSpeed)
+            {
+                _playerRigidbody.AddForce(Vector3.up * jetpackForce, ForceMode.Acceleration);
+            }
+
+            player.JetpackFuel -= Time.deltaTime * player.FuelConsumeRate;
+            OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
+
+            ResetRefillTimer();
+        }
+
+        private void ResetRefillTimer()
+        {
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = new CancellationTokenSource();
+            RefillJetpack(_cancellationTokenSource.Token).Forget();
+        }
+
+        private async UniTask RefillJetpack(CancellationToken token)
+        {
+            await UniTask.Delay(1000, cancellationToken: token);
+
+            while (player.JetpackFuel < player.JetpackFuelMax && !token.IsCancellationRequested)
+            {
+                player.JetpackFuel += Time.deltaTime * player.FuelFillRate;
+                OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
+                await UniTask.Yield(token);
             }
         }
-        
-        // <<summary>>
-        // Update the gun rotation based on target position
-        // <<summary>>
-        private void UpdateGunRotation(Vector3 targetPosition)
-        {
-            _direction = targetPosition - player.GunRotatePoint.transform.position;
-            float rotationZ = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
 
-            if (player.PlayerGfx.transform.localScale.x < 0)
-                rotationZ += 180f;
-            
-            player.PlayerGfx.transform.localScale = _direction.x < 0 ? new Vector3(-1, 1, 1) : Vector3.one;
-            player.GunRotatePoint.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
-        }
-      
-        
-        private static void UpdateHealthUI(float currentHealth)
+        // ===================== FIRE =====================
+        private void HandleFire()
         {
-            OnPlayerHealthChange?.Invoke(currentHealth);
+            if (_isStunned || Time.time < _nextFireTime) return;
+
+            _nextFireTime = Time.time + fireCooldown;
+            _shootingController.FireBullet(_direction);
+        }
+
+        // ===================== DAMAGE =====================
+        private void ApplyDamage(int damage, GameObject hit)
+        {
+            if (hit != gameObject) return;
+            playerHealth.TakeDamage(damage);
+            onPlayerHit?.Invoke();
+        }
+
+        private void ApplyBlastDamage(int damage)
+        {
+            playerHealth.TakeDamage(damage);
+            onPlayerHit?.Invoke();
+        }
+
+        private static void UpdateHealthUI(float current)
+        {
+            OnPlayerHealthChange?.Invoke(current);
         }
 
         private void OnPlayerDeath()
@@ -121,102 +207,11 @@ namespace Characters
             gameObject.SetActive(false);
         }
 
-        
-        private void HandleMoveAxis(float value)
-        {
-            if (_isStunned) return;
-            
-            ApplyMovement(value);
-            HandleMousePosition(Mouse.current.position.ReadValue());
-        }
-        
-        //<<summary>>
-        // Apply movement to the player in the x-axis (-1, 0, 1)
-        //<<summary>>
-        private void ApplyMovement(float value)
-        {
-            float targetVelocityX = value * player.MoveSpeed;
-            
-            Vector3 currentVelocity = _playerRigidbody.linearVelocity;
-            
-            _playerRigidbody.linearVelocity = new Vector3(targetVelocityX, currentVelocity.y, currentVelocity.z);
+        private void Stunned(bool value) => _isStunned = value;
 
-            if (IsGrounded())
-            {
-                
-                OnPlayerMove?.Invoke(Mathf.Sign(_direction.x) * value);
-            }
-        }
-
-        private void HandleJump()
-        {
-            if (_isStunned || player.JetpackFuel <= 0) return;
-
-            _playerRigidbody.AddForce(Vector3.up * (player.FlySpeed * Time.deltaTime), ForceMode.VelocityChange);
-            player.JetpackFuel -= Time.deltaTime * player.FuelConsumeRate;
-            OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
-            OnPlayerMove?.Invoke(0);
-
-            ResetRefillTimer();
-            HandleMousePosition(Mouse.current.position.ReadValue());
-        }
-
-        private void ResetRefillTimer()
-        {
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource?.Dispose(); // Properly dispose of the old token
-            _cancellationTokenSource = new CancellationTokenSource();
-
-            RefillJetpack(_cancellationTokenSource.Token).Forget();
-        }
-
-        private async UniTask RefillJetpack(CancellationToken token)
-        {
-            await UniTask.Delay(1000, cancellationToken: token);
-            while (player.JetpackFuel < player.JetpackFuelMax && !token.IsCancellationRequested)
-            {
-                player.JetpackFuel += Time.deltaTime * player.FuelFillRate;
-                OnJetpackFuelChange?.Invoke(player.JetpackFuel / player.JetpackFuelMax);
-                await UniTask.Yield(token);
-            }
-            
-        }
-
-        private void HandleFire()
-        {
-            if (_isStunned) return;
-            _shootingController.FireBullet(_direction);
-        }
-
-        private void ApplyDamage(int damage, GameObject hitObject)
-        {
-            if (hitObject == gameObject)
-            {
-                playerHealth.TakeDamage(damage);
-                onPlayerHit?.Invoke();
-            }
-            
-        }
-        private void ApplyBlastDamage(int damage)
-        {
-            playerHealth.TakeDamage(damage);
-            onPlayerHit?.Invoke();
-        }
-        
-        private void Stunned(bool isStunned)
-        {
-            _isStunned = isStunned;
-        }
-        
-        // <<summary>>
-        // Check if the player is grounded
-        // <<summary>>
         private bool IsGrounded()
         {
-            float distance = 1.5f;
-            Vector3 direction = Vector3.down;
-            return Physics.Raycast(transform.position, direction, distance);
+            return Physics.Raycast(transform.position, Vector3.down, 1.5f);
         }
-
     }
 }

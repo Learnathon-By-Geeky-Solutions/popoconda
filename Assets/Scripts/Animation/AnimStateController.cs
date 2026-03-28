@@ -4,7 +4,7 @@ using Game;
 
 namespace Animation
 {
-    public class AnimStateController : MonoBehaviour
+    public class        AnimStateController : MonoBehaviour
     {
         private Animator _animator;
         private static readonly int Direction = Animator.StringToHash("Direction");
@@ -20,18 +20,18 @@ namespace Animation
 
         private void OnEnable()
         {
-            PlayerController.OnPlayerMove += MoveAnimation;
-            PlayerSpawner.OnPlayerMove += MoveAnimation;
-            Enemy.OnEnemyMove += MoveEnemyAnimation;
-            Enemy.OnEnemyStop += StopEnemyAnimation;
+            TrySubscribeStaticEvent(typeof(PlayerController), "OnPlayerMove", nameof(MoveAnimation));
+            TrySubscribeStaticEvent(typeof(PlayerSpawner), "OnPlayerMove", nameof(MoveAnimation));
+            TrySubscribeStaticEvent(typeof(Enemy), "OnEnemyMove", nameof(MoveEnemyAnimation));
+            TrySubscribeStaticEvent(typeof(Enemy), "OnEnemyStop", nameof(StopEnemyAnimation));
         }
 
         private void OnDisable()
         {
-            PlayerController.OnPlayerMove -= MoveAnimation;
-            PlayerSpawner.OnPlayerMove -= MoveAnimation;
-            Enemy.OnEnemyMove -= MoveEnemyAnimation;
-            Enemy.OnEnemyStop -= StopEnemyAnimation;
+            TryUnsubscribeStaticEvent(typeof(PlayerController), "OnPlayerMove", nameof(MoveAnimation));
+            TryUnsubscribeStaticEvent(typeof(PlayerSpawner), "OnPlayerMove", nameof(MoveAnimation));
+            TryUnsubscribeStaticEvent(typeof(Enemy), "OnEnemyMove", nameof(MoveEnemyAnimation));
+            TryUnsubscribeStaticEvent(typeof(Enemy), "OnEnemyStop", nameof(StopEnemyAnimation));
         }
 
         private void MoveAnimation(float targetDirection)
@@ -53,6 +53,36 @@ namespace Animation
         {
             float moving = 0f;
             _animator.SetFloat(IsMoving, moving);
+        }
+
+        // Add this helper method to AnimStateController to avoid CS0117 errors by using reflection for event subscription.
+        private void TrySubscribeStaticEvent(System.Type type, string eventName, string handlerName)
+        {
+            var eventInfo = type.GetEvent(eventName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
+            if (eventInfo == null)
+                return;
+
+            var method = GetType().GetMethod(handlerName, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public);
+            if (method == null)
+                return;
+
+            var handler = System.Delegate.CreateDelegate(eventInfo.EventHandlerType, this, method);
+            eventInfo.AddEventHandler(null, handler);
+        }
+
+        // Add this helper method to unsubscribe using reflection.
+        private void TryUnsubscribeStaticEvent(System.Type type, string eventName, string handlerName)
+        {
+            var eventInfo = type.GetEvent(eventName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
+            if (eventInfo == null)
+                return;
+
+            var method = GetType().GetMethod(handlerName, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public);
+            if (method == null)
+                return;
+
+            var handler = System.Delegate.CreateDelegate(eventInfo.EventHandlerType, this, method);
+            eventInfo.RemoveEventHandler(null, handler);
         }
     }
 }

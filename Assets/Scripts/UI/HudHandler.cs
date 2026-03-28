@@ -26,7 +26,6 @@ namespace UI
             _ammoLabel = root.Q<Label>("ammo-label");
             
             PlayerController.OnPlayerHealthChange += UpdatePlayerHealth;
-            PlayerController.OnJetpackFuelChange += UpdateJetpackFuel;
             Enemy.OnEnemyHealthChange += UpdateEnemyHealth;
             ShootingController.OnBulletCountChange += UpdateAmmo;
             GameManager.DisableHudEvent += DisableHud;
@@ -35,7 +34,6 @@ namespace UI
         private void OnDestroy()
         {
             PlayerController.OnPlayerHealthChange -= UpdatePlayerHealth;
-            PlayerController.OnJetpackFuelChange -= UpdateJetpackFuel;
             Enemy.OnEnemyHealthChange -= UpdateEnemyHealth;
             ShootingController.OnBulletCountChange -= UpdateAmmo;
             GameManager.DisableHudEvent -= DisableHud;

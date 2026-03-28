@@ -778,6 +778,9 @@ MonoBehaviour:
     jetpackFuelMax: 25
     fuelConsumeRate: 2
     fuelFillRate: 2
+  fireCooldown: 0.35
+  jetpackForce: 8
+  maxUpwardSpeed: 6
 --- !u!114 &4132832749931128583
 MonoBehaviour:
   m_ObjectHideFlags: 0
